@@ -1,0 +1,4 @@
+Weapon:apistol 7
+Weapon:m16 5
+Weapon:arrow 64
+Weapon:bita 64

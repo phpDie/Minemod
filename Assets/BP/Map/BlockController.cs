@@ -72,7 +72,7 @@ public class BlockController : MonoBehaviour
         // myInv.itemAdd("Weapon:arrow");
 
 
-        if (itemInd != "Block:adminCargo")
+        if (itemInd != "Chest:adminCargo")
         {
 
             //myInv.dataSet();
@@ -81,7 +81,7 @@ public class BlockController : MonoBehaviour
         }
 
 
-        if (itemInd == "Block:adminCargo")
+        if (itemInd == "Chest:adminCargo")
         {
           //  print("Admin chest");
 
@@ -102,10 +102,19 @@ public class BlockController : MonoBehaviour
 
         myData =Global.Links.getModLoader().itemBaseGetFromInd(itemInd);
 
+        if (myData == null)
+        {
+            return;
+        }
         
 
        IniFile MyIni = new IniFile(myData.iniFilePath);
-      
+
+       hpMax= System.Convert.ToInt32(MyIni.Read("hp", "block"));
+        if (hpMax < 1) hpMax = 1;
+        hp = hpMax;
+
+
         string _myType = MyIni.Read("blockType", "block");
         if (String.Empty != _myType)
         {

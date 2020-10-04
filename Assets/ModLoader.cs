@@ -45,6 +45,12 @@ public class ModLoader : MonoBehaviour
 
     public  itemSave itemBaseGetFromInd(string ind)
     {
+        
+        if (!itemBase.ContainsKey(ind))
+        {
+            return null;
+        }
+
         itemSave res = itemBase[ind] as itemSave; 
         return res;
     }
@@ -237,6 +243,7 @@ public class ModLoader : MonoBehaviour
         pathMods = Application.dataPath + "/../Mods/";
         modInstall("Weapon");
         modInstall("Block");
+        modInstall("Chest");
 
 
         Global.Links.getMapController().mapLoad();

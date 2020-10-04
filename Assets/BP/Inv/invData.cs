@@ -114,6 +114,11 @@ public class invData : MonoBehaviour
 
         itemSave itemData = Global.Links.getModLoader().itemBaseGetFromInd(ind);
 
+        if (itemData == null)
+        {
+            print("itemAdd not exist element: " + ind);
+            return;
+        }
 
         invItem nItem = Instantiate(blankItem, transform);
 
