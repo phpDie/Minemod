@@ -45,6 +45,7 @@ public class BlockController : MonoBehaviour
 
 
     public GameObject myCrackEffect;
+    public GameObject myCrackEffectEasy;
 
     // Start is called before the first frame update
     void Start()
@@ -80,11 +81,15 @@ public class BlockController : MonoBehaviour
         dam = dam * cofDamage;
         hp -= dam;
 
-
-        if (hp < hpMax * 0.5f)
+        if (hp > hpMax)
         {
-            myCrackEffect.SetActive(true);
+            hp = hpMax;
         }
+
+        myCrackEffectEasy.SetActive(hp < hpMax * 0.8f);
+        myCrackEffect.SetActive(hp < hpMax * 0.5f);
+        
+       
 
         if (hp <= 0f)
         {

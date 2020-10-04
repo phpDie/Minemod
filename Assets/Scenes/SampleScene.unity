@@ -1120,6 +1120,9 @@ MonoBehaviour:
   handSprite: {fileID: 1518816697}
   handCube: {fileID: 1049917310}
   mCam: {fileID: 0}
+  toolMaterialTarget: 0
+  toolDamage: 1
+  toolDist: 15
   timeAttack: 0
   timeAttackMax: 0.3
   btnAttackDown: 0
@@ -1223,7 +1226,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: HP
+  m_Text: Inv
 --- !u!222 &1272784652
 CanvasRenderer:
   m_ObjectHideFlags: 0
