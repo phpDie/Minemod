@@ -53,12 +53,15 @@ public class ChankController : MonoBehaviour
             b.transform.name = lineOne[0];
             b.itemInd = lineOne[1];
 
+           
+
+            b.hp = float.Parse(lineOne[2]);
+            //if (b.hp < 0) b.hp = 1f;
+
             b.setToItemInd();
 
 
-
-            
-           string[] posBlock = lineOne[0].Split(':');
+            string[] posBlock = lineOne[0].Split(':');
             
             b.transform.localPosition = new Vector3(System.Convert.ToInt32(posBlock[0]), System.Convert.ToInt32(posBlock[1]), System.Convert.ToInt32(posBlock[2]));
             //lineOne[0]
@@ -129,8 +132,14 @@ public class ChankController : MonoBehaviour
         {
             string line = "\n";
             line += transform.GetChild(i).transform.name;
-            line += " "+ transform.GetChild(i).GetComponent<BlockController>().itemInd;
-            line += " "+ Mathf.RoundToInt( transform.GetChild(i).GetComponent<BlockController>().hp);
+
+           BlockController b = transform.GetChild(i).GetComponent<BlockController>();
+
+            string itemInd = b.itemInd;
+            if (itemInd == "" || itemInd == " ") itemInd = "not";
+
+            line += " "+ itemInd;
+            line += " "+ Mathf.RoundToInt(b.hp).ToString();
             Out += line;
            // print(line);
         }

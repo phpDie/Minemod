@@ -1,9 +1,7 @@
 Weapon:apistol 7
 Weapon:arrow 64
 Weapon:axe 1
-Weapon:axe2 64
 Weapon:bita 64
-Weapon:block1 16
 Weapon:m16 5
 Block:block1 16
 Block:pblock_anvil_base 48

@@ -61,6 +61,12 @@ public class BlockController : MonoBehaviour
         return dropInd;
     }
 
+    public void crackUpdate()
+    {
+        myCrackEffectEasy.SetActive(hp < hpMax * 0.8f);
+        myCrackEffect.SetActive(hp < hpMax * 0.5f);
+    }
+
     public void Damage(float dam, blockMaterial attackMaterial = blockMaterial.all,GameObject author =null)
     {
        
@@ -86,10 +92,9 @@ public class BlockController : MonoBehaviour
             hp = hpMax;
         }
 
-        myCrackEffectEasy.SetActive(hp < hpMax * 0.8f);
-        myCrackEffect.SetActive(hp < hpMax * 0.5f);
-        
-       
+        crackUpdate();
+
+
 
         if (hp <= 0f)
         {
@@ -163,7 +168,21 @@ public class BlockController : MonoBehaviour
 
 
         hpMax = MyIni.ReadInt("hp", "block", 5);
-        hp = hpMax;
+
+        if (hp <= 0)
+        {
+            hp = hpMax;
+        }
+        else
+        {
+            if (hp < hpMax)
+            {
+                crackUpdate();
+            }
+        }
+
+         
+
 
 
         myMaterial = (blockMaterial)Enum.Parse(typeof(blockMaterial), MyIni.Read("material", "block", "ground"));
