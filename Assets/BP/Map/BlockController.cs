@@ -38,7 +38,9 @@ public class BlockController : MonoBehaviour
     public float myWidth = 1f;
     public float myHeight = 1f;
 
-    public bool isDrop = true;
+    
+
+    public string dropInd = "";
 
 
 
@@ -50,7 +52,15 @@ public class BlockController : MonoBehaviour
 
     }
 
-    public void Damage(float dam, blockMaterial attackMaterial = blockMaterial.all)
+    //Вернуть дроп
+    public string getDrop()
+    {
+      
+
+        return dropInd;
+    }
+
+    public void Damage(float dam, blockMaterial attackMaterial = blockMaterial.all,GameObject author =null)
     {
        
 
@@ -58,15 +68,14 @@ public class BlockController : MonoBehaviour
 
         if (attackMaterial != myMaterial)
         {
-            cofDamage = 0.3f;
+            cofDamage = 0.4f;
             if (attackMaterial== blockMaterial.all) cofDamage = 1f;
             if(attackMaterial== blockMaterial.meat) cofDamage = 0.3f;
             if(myMaterial == blockMaterial.glass) cofDamage = 1f;
             if(myMaterial == blockMaterial.badrock) cofDamage = 0f;
             if(myMaterial == blockMaterial.all) cofDamage = 1f;
             if(myMaterial == blockMaterial.metal && attackMaterial==blockMaterial.stone) cofDamage = 1f;
-        }
-        print(cofDamage);
+        } 
 
         dam = dam * cofDamage;
         hp -= dam;
@@ -79,6 +88,14 @@ public class BlockController : MonoBehaviour
 
         if (hp <= 0f)
         {
+            if (author != null)
+            {
+                string _drop = getDrop();
+                if (_drop != "")
+                {
+                    author.GetComponent<PlayerAction>().myInv.myData.itemAdd(_drop,1);
+                }
+            }
             //transform.parent.GetComponent<ChankController>();
             Destroy(gameObject);
         }
@@ -150,7 +167,17 @@ public class BlockController : MonoBehaviour
         myType = (blockType)Enum.Parse(typeof(blockType), MyIni.Read("blockType", "block", "none"));
 
 
-        isDrop =   MyIni.ReadBool("hp", "block", true);
+        
+        if (   MyIni.ReadBool("hp", "block", true) == true)
+        {
+
+            dropInd = MyIni.Read("drop", "block", itemInd);
+            if (dropInd == "self") dropInd = itemInd;
+            if (dropInd == "not") dropInd = "";
+
+        }
+
+
 
         transform.localScale = new Vector3(myWidth, myHeight, myWidth);
 

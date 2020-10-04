@@ -108,12 +108,22 @@ public class invData : MonoBehaviour
     }
 
 
-    public void itemAdd(string ind)
+    public void itemAdd(string ind,int count = 0)
     {
+        int issetIndex = searchIsset(ind, 1);
+
+        if (issetIndex > -1)
+        {
+            //print("STACKING");
+            items[issetIndex].count += count;
+            ReRender();
+            return;
+        }
+
 
 
         itemSave itemData = Global.Links.getModLoader().itemBaseGetFromInd(ind);
-
+        
         if (itemData == null)
         {
             print("itemAdd not exist element: " + ind);
@@ -138,7 +148,15 @@ public class invData : MonoBehaviour
         newElement.ind = ind;
         newElement.infoItemSave = itemData;
         newElement.e = nItem;
-        newElement.count = itemData.stackSize;
+
+        if (count == 0)
+        {
+            newElement.count = itemData.stackSize;
+        }
+        else
+        {
+            newElement.count = count;
+        }
 
         nItem.myElement= newElement;
         items.Add(newElement);

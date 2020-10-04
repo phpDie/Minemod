@@ -251,7 +251,7 @@ public class PlayerAction : MonoBehaviour
         {
             //print("Fire block");
             //Destroy(go); 
-            go.GetComponent<BlockController>().Damage(toolDamage, toolMaterialTarget);
+            go.GetComponent<BlockController>().Damage(toolDamage, toolMaterialTarget,gameObject);
         }
     }
 
