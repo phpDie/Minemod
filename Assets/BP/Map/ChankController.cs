@@ -130,6 +130,7 @@ public class ChankController : MonoBehaviour
             string line = "\n";
             line += transform.GetChild(i).transform.name;
             line += " "+ transform.GetChild(i).GetComponent<BlockController>().itemInd;
+            line += " "+ Mathf.RoundToInt( transform.GetChild(i).GetComponent<BlockController>().hp);
             Out += line;
            // print(line);
         }
