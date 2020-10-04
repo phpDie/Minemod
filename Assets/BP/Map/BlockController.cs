@@ -30,7 +30,7 @@ public class BlockController : MonoBehaviour
     itemSave myData;
     public blockType myType;
 
-    public float hpMax =8f;
+    public float hpMax =9f;
     public float hp = 8f;
 
 
