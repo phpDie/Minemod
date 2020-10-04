@@ -22,6 +22,20 @@ namespace MyProg
             Path = new FileInfo(IniPath ?? EXE + ".ini").FullName;
         }
 
+        public float ReadFloat(string Key, string Section = null, float defVal = 0)
+        {
+
+            string _valStr = Read(Key, Section);
+
+            if (_valStr.Length <= 0)
+            {
+                return defVal;
+            }
+
+            
+            
+            return float.Parse(_valStr);
+        }
 
         public int ReadInt(string Key, string Section = null, int defVal= 0)
         {

@@ -103,8 +103,9 @@ public class inv : MonoBehaviour
                 {
                     if (isPlayer)
                     {
-                        
-                        Global.Links.getPlayerAction().setSpriteHand(it.infoItemSave.iconInHand, it.infoItemSave.type == itemType.block);
+
+                        Global.Links.getPlayerAction().setHandItem(it);
+                        //Global.Links.getPlayerAction().setSpriteHand(it.infoItemSave.iconInHand, it.infoItemSave.type == itemType.block);
                     }
                 }
             }

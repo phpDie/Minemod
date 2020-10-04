@@ -8,12 +8,14 @@ using System;
 
 public enum blockMaterial
 {
-    stone=0,
+    all= 0,
     wood=1,
     ground=2,
     glass=3,
     metal=4,
     badrock=5,
+    meat = 6,
+    stone = 7,
 }
 
 
@@ -34,6 +36,7 @@ public class BlockController : MonoBehaviour
     public float hpMax = 9f;
     public float hp = 8f;
     public float myWidth = 1f;
+    public float myHeight = 1f;
 
     public bool isDrop = true;
 
@@ -47,9 +50,27 @@ public class BlockController : MonoBehaviour
 
     }
 
-    public void Damage(float dam)
+    public void Damage(float dam, blockMaterial attackMaterial = blockMaterial.all)
     {
+       
+
+        float cofDamage = 1f;
+
+        if (attackMaterial != myMaterial)
+        {
+            cofDamage = 0.3f;
+            if (attackMaterial== blockMaterial.all) cofDamage = 1f;
+            if(attackMaterial== blockMaterial.meat) cofDamage = 0.3f;
+            if(myMaterial == blockMaterial.glass) cofDamage = 1f;
+            if(myMaterial == blockMaterial.badrock) cofDamage = 0f;
+            if(myMaterial == blockMaterial.all) cofDamage = 1f;
+            if(myMaterial == blockMaterial.metal && attackMaterial==blockMaterial.stone) cofDamage = 1f;
+        }
+        print(cofDamage);
+
+        dam = dam * cofDamage;
         hp -= dam;
+
 
         if (hp < hpMax * 0.5f)
         {
@@ -116,6 +137,7 @@ public class BlockController : MonoBehaviour
         IniFile MyIni = new IniFile(myData.iniFilePath);
 
         myWidth = MyIni.ReadInt("width", "block", 100)/100f;
+        myHeight = MyIni.ReadInt("height", "block", 100)/100f;
 
 
         hpMax = MyIni.ReadInt("hp", "block", 5);
@@ -130,7 +152,7 @@ public class BlockController : MonoBehaviour
 
         isDrop =   MyIni.ReadBool("hp", "block", true);
 
-        transform.localScale = new Vector3(myWidth, 1f, myWidth);
+        transform.localScale = new Vector3(myWidth, myHeight, myWidth);
 
         GetComponent<MeshRenderer>().material.mainTexture = myData.icon;
         //GetComponent<Material>().mod

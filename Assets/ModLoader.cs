@@ -14,7 +14,7 @@ public enum itemType
     none = 0,
     block = 1,
     gun = 2,
-    sword = 3,
+    handTool = 3, //ручной инструмент. Крика,лопата,топор, так же меч, копье
     eat = 4,
     granate = 15,
 }
@@ -115,19 +115,13 @@ public class ModLoader : MonoBehaviour
 
 
 
-            
 
-            string _myType = MyIni.Read("type", "itemInfo");
-            if (String.Empty != _myType)
-            {
-                newItem.type = (itemType)Enum.Parse(typeof(itemType), _myType);
-            }
-            else
-            {
-                newItem.type = 0;
-            }
 
-            
+         newItem.type = (itemType)Enum.Parse(typeof(itemType), MyIni.Read("type", "itemInfo", "none"));
+
+
+
+
 
 
             itemBase.Add(ind, newItem);

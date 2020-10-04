@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Global;
+using MyProg;
+using System;
 
 public class PlayerAction : MonoBehaviour
 {
@@ -18,6 +20,10 @@ public class PlayerAction : MonoBehaviour
 
     [HideInInspector]
     public Camera mCam;
+    public blockMaterial toolMaterialTarget; //в руке инструмент нацеленый на этот материал
+
+    public float toolDamage = 1f;
+    public float toolDist = 15f;
 
 
     void Start()
@@ -41,7 +47,7 @@ public class PlayerAction : MonoBehaviour
     {
         hand.GetComponent<Animator>().SetBool("attack", false);
 
-        if (myInv.activeElement.infoItemSave.type == itemType.sword)
+        if (myInv.activeElement.infoItemSave.type == itemType.handTool)
         {
             ActionItem_CrackBlock(); 
         }
@@ -53,6 +59,26 @@ public class PlayerAction : MonoBehaviour
         }
 
     }
+
+    public void setHandItem(itemElement it)
+    {
+
+        setSpriteHand(it.infoItemSave.iconInHand, it.infoItemSave.type == itemType.block);
+
+        IniFile MyIni = new IniFile(it.infoItemSave.iniFilePath);
+        if(it.infoItemSave.type == itemType.handTool)
+        {
+           /*
+            toolDist = MyIni.ReadFloat("distance", "action", 1);
+            print(toolDist);
+            */
+            toolDamage= MyIni.ReadInt("damage", "action", 1);
+            toolMaterialTarget = (blockMaterial)Enum.Parse(typeof(blockMaterial), MyIni.Read("materialTarget", "action", "ground"));
+        }
+
+
+    }
+
 
     public void setSpriteHand(Texture2D newTexture, bool isCube = false)
     {
@@ -114,7 +140,7 @@ public class PlayerAction : MonoBehaviour
             {
                 if (timeAttack<=0f)
                 {
-                    if (myInv.activeElement.infoItemSave.type == itemType.sword)
+                    if (myInv.activeElement.infoItemSave.type == itemType.handTool)
                     {
                        // ActionItem_CrackBlock();
 
@@ -224,8 +250,8 @@ public class PlayerAction : MonoBehaviour
         if (go.transform.tag == "block")
         {
             //print("Fire block");
-            //Destroy(go);
-            go.GetComponent<BlockController>().Damage(1f);
+            //Destroy(go); 
+            go.GetComponent<BlockController>().Damage(toolDamage, toolMaterialTarget);
         }
     }
 
@@ -250,13 +276,21 @@ public class PlayerAction : MonoBehaviour
                 Global.Links.getOtherInv().openCargo(b.GetComponent<invData>());
 
                 setCurLock(false);
-               // print("Open cargo");
+                return;
+                // print("Open cargo");
             }
 
             if (b.myType == blockType.door)
             {
                 print("Open door");
             }
+
+            //info
+
+            print("\n ---- -----");
+            print(b.itemInd);
+            print(b.myMaterial);
+            print("HP:"+b.hp);
 
             return;
         }
