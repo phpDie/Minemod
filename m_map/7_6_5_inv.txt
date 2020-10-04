@@ -1,0 +1,4 @@
+Weapon:m16 5
+Weapon:apistol 7
+Weapon:m16 5
+Weapon:axe 1
