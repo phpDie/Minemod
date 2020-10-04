@@ -13,10 +13,19 @@ public class PlayerAction : MonoBehaviour
     public inv myInv;
 
 
+    [Header("WeaponCurrent")]
+    public GameObject myWeapon;
 
+
+    [Header("Ссылки на руки")]
     public handR hand;
+    public GameObject handWeapon;
+
+
+    [Header("Кубы и tools")]
     public GameObject handSprite;
     public GameObject handCube;
+
 
     [HideInInspector]
     public Camera mCam;
@@ -62,6 +71,8 @@ public class PlayerAction : MonoBehaviour
 
     public void setHandItem(itemElement it)
     {
+        hand.gameObject.SetActive(true);
+        handWeapon.gameObject.SetActive(false);
 
         setSpriteHand(it.infoItemSave.iconInHand, it.infoItemSave.type == itemType.block);
 
@@ -74,6 +85,17 @@ public class PlayerAction : MonoBehaviour
             */
             toolDamage= MyIni.ReadInt("damage", "action", 1);
             toolMaterialTarget = (blockMaterial)Enum.Parse(typeof(blockMaterial), MyIni.Read("materialTarget", "action", "ground"));
+        }
+
+        if (it.infoItemSave.type == itemType.gun)
+        {
+            hand.gameObject.SetActive(false);
+            handWeapon.gameObject.SetActive(true);
+            mCam.fieldOfView = 36;
+        }
+        else
+        {
+            mCam.fieldOfView = 65;
         }
 
 
