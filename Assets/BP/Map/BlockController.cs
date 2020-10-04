@@ -29,9 +29,14 @@ public class BlockController : MonoBehaviour
     public string itemInd = "def:not";
     itemSave myData;
     public blockType myType;
+    public blockMaterial myMaterial;
 
-    public float hpMax =9f;
+    public float hpMax = 9f;
     public float hp = 8f;
+    public float myWidth = 1f;
+
+    public bool isDrop = true;
+
 
 
     public GameObject myCrackEffect;
@@ -39,9 +44,9 @@ public class BlockController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
-     
+
     public void Damage(float dam)
     {
         hp -= dam;
@@ -58,7 +63,7 @@ public class BlockController : MonoBehaviour
         }
     }
 
-  
+
 
 
     public void createCargo()
@@ -83,7 +88,7 @@ public class BlockController : MonoBehaviour
 
         if (itemInd == "Chest:adminCargo")
         {
-          //  print("Admin chest");
+            //  print("Admin chest");
 
             foreach (KeyValuePair<string, itemSave> item in Global.Links.getModLoader().itemBase)
             {
@@ -100,31 +105,32 @@ public class BlockController : MonoBehaviour
         if (itemInd == string.Empty) return;
         if (itemInd == "def:not") return;
 
-        myData =Global.Links.getModLoader().itemBaseGetFromInd(itemInd);
+        myData = Global.Links.getModLoader().itemBaseGetFromInd(itemInd);
 
         if (myData == null)
         {
             return;
         }
-        
 
-       IniFile MyIni = new IniFile(myData.iniFilePath);
 
-       hpMax= System.Convert.ToInt32(MyIni.Read("hp", "block"));
-        if (hpMax < 1) hpMax = 1;
+        IniFile MyIni = new IniFile(myData.iniFilePath);
+
+        myWidth = MyIni.ReadInt("width", "block", 100)/100f;
+
+
+        hpMax = MyIni.ReadInt("hp", "block", 5);
         hp = hpMax;
 
 
-        string _myType = MyIni.Read("blockType", "block");
-        if (String.Empty != _myType)
-        {
-            myType = (blockType)Enum.Parse(typeof(blockType), _myType);
-        }
-        else
-        {
-            myType = 0;
-        }
+        myMaterial = (blockMaterial)Enum.Parse(typeof(blockMaterial), MyIni.Read("material", "block", "ground"));
 
+
+        myType = (blockType)Enum.Parse(typeof(blockType), MyIni.Read("blockType", "block", "none"));
+
+
+        isDrop =   MyIni.ReadBool("hp", "block", true);
+
+        transform.localScale = new Vector3(myWidth, 1f, myWidth);
 
         GetComponent<MeshRenderer>().material.mainTexture = myData.icon;
         //GetComponent<Material>().mod

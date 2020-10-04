@@ -22,10 +22,49 @@ namespace MyProg
             Path = new FileInfo(IniPath ?? EXE + ".ini").FullName;
         }
 
-        public string Read(string Key, string Section = null)
+
+        public int ReadInt(string Key, string Section = null, int defVal= 0)
         {
+
+            string _valStr = Read(Key,Section);
+
+            if (_valStr.Length <=0)
+            {
+                return defVal;
+            }
+
+            int _val = System.Convert.ToInt32(_valStr);
+
+            return _val;
+        }
+
+
+        public bool ReadBool(string Key, string Section = null, bool defVal = false)
+        {
+
+            string _valStr = Read(Key, Section);
+
+            if (_valStr.Length <= 0)
+            {
+                return defVal;
+            }
+
+            if (_valStr == "1") return true;
+            if (_valStr == "0") return false;
+            if (_valStr == "true") return true;
+            if (_valStr == "false") return false;
+
+            return defVal;
+        }
+
+        public string Read(string Key, string Section = null, string defVal = "")
+        {
+          
             var RetVal = new StringBuilder(255);
             GetPrivateProfileString(Section ?? EXE, Key, "", RetVal, 255, Path);
+
+            if (RetVal.ToString().Length <= 0) return defVal;
+
             return RetVal.ToString();
         }
 
