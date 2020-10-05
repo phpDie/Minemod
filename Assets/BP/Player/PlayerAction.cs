@@ -542,12 +542,23 @@ public class PlayerAction : MonoBehaviour
                 print("Open door");
             }
 
+
+            if (b.itemInd == "Core:adminBuild")
+            {
+                b.GetComponent<adminBuilderBlock>().createAdminBuildExportData();
+                return;
+            }
+
             //info
 
             print("\n ---- -----");
+            print(b.transform.name);
             print(b.itemInd);
             print(b.myMaterial);
             print("HP:"+b.hp);
+
+
+         
 
             return;
         }
@@ -571,6 +582,8 @@ public class PlayerAction : MonoBehaviour
             return;
         }
         */
+
+
 
         BlockController blankBlock = Global.Links.getMapController().blockBlank;
 

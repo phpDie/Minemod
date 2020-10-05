@@ -8,6 +8,14 @@ namespace Global
     class Links   // revision 11
     {
 
+        public static string vectorToString(Vector3 v)
+        {
+
+            return v.x.ToString() + ":" + v.y.ToString() + ":" + v.z.ToString();
+
+
+        }
+
         public static sUi getSui()
         {        
            return GameObject.Find("SUI").GetComponent<sUi>();

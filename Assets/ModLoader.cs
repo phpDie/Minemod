@@ -19,6 +19,16 @@ public enum itemType
     granate = 15,
 }
 
+public class blockGenWorld
+{
+    public int minY = 0;
+    public int maxY = 0;
+    public int rand = 0;
+    public string ind= "Core:dirt";
+    public bool top;
+}
+
+
 public class itemSave
 {
 
@@ -34,6 +44,7 @@ public class itemSave
     //public IniFile iniF; 
     public Texture2D icon;
     public Texture2D iconInHand;
+    public blockGenWorld genWorl;
 }
 
 public class ModLoader : MonoBehaviour
@@ -121,14 +132,32 @@ public class ModLoader : MonoBehaviour
 
 
 
-         newItem.type = (itemType)Enum.Parse(typeof(itemType), MyIni.Read("type", "itemInfo", "none"));
+          newItem.type = (itemType)Enum.Parse(typeof(itemType), MyIni.Read("type", "itemInfo", "none"));
 
 
 
+            if (ind != "Core:dirt")
+            {
+                if (MyIni.ReadInt("minY", "gen", -1) > -1)
+                {
+
+                    blockGenWorld genWorl = new blockGenWorld();
+
+                    genWorl.minY = MyIni.ReadInt("minY", "gen", 0);
+                    genWorl.maxY = MyIni.ReadInt("maxY", "gen", 0);
+                    genWorl.rand = MyIni.ReadInt("rand", "gen", 0);
+                    genWorl.top = MyIni.ReadBool("top", "gen", false);
+                    genWorl.ind = ind;
 
 
+                    blockGenMap.Add(genWorl); //ЭТОТ БЛОК ГЕНЕРИТ МИР
 
-            itemBase.Add(ind, newItem);
+                }
+            }
+
+
+           
+          itemBase.Add(ind, newItem);
 
             Global.Links.getPlayerInv().myData.itemAdd(ind);
 
@@ -228,9 +257,10 @@ public class ModLoader : MonoBehaviour
 
      public Dictionary<string, itemSave> itemBase = new Dictionary<string, itemSave>();
 
- 
+    // public Dictionary<string, itemSave> blockGenMap = new Dictionary<string, itemSave>();
 
-    
+    public List<blockGenWorld> blockGenMap = new List<blockGenWorld>();
+
 
     void Start()
     {
@@ -243,6 +273,7 @@ public class ModLoader : MonoBehaviour
         modInstall("Weapon");
         modInstall("Block");
         modInstall("Chest");
+        modInstall("Core");
 
 
         Global.Links.getMapController().mapInit();
