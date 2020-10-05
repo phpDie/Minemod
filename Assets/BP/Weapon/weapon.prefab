@@ -212,6 +212,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2af211b229cba24e8f4dfdde248a194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  set_duloLen: 30
+  set_ruko1pos: 5
+  set_ruko1Len: 16
+  set_ruko2pos: 2
+  set_ruko2Len: 16
+  set_ruko1rot: 90
+  set_ruko2rot: 90
+  set_width: 100
 --- !u!1001 &7329388166286024682
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -222,7 +230,7 @@ PrefabInstance:
     - target: {fileID: 1209972451950595077, guid: 7612ec196f658904489eeef5c5ca0595, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 442cf4acf0a28a444854ac5a7a1b446a, type: 2}
+      objectReference: {fileID: 2100000, guid: c31850f5f6c751c409c72186ee475054, type: 2}
     - target: {fileID: 8620182678093106270, guid: 7612ec196f658904489eeef5c5ca0595, type: 3}
       propertyPath: m_Name
       value: hand2
@@ -237,7 +245,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8897715773301304016, guid: 7612ec196f658904489eeef5c5ca0595, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.3523
+      value: 0.277
       objectReference: {fileID: 0}
     - target: {fileID: 8897715773301304016, guid: 7612ec196f658904489eeef5c5ca0595, type: 3}
       propertyPath: m_LocalRotation.x
@@ -277,7 +285,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8897715773301304016, guid: 7612ec196f658904489eeef5c5ca0595, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.80496
+      value: 0.7189342
+      objectReference: {fileID: 0}
+    - target: {fileID: 8897715773301304016, guid: 7612ec196f658904489eeef5c5ca0595, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.73326
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7612ec196f658904489eeef5c5ca0595, type: 3}
@@ -351,7 +363,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8897715773301304016, guid: 7612ec196f658904489eeef5c5ca0595, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.80496
+      value: 0.89102435
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7612ec196f658904489eeef5c5ca0595, type: 3}
@@ -370,7 +382,7 @@ PrefabInstance:
     - target: {fileID: 1209972451950595077, guid: 7612ec196f658904489eeef5c5ca0595, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 442cf4acf0a28a444854ac5a7a1b446a, type: 2}
+      objectReference: {fileID: 2100000, guid: 6ac249c486fbb0b4fb48c11159fa2430, type: 2}
     - target: {fileID: 8620182678093106270, guid: 7612ec196f658904489eeef5c5ca0595, type: 3}
       propertyPath: m_Name
       value: dulo
@@ -418,6 +430,10 @@ PrefabInstance:
     - target: {fileID: 8897715773301304016, guid: 7612ec196f658904489eeef5c5ca0595, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8897715773301304016, guid: 7612ec196f658904489eeef5c5ca0595, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.0516
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7612ec196f658904489eeef5c5ca0595, type: 3}

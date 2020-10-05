@@ -69,7 +69,19 @@ public class PlayerAction : MonoBehaviour
 
         if (myInv.activeElement.infoItemSave.type == itemType.handTool)
         {
-            ActionItem_CrackBlock(); 
+
+            if (giveUse > 0)
+            {
+                if (!myInv.giveActive(giveUse, false)) return;
+
+                bool actIsset =  ActionItem_CrackBlock();
+
+                if (actIsset)
+                {
+                    myInv.giveActive(giveUse);
+                }
+            }
+          
         }
 
 
@@ -204,11 +216,7 @@ public class PlayerAction : MonoBehaviour
                     if (myItemType == itemType.handTool)
                     {
                         
-                        if (giveUse > 0)
-                        {
-                            if (!myInv.giveActive(giveUse, false)) return;
-                            myInv.giveActive(giveUse);
-                        }
+                       
                         hand.GetComponent<Animator>().SetBool("attack", true);
                         timeAttack = timeAttackMax;
                     }
@@ -345,6 +353,7 @@ public class PlayerAction : MonoBehaviour
         //bulHole.transform.rotation =  Quaternion.LookRotation(lastHitTestPoint, mCam.transform.position);
         bulHole.transform.LookAt(mCam.transform.position, -Vector3.up);// =  Quaternion.Euler(mCam.transform.forward);
 
+
         if (go.transform.tag == "block")
         {
             //print("Fire block");
@@ -352,27 +361,80 @@ public class PlayerAction : MonoBehaviour
             go.GetComponent<BlockController>().Damage(toolDamage/4f, blockMaterial.all, gameObject);
         }
 
+        if (go.transform.tag == "meatPart")
+        {
+            if (go.transform.parent.tag == "mob")
+            {
+                go.transform.parent.GetComponent<botBody>().Damage(toolDamage*3);
+                //Destroy(go);
+            }
+
+            Destroy(go);
+            return;
+
+
+        }
+            if (go.transform.tag == "mob")
+            {
+                go.transform.GetComponent<botBody>().Damage(toolDamage);
+                //Destroy(go);
+            }
+      
+ 
+
     }
 
+    
 
-        void ActionItem_CrackBlock()
+    bool ActionItem_CrackBlock()
     {
 
 
         GameObject go = GetBlockFromRayCamera();
         if (go == null)
         {
-            return;
+            return false;
         }
 
 
 
         if (go.transform.tag == "block")
         {
-            //print("Fire block");
-            //Destroy(go); 
-            go.GetComponent<BlockController>().Damage(toolDamage, toolMaterialTarget,gameObject);
+            BlockController b = go.GetComponent<BlockController>();
+
+            if (toolDamage < 0)
+            {
+                if (b.hp >= b.hpMax) return false;
+            }
+
+            b.Damage(toolDamage, toolMaterialTarget, gameObject);
+            return true;
         }
+
+
+
+        if (go.transform.tag == "meatPart")
+        {
+            if (go.transform.parent.tag == "mob")
+            {
+                go.transform.parent.GetComponent<botBody>().Damage(toolDamage * 3);
+                //Destroy(go);
+            }
+
+            Destroy(go);
+            return true;
+
+
+        }
+        if (go.transform.tag == "mob")
+        {
+            go.transform.GetComponent<botBody>().Damage(toolDamage);
+            //Destroy(go);
+            return true;
+        }
+
+
+        return false;
     }
 
     void ActionItem_Use()
@@ -479,6 +541,12 @@ public class PlayerAction : MonoBehaviour
 
         //newBlock.transform.localPosition = newBlock.transform.localPosition + new Vector3(0, 1, 0);
 
+    }
+
+    public void Damage(float count)
+    {
+
+        mCam.fieldOfView -= 1.7f;
     }
 
     public void setCurLock(bool newLock)

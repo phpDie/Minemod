@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - block
+  - meatPart
+  - mob
   layers:
   - Default
   - TransparentFX

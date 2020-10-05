@@ -21,21 +21,37 @@ public class genWeapon : MonoBehaviour
     public int set_width = 100;
 
 
+    public bool randInStart = true;
+    public bool regeneratorOn = true;
+
+
+    private void Start()
+    {
+        if (randInStart)
+        {
+            randomMe();
+            buildSetting();
+        }
+    }
+
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
+        if (regeneratorOn)
         {
-            if (Input.GetKey(KeyCode.T))
+            if (Input.GetKeyDown(KeyCode.G))
             {
-                randomMe();
+                if (Input.GetKey(KeyCode.T))
+                {
+                    randomMe();
 
-                print(designExport());
-                string _randDes = designExport();
-                designImport(_randDes);
+                    print(designExport());
+                    string _randDes = designExport();
+                    designImport(_randDes);
 
-                buildSetting();
+                    buildSetting();
 
+                }
             }
         }
     }
@@ -132,8 +148,8 @@ public class genWeapon : MonoBehaviour
         transform.Find("hand1").transform.localRotation =  Quaternion.Euler(set_ruko1rot, 0f,0f);
 
 
-       transform.Find("hand1").transform.localScale = new Vector3(1, 1, set_ruko1Len / 100f);
-        transform.Find("hand2").transform.localScale = new Vector3(1, 1, set_ruko2Len / 100f);
+       transform.Find("hand1").transform.localScale = new Vector3(0.9f, 1, set_ruko1Len / 100f);
+        transform.Find("hand2").transform.localScale = new Vector3(0.85f, 1, set_ruko2Len / 100f);
 
 
 
