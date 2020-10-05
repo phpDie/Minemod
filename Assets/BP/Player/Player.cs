@@ -16,9 +16,12 @@ public class Player: MonoBehaviour
 
     CharacterController characterController;
     Vector3 moveDirection = Vector3.zero;
-    float rotationX = 0;
+
+
+    
 
     [HideInInspector]
+    public float rotationX = 0;
     public bool canMove = true;
 
     void Start()

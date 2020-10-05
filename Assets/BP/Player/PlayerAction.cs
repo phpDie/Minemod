@@ -14,7 +14,7 @@ public class PlayerAction : MonoBehaviour
 
 
     [Header("WeaponCurrent")]
-    public GameObject myWeapon;
+    public genWeapon myWeapon;
 
 
     [Header("Ссылки на руки")]
@@ -35,8 +35,14 @@ public class PlayerAction : MonoBehaviour
     public float toolDist = 15f;
 
 
+    public float camFiledView = 65;
+
+
+
+
     void Start()
     {
+        
 
         mCam = GetComponent<Player>().playerCamera;
 
@@ -69,6 +75,8 @@ public class PlayerAction : MonoBehaviour
 
     }
 
+    public itemType myItemType;
+
     public void setHandItem(itemElement it)
     {
         hand.gameObject.SetActive(true);
@@ -76,27 +84,41 @@ public class PlayerAction : MonoBehaviour
 
         setSpriteHand(it.infoItemSave.iconInHand, it.infoItemSave.type == itemType.block);
 
+        myItemType = it.infoItemSave.type;
+
         IniFile MyIni = new IniFile(it.infoItemSave.iniFilePath);
+
+
+
+        if(myItemType == itemType.handTool || myItemType == itemType.gun)
+        {
+            toolDamage = MyIni.ReadInt("damage", "action", 1);
+            toolDist = MyIni.ReadInt("distance", "action", 1) / 1f;
+            timeAttackMax = MyIni.ReadInt("fireDelay", "action", 40) / 100f;
+        }
+
+
         if(it.infoItemSave.type == itemType.handTool)
         {
            /*
             toolDist = MyIni.ReadFloat("distance", "action", 1);
             print(toolDist);
-            */
-            toolDamage= MyIni.ReadInt("damage", "action", 1);
+            */ 
+
+            
             toolMaterialTarget = (blockMaterial)Enum.Parse(typeof(blockMaterial), MyIni.Read("materialTarget", "action", "ground"));
         }
 
         if (it.infoItemSave.type == itemType.gun)
         {
+             
             hand.gameObject.SetActive(false);
             handWeapon.gameObject.SetActive(true);
-            mCam.fieldOfView = 36;
+            myWeapon.designImport(MyIni.Read("design", "gun", "not"));
+            myWeapon.buildSetting();
+
         }
-        else
-        {
-            mCam.fieldOfView = 65;
-        }
+      
 
 
     }
@@ -138,6 +160,11 @@ public class PlayerAction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
+        mCam.fieldOfView = Mathf.SmoothStep(mCam.fieldOfView, camFiledView, 0.19f);
+        
+
         if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
         {
             myInv.selectNewActiveInde(myInv.actveIndex + 1);
@@ -162,7 +189,7 @@ public class PlayerAction : MonoBehaviour
             {
                 if (timeAttack<=0f)
                 {
-                    if (myInv.activeElement.infoItemSave.type == itemType.handTool)
+                    if (myItemType == itemType.handTool)
                     {
                        // ActionItem_CrackBlock();
 
@@ -171,23 +198,46 @@ public class PlayerAction : MonoBehaviour
                     }
 
 
-                    if (myInv.activeElement.infoItemSave.type == itemType.gun)
+                    if (myItemType == itemType.gun)
                     {
-                       // ActionItem_Fire();
-                        hand.GetComponent<Animator>().SetBool("attack", true);
+                        ActionItem_Fire(); 
                         timeAttack = timeAttackMax;
                     }
                 }
 
             }
 
+            if (myItemType == itemType.gun)
+            {
+
+                if (Input.GetKeyDown(KeyCode.H))
+                {
+                    handWeapon.GetComponent<Animator>().SetTrigger("show");
+                }
+
+
+                if (Input.GetButton("Fire2"))
+                {
+                    camFiledView = 35;
+                }
+                else
+                {
+                    camFiledView = 65;
+                }
+            }
+
+
             if (Input.GetButtonDown("Fire2"))
             {
-                if (myInv.activeElement.infoItemSave.type == itemType.block)
+                
+
+
+                if (myItemType == itemType.block)
                 {
                     ActionItem_Build();
                 }
-            }
+            } 
+
 
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -235,9 +285,9 @@ public class PlayerAction : MonoBehaviour
 
         // Set the start position for our visual effect for our laser to the position of gunEnd
 
-
+        print(toolDist);
         // Check if our raycast has hit anything
-        if (Physics.Raycast(rayOrigin, mCam.transform.forward, out hit, 15f))
+        if (Physics.Raycast(rayOrigin, mCam.transform.forward, out hit, toolDist))
         {
             //  print(hit.transform.name);
             return hit.transform.gameObject;
@@ -251,9 +301,27 @@ public class PlayerAction : MonoBehaviour
     {
         if (!myInv.giveActive(2, false)) return;
 
-        print("Fire");
+       // print("Fire");
+         
+        mCam.fieldOfView += 1.3f;
+
+        GetComponent<Player>().rotationX -= 0.85f;
 
         myInv.giveActive(1);
+
+        GameObject go = GetBlockFromRayCamera();
+        if (go == null)
+        {
+            return;
+        }
+
+        if (go.transform.tag == "block")
+        {
+            //print("Fire block");
+            //Destroy(go); 
+            go.GetComponent<BlockController>().Damage(toolDamage/2f, blockMaterial.all, gameObject);
+        }
+
     }
 
 
