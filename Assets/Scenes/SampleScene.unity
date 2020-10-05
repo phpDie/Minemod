@@ -1441,11 +1441,14 @@ MonoBehaviour:
   handWeapon: {fileID: 41588351}
   handSprite: {fileID: 1518816697}
   handCube: {fileID: 1049917310}
+  pref_bulletHole: {fileID: 1670303531056663458, guid: a0e73c0a09838cc48b81391122e2a746, type: 3}
+  ammoReloadInd: 
   mCam: {fileID: 0}
   toolMaterialTarget: 0
   toolDamage: 1
   toolDist: 15
   camFiledView: 65
+  giveUse: 0
   myItemType: 0
   timeAttack: 0
   timeAttackMax: 0.3

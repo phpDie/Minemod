@@ -81,7 +81,11 @@ public class invData : MonoBehaviour
         items[j].count -= count;
         if (items[j].count <= 0)
         {
-            itemRemoveIndex(j);
+
+            if (!items[j].infoItemSave.emptyIsset)
+            {
+                itemRemoveIndex(j);
+            }
 
         }
         ReRender();

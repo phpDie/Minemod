@@ -30,6 +30,7 @@ public class PlayerAction : MonoBehaviour
     public GameObject pref_bulletHole;
 
     [HideInInspector]
+    public string ammoReloadInd; //патры нужные для перезарядки
     public Camera mCam;
     public blockMaterial toolMaterialTarget; //в руке инструмент нацеленый на этот материал
 
@@ -38,6 +39,8 @@ public class PlayerAction : MonoBehaviour
 
 
     public float camFiledView = 65;
+
+    public int giveUse = 0; //забирать N предмета при каждом использование
 
 
 
@@ -91,8 +94,13 @@ public class PlayerAction : MonoBehaviour
         IniFile MyIni = new IniFile(it.infoItemSave.iniFilePath);
 
 
+        giveUse= MyIni.ReadInt("giveUse", "action", 0);
 
-        if(myItemType == itemType.handTool || myItemType == itemType.gun)
+
+        ammoReloadInd = MyIni.Read("ammo", "itemInfo", "not");
+
+
+        if (myItemType == itemType.handTool || myItemType == itemType.gun)
         {
             toolDamage = MyIni.ReadInt("damage", "action", 1);
             toolDist = MyIni.ReadInt("distance", "action", 1) / 1f;
@@ -119,6 +127,7 @@ public class PlayerAction : MonoBehaviour
             myWeapon.designImport(MyIni.Read("design", "gun", "not"));
             myWeapon.buildSetting();
 
+             
         }
       
 
@@ -191,10 +200,15 @@ public class PlayerAction : MonoBehaviour
             {
                 if (timeAttack<=0f)
                 {
+
                     if (myItemType == itemType.handTool)
                     {
-                       // ActionItem_CrackBlock();
-
+                        
+                        if (giveUse > 0)
+                        {
+                            if (!myInv.giveActive(giveUse, false)) return;
+                            myInv.giveActive(giveUse);
+                        }
                         hand.GetComponent<Animator>().SetBool("attack", true);
                         timeAttack = timeAttackMax;
                     }
@@ -255,8 +269,14 @@ public class PlayerAction : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            if (myInv.activeElement.infoItemSave.type == itemType.gun)
-            { 
+            if (ammoReloadInd != "not")
+            {
+
+                if (myInv.activeElement.infoItemSave.type == itemType.gun)
+                {
+
+                }
+
                 int needCount = myInv.activeElement.infoItemSave.stackSize;
 
                 needCount = needCount - myInv.activeElement.count;
@@ -264,7 +284,8 @@ public class PlayerAction : MonoBehaviour
                 if (needCount > 0)
                 {
                     
-                    if (myInv.myData.giveFromInd("Weapon:arrow", needCount))
+
+                    if (myInv.myData.giveFromInd(ammoReloadInd, needCount))
                     { 
                         myInv.activeElement.count += needCount;
                         myInv.ReRender();
@@ -286,8 +307,7 @@ public class PlayerAction : MonoBehaviour
         RaycastHit hit;
 
         // Set the start position for our visual effect for our laser to the position of gunEnd
-
-        print(toolDist);
+         
         // Check if our raycast has hit anything
         if (Physics.Raycast(rayOrigin, mCam.transform.forward, out hit, toolDist))
         {
@@ -304,7 +324,7 @@ public class PlayerAction : MonoBehaviour
 
     void ActionItem_Fire()
     {
-        if (!myInv.giveActive(2, false)) return;
+        if (!myInv.giveActive(1, false)) return;
 
        // print("Fire");
          

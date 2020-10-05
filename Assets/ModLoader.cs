@@ -22,7 +22,8 @@ public enum itemType
 public class itemSave
 {
 
-     
+    public bool emptyIsset = true; //удалять предмет, когда у него колв = 0. Нет для пушек.
+
     public string nameView; 
     public string modName; 
     public string ind; 
@@ -82,6 +83,7 @@ public class ModLoader : MonoBehaviour
             newItem.modName = modName;
 
             newItem.nameView = MyIni.Read("name", "itemInfo");
+            newItem.emptyIsset = MyIni.ReadBool("emptyIsset", "itemInfo");
 
             
             newItem.stackSize = Convert.ToInt32(MyIni.Read("stackSize", "itemInfo"));

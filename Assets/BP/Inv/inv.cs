@@ -11,7 +11,7 @@ public class itemElement
     public string ind;
     public itemSave infoItemSave;
     public invItem e;
-    public bool active = false;
+    public bool active = false; 
 }
 
 
@@ -47,8 +47,9 @@ public class inv : MonoBehaviour
                 }
 
                 it.count -= countGive;
-                if (it.count <= 0)
+                if(!it.infoItemSave.emptyIsset)if (it.count <= 0)
                 {
+
                     print("DEsty item");
                     Destroy(it.e.gameObject);
                     
