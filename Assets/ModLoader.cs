@@ -38,6 +38,8 @@ public class itemSave
 
 public class ModLoader : MonoBehaviour
 {
+     
+
 
     private string pathMods;
 
@@ -237,12 +239,13 @@ public class ModLoader : MonoBehaviour
 
 
         pathMods = Application.dataPath + "/../Mods/";
+        modInstall("eat");
         modInstall("Weapon");
         modInstall("Block");
         modInstall("Chest");
 
 
-        Global.Links.getMapController().mapLoad();
+        Global.Links.getMapController().mapInit();
 
       //  createMod("Mine");
        

@@ -134,6 +134,12 @@ public class invData : MonoBehaviour
             return;
         }
 
+        if (blankItem == null)
+        {
+            print("Принудительная инициализация инв");
+            init();
+        }
+
         invItem nItem = Instantiate(blankItem, transform);
 
         nItem.myData = this;

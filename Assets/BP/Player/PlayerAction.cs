@@ -4,9 +4,16 @@ using UnityEngine;
 using Global;
 using MyProg;
 using System;
+using UnityEngine.UI;
 
 public class PlayerAction : MonoBehaviour
 {
+
+    public float hp = 100f;
+    public float hpMax = 100f;
+
+    public float eat = 100f;
+
 
     [HideInInspector]
     public ModLoader modLoader;
@@ -20,6 +27,7 @@ public class PlayerAction : MonoBehaviour
     [Header("Ссылки на руки")]
     public handR hand;
     public GameObject handWeapon;
+    public GameObject centerCamHand;
 
 
     [Header("Кубы и tools")]
@@ -43,12 +51,14 @@ public class PlayerAction : MonoBehaviour
     public int giveUse = 0; //забирать N предмета при каждом использование
 
 
+    float timeEat = 0f;
 
+    public bool pause = false;
 
     void Start()
     {
-        
 
+        hp = hpMax;
         mCam = GetComponent<Player>().playerCamera;
 
        
@@ -61,7 +71,34 @@ public class PlayerAction : MonoBehaviour
         myInv = Global.Links.getPlayerInv();
 
         setCurLock(true);
+
+        suiRender();
     }
+
+
+
+    void Update()
+    {
+
+        updEat();
+
+        if (!pause)
+        {
+            updConroll();
+        }
+
+        updCenterCam();
+
+        mCam.fieldOfView = Mathf.SmoothStep(mCam.fieldOfView, camFiledView, 0.19f);
+
+    }
+
+    public void updCenterCam()
+    {
+
+        centerCamHand.transform.rotation = Quaternion.Lerp(centerCamHand.transform.rotation, mCam.transform.rotation, Time.deltaTime * 4.6f);
+    }
+
 
     public void animActionSend()
     {
@@ -85,6 +122,22 @@ public class PlayerAction : MonoBehaviour
         }
 
 
+        if (myInv.activeElement.infoItemSave.type == itemType.eat)
+        {
+
+            if (myInv.giveActive(1))
+            {
+                hp += MyItemIni.ReadInt("hpAdd", "eat", 0);
+                eat += MyItemIni.ReadInt("eatAdd", "eat", 0);
+
+                if (hp > hpMax) hp = hpMax;
+                if (eat > 100) eat = 100;
+            }
+
+            suiRender();
+        }
+
+
         if (myInv.activeElement.infoItemSave.type == itemType.gun)
         {
             ActionItem_Fire(); 
@@ -93,6 +146,9 @@ public class PlayerAction : MonoBehaviour
     }
 
     public itemType myItemType;
+
+
+     IniFile MyItemIni;
 
     public void setHandItem(itemElement it)
     {
@@ -105,14 +161,22 @@ public class PlayerAction : MonoBehaviour
 
         IniFile MyIni = new IniFile(it.infoItemSave.iniFilePath);
 
+        MyItemIni = MyIni;
 
-        giveUse= MyIni.ReadInt("giveUse", "action", 0);
+        giveUse = MyIni.ReadInt("giveUse", "action", 0);
 
 
         ammoReloadInd = MyIni.Read("ammo", "itemInfo", "not");
 
 
-        if (myItemType == itemType.handTool || myItemType == itemType.gun)
+        if (myItemType == itemType.eat)
+        {
+            toolDamage = MyIni.ReadInt("eatAdd", "eat", 1);
+        //    toolDamage = MyIni.ReadInt("hpAdd", "eat", 1);
+        }
+
+
+        if (myItemType == itemType.handTool || myItemType == itemType.gun )
         {
             toolDamage = MyIni.ReadInt("damage", "action", 1);
             toolDist = MyIni.ReadInt("distance", "action", 1) / 1f;
@@ -141,8 +205,8 @@ public class PlayerAction : MonoBehaviour
 
              
         }
-      
 
+        suiRender();
 
     }
 
@@ -180,15 +244,14 @@ public class PlayerAction : MonoBehaviour
     public float timeAttackMax = 0.5f;
 
     public bool btnAttackDown = false;
-    // Update is called once per frame
-    void Update()
-    {
 
 
-        mCam.fieldOfView = Mathf.SmoothStep(mCam.fieldOfView, camFiledView, 0.19f);
-        
+ 
 
-        if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
+    void updConroll()
+        {
+
+            if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
         {
             myInv.selectNewActiveInde(myInv.actveIndex + 1);
         }
@@ -213,7 +276,7 @@ public class PlayerAction : MonoBehaviour
                 if (timeAttack<=0f)
                 {
 
-                    if (myItemType == itemType.handTool)
+                    if (myItemType == itemType.handTool || myItemType == itemType.eat)
                     {
                         
                        
@@ -307,7 +370,7 @@ public class PlayerAction : MonoBehaviour
     }
 
 
-    GameObject GetBlockFromRayCamera()
+    GameObject GetBlockFromRayCamera(bool useForwardHandCenter=false)
     {
         Vector3 rayOrigin = mCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
 
@@ -315,9 +378,18 @@ public class PlayerAction : MonoBehaviour
         RaycastHit hit;
 
         // Set the start position for our visual effect for our laser to the position of gunEnd
-         
+
         // Check if our raycast has hit anything
-        if (Physics.Raycast(rayOrigin, mCam.transform.forward, out hit, toolDist))
+
+        
+        Vector3 forw = mCam.transform.forward;
+        if (useForwardHandCenter)
+        {
+            forw = centerCamHand.transform.forward;
+            forw = myWeapon.transform.forward;
+        }
+
+        if (Physics.Raycast(rayOrigin, forw, out hit, toolDist))
         {
             lastHitTestPoint = hit.point;
             //  print(hit.transform.name);
@@ -334,15 +406,18 @@ public class PlayerAction : MonoBehaviour
     {
         if (!myInv.giveActive(1, false)) return;
 
-       // print("Fire");
-         
-        mCam.fieldOfView += 1.3f;
-
-        GetComponent<Player>().rotationX -= 0.85f;
-
+       
+ 
         myInv.giveActive(1);
 
-        GameObject go = GetBlockFromRayCamera();
+        GameObject go = GetBlockFromRayCamera(true);
+
+
+        mCam.fieldOfView += 1.3f;
+        GetComponent<Player>().rotationX -= 0.35f;
+        centerCamHand.transform.rotation *= Quaternion.Euler(-3.1f, 0f, 0);
+
+
         if (go == null)
         {
             return;
@@ -543,10 +618,31 @@ public class PlayerAction : MonoBehaviour
 
     }
 
+    public void suiRender()
+    {
+        Global.Links.getSui().transform.Find("winGame/hp").GetComponent<Text>().text = "HP " + hp.ToString()+" / " + hpMax.ToString();
+        Global.Links.getSui().transform.Find("winGame/eat").GetComponent<Text>().text = "EAT " + eat.ToString()+" / 100";
+
+
+        Global.Links.getSui().transform.Find("aim").gameObject.SetActive( myItemType != itemType.gun);
+
+
+    }
+
     public void Damage(float count)
     {
 
         mCam.fieldOfView -= 1.7f;
+        hp -= count;
+        if (hp <= 0)
+        {
+            GetComponent<Player>().canMove = false;
+
+            Global.Links.getSui().winOpen("winDie");
+            pause = true;
+            hp = 0;
+        }
+        suiRender();
     }
 
     public void setCurLock(bool newLock)
@@ -567,5 +663,38 @@ public class PlayerAction : MonoBehaviour
             Global.Links.getSui().invOther.closeCargo();
             //Global.Links.getSui().invOther.gameObject.SetActive(false);
         }
+    }
+
+    public void updEat()
+    {
+
+
+        if (timeEat <= 0f)
+        { 
+            timeEat = 4f;
+ 
+
+            if (eat > 0f)
+            {
+                eat -= 1f;
+            }
+
+            
+
+
+
+            if (eat <= 30f)
+            {
+                Damage(1f);
+            }
+            else
+            {
+                suiRender();
+            }
+
+        }
+
+
+        timeEat -= Time.deltaTime;
     }
 }

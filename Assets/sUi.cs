@@ -6,6 +6,14 @@ public class sUi : MonoBehaviour
 {
     public inv invPlayer;
     public inv invOther;
+
+
+    public void winOpen(string win) {
+
+        transform.Find(win).gameObject.SetActive(true);
+
+    }
+
     // Start is called before the first frame update
     void Start()
     {

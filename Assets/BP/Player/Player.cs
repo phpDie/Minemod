@@ -18,7 +18,10 @@ public class Player: MonoBehaviour
     Vector3 moveDirection = Vector3.zero;
 
 
-    
+
+    [Header("Ссылки на центр рук")]
+    public GameObject centerCamHand;
+
 
     [HideInInspector]
     public float rotationX = 0;
@@ -70,9 +73,12 @@ public class Player: MonoBehaviour
         // Player and Camera rotation
         if (canMove)
         {
+
             rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
             rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
             playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+
+            centerCamHand.transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed*-0.3f, 0);
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
     }
