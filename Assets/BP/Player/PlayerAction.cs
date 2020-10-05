@@ -26,6 +26,8 @@ public class PlayerAction : MonoBehaviour
     public GameObject handSprite;
     public GameObject handCube;
 
+    [Header("Blank Prefabs")]
+    public GameObject pref_bulletHole;
 
     [HideInInspector]
     public Camera mCam;
@@ -289,12 +291,15 @@ public class PlayerAction : MonoBehaviour
         // Check if our raycast has hit anything
         if (Physics.Raycast(rayOrigin, mCam.transform.forward, out hit, toolDist))
         {
+            lastHitTestPoint = hit.point;
             //  print(hit.transform.name);
             return hit.transform.gameObject;
 
         }
         return null;
     }
+
+    Vector3 lastHitTestPoint;
 
 
     void ActionItem_Fire()
@@ -315,11 +320,16 @@ public class PlayerAction : MonoBehaviour
             return;
         }
 
+       GameObject bulHole =  Instantiate(pref_bulletHole, go.transform);
+        bulHole.transform.position = lastHitTestPoint;
+        //bulHole.transform.rotation =  Quaternion.LookRotation(lastHitTestPoint, mCam.transform.position);
+        bulHole.transform.LookAt(mCam.transform.position, -Vector3.up);// =  Quaternion.Euler(mCam.transform.forward);
+
         if (go.transform.tag == "block")
         {
             //print("Fire block");
             //Destroy(go); 
-            go.GetComponent<BlockController>().Damage(toolDamage/2f, blockMaterial.all, gameObject);
+            go.GetComponent<BlockController>().Damage(toolDamage/4f, blockMaterial.all, gameObject);
         }
 
     }
