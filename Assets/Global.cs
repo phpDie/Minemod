@@ -28,16 +28,24 @@ namespace Global
 
         }
 
-        public static inv getPlayerInv()
+        public static inv getPlayerInvUi()
         {
             return GameObject.Find("SUI/inv").GetComponent<inv>();
 
         }
 
-        public static inv getOtherInv()
+        public static inv getPlayerMainInvUi()
         {
-            return getSui().invOther;
-            //return GameObject.Find("SUI/invOther").GetComponent<inv>();
+            return getSui().winInvMain;
+           // return GameObject.Find("SUI/invMain").GetComponent<inv>();
+
+        }
+
+
+        public static inv getOtherInvUi()
+        {
+            return getSui().winInvOther;
+            //return GameObject.Find("SUI/winInvOther").GetComponent<inv>();
 
         }
 
@@ -55,8 +63,21 @@ namespace Global
 
         public static craftUi getCraftUi()
         {
-            return GameObject.Find("SUI/winCraft").GetComponent<craftUi>();
+            return getSui().winCraft;
 
         }
+
+
+        public static invData getIndDataPlayerAction()
+        {
+            return GameObject.Find("Player/invAction").GetComponent<invData>();
+
+        }
+
+        public static invData getIndDataPlayerCargo()
+        {
+            return GameObject.Find("Player/invCargo").GetComponent<invData>();
+        }
+
     }
 }

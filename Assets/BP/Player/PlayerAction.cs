@@ -68,7 +68,7 @@ public class PlayerAction : MonoBehaviour
 
 
 
-        myInv = Global.Links.getPlayerInv();
+        myInv = Global.Links.getPlayerInvUi();
 
         setCurLock(true);
 
@@ -337,9 +337,40 @@ public class PlayerAction : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            if (!Cursor.visible) setCurLock(false);
+
+            Global.Links.getSui().winCloseAll();
+            Global.Links.getSui().winOpen("winCraft");
+
+        }
+
+
         if (Input.GetKeyDown(KeyCode.I))
         {
-            setCurLock(Cursor.visible);
+
+            if (Global.Links.getSui().winInvMain.gameObject.active)
+            {
+
+
+                Global.Links.getSui().winCloseAll();
+                setCurLock(true);
+
+            }
+            else
+            {
+                Global.Links.getSui().winCloseAll();
+
+
+                Global.Links.getSui().winOpen("invMain");
+                Global.Links.getPlayerMainInvUi().openCargo(Global.Links.getIndDataPlayerCargo());
+
+
+                setCurLock(false);
+            }
+            
+
         }
     
 
@@ -534,9 +565,12 @@ public class PlayerAction : MonoBehaviour
             if (b.myType == blockType.cargo)
 
             {
-                Global.Links.getOtherInv().gameObject.SetActive(true);
+                Global.Links.getSui().winOpen("winInvOther");
 
-                Global.Links.getOtherInv().openCargo(b.GetComponent<invData>());
+                Global.Links.getSui().winOpen("invMain");
+                //Global.Links.getOtherInvUi().gameObject.SetActive(true);
+
+                Global.Links.getOtherInvUi().openCargo(b.GetComponent<invData>());
 
                 setCurLock(false);
                 return;
@@ -664,9 +698,9 @@ public class PlayerAction : MonoBehaviour
         suiRender();
     }
 
-    public void setCurLock(bool newLock)
+    public void setCurLock(bool canMoveAndLockCur)
     {
-        if (newLock)
+        if (canMoveAndLockCur)
         {
             Cursor.lockState = CursorLockMode.Locked;
 
@@ -675,12 +709,14 @@ public class PlayerAction : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Confined;
         }
-        Cursor.visible = !newLock;
+        Cursor.visible = !canMoveAndLockCur;
 
-        if (newLock)
+        GetComponent<Player>().canMove = canMoveAndLockCur;
+
+        if (canMoveAndLockCur)
         {
-            Global.Links.getSui().invOther.closeCargo();
-            //Global.Links.getSui().invOther.gameObject.SetActive(false);
+            Global.Links.getSui().winInvOther.closeCargo();
+            //Global.Links.getSui().winInvOther.gameObject.SetActive(false);
         }
     }
 

@@ -31,7 +31,7 @@ public class craftUi : MonoBehaviour
 
     public receptCraft curentRecept;
 
-    GameObject sidebar;
+    public GameObject sidebar;
 
     public GameObject btnBlocker;
 
@@ -82,7 +82,7 @@ public class craftUi : MonoBehaviour
     public bool checkReceptIssetIngridients(receptCraft re, bool isGive =false)
     {
 
-        inv myInv =  Global.Links.getPlayerInv();
+        inv myInv =  Global.Links.getPlayerInvUi();
         
         foreach (receptCraftElement it in re.ingredients)
         {
@@ -125,7 +125,7 @@ public class craftUi : MonoBehaviour
 
     void Start()
     {
-        sidebar = transform.Find("sidebar").gameObject;
+         
     }
 
     // Update is called once per frame

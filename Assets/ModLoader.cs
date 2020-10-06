@@ -175,6 +175,8 @@ public class ModLoader : MonoBehaviour
             itemBase.Add(ind, newItem);
 
 
+            Global.Links.getPlayerMainInvUi().myData.itemAdd(ind);
+
 
             itemBlockSettings newblockBase = new itemBlockSettings();
             newblockBase.width = MyIni.ReadInt("width", "block", 100) / 100f;
@@ -225,9 +227,7 @@ public class ModLoader : MonoBehaviour
                 Global.Links.getCraftUi().items.Add(_craft);
 
             }
-
-
-            Global.Links.getPlayerInv().myData.itemAdd(ind);
+             
 
         }
 
@@ -358,6 +358,7 @@ public class ModLoader : MonoBehaviour
 
 
         Global.Links.getMapController().mapInit();
+        Global.Links.getPlayerInvUi().selectNewActiveInde(5);
 
         Global.Links.getCraftUi().RenderList();
 

@@ -6,11 +6,14 @@ using UnityEngine.UI;
 
 public class invData : MonoBehaviour
 {
+    [Header("Параметры")]
+    public bool isActionBar = false;
+    public bool isPlayerMainInv= false;
 
+
+    [HideInInspector]
     public List<itemElement> items = new List<itemElement>();
-
     public inv myViewInvUi;
-
     public invItem blankItem;
 
     public void itemRemoveIndex(int J)
@@ -36,28 +39,85 @@ public class invData : MonoBehaviour
 
             return -1;
     }
+ 
+    public bool moveInOtherInv(inv otherWinInv, itemElement myItemE)
+    {
+        otherWinInv.myData.items.Add(myItemE);
+        items.Remove(myItemE);
+        otherWinInv.myData.ReRender(true);
+        ReRender(true);
+
+        return true;
+    }
+
+
     public void clickItemElemet(itemElement e)
     {
-        //print("ClickInv");
 
-        if (Global.Links.getSui().invOther.gameObject.active)
+  
+
+        //Это главный инв
+        if (isPlayerMainInv)
+        {
+
+            print("isPlayerMainInv");
+            //Переброс в сундук
+            if (Global.Links.getSui().winInvOther.gameObject.active)
+            {
+                Global.Links.getOtherInvUi().myData.items.Add(e);
+                items.Remove(e);
+                Global.Links.getOtherInvUi().myData.ReRender(true);
+                ReRender(true);
+                return;
+            }
+            else
+            {
+
+                //Переброс с глав инв в экшен бар
+
+                moveInOtherInv(Global.Links.getSui().winInvAction, e);
+                /*
+                Global.Links.getPlayerInvUi().myData.items.Add(e);
+                items.Remove(e);
+                Global.Links.getPlayerInvUi().myData.ReRender(true);
+                ReRender(true);
+                */
+                return;
+            }
+        }
+
+
+
+        //Я сундук, значит из меня копируют в другое место
+        if (!isPlayerMainInv && !isActionBar)
+        {
+            Global.Links.getPlayerMainInvUi().myData.items.Add(e);
+            items.Remove(e);
+
+            Global.Links.getPlayerMainInvUi().myData.ReRender(true);
+            ReRender(true);
+            return;
+        }
+
+        /*
+        if (Global.Links.getSui().winInvOther.gameObject.active)
         {
             //print("Move mode");
 
 
             if (myViewInvUi.isPlayer)
             {
-                Global.Links.getOtherInv().myData.items.Add(e);
+                Global.Links.getOtherInvUi().myData.items.Add(e);
                 items.Remove(e);
-                Global.Links.getOtherInv().myData.ReRender(true);
+                Global.Links.getOtherInvUi().myData.ReRender(true);
                 ReRender(true);
             }
             else
             {
-                Global.Links.getPlayerInv().myData.items.Add(e);
+                Global.Links.getPlayerInvUi().myData.items.Add(e);
                 items.Remove(e);
 
-                Global.Links.getPlayerInv().myData.ReRender(true);
+                Global.Links.getPlayerInvUi().myData.ReRender(true);
                 ReRender(true);
 
             }
@@ -65,12 +125,26 @@ public class invData : MonoBehaviour
 
             return;
         }
-        
 
-        if (myViewInvUi.isPlayer)
-        {            
-            myViewInvUi.selectNewActiveInde(getIdFromElement(e));
+        */
+        if (isActionBar)
+        {
+
+            //Переброс с экшен бара в главный инв
+            if (Global.Links.getSui().winInvMain.gameObject.active)
+            {
+                moveInOtherInv(Global.Links.getSui().winInvMain, e);
+            }
+            else
+            {
+                //Всё закрыто, знчит мы активируем предмет
+                // if (myViewInvUi.isPlayer) myViewInvUi.selectNewActiveInde(getIdFromElement(e));           
+                myViewInvUi.selectNewActiveInde(getIdFromElement(e));
+            }
+            return;
         }
+
+        print("НЕ ПОНЯТНАЯ СИТУАЦИЯ И ИНВ");
     }
 
     public bool giveFromInd(string ind, int count)
@@ -181,6 +255,7 @@ public class invData : MonoBehaviour
             foreach (itemElement it in items)
             {
                 it.e.transform.SetParent(transform);
+                it.e.myData = this;
             }
 
             return;
@@ -190,6 +265,7 @@ public class invData : MonoBehaviour
         foreach (itemElement it in items)
         {
             it.e.transform.SetParent(myViewInvUi.contentBox);
+            it.e.myData = this;
         }
 
             myViewInvUi.ReRender(fullUpd);

@@ -176,7 +176,7 @@ public class ChankController : MonoBehaviour
         */
 
 
-        Global.Links.getOtherInv().closeCargo();
+        Global.Links.getOtherInvUi().closeCargo();
         Global.Links.getPlayerAction().setCurLock(true);
 
         if (File.Exists(pathChankFile))
