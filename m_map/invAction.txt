@@ -1,4 +1,6 @@
 Core:doska 15
 Weapon:bita 48
 Weapon:shovel 91
-Weapon:axe 74
+Weapon:axe 56
+Core:dirt 16
+Core:stone 2
