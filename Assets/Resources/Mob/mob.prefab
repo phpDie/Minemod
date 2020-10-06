@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2178990555329566359}
   - component: {fileID: 3252555868554213358}
   - component: {fileID: 1234576352829557051}
+  - component: {fileID: 5443167414658967727}
   m_Layer: 0
   m_Name: meat (14)
   m_TagString: meatPart
@@ -95,6 +96,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5443167414658967727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 340999299334180917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f00670c64c3ed48a4b68af0420262d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBot: {fileID: 4828168686521885006}
+  cofDamage: 0.4
+  hp: 1
 --- !u!1 &563333793604919794
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,6 +123,7 @@ GameObject:
   - component: {fileID: 4457586217462179252}
   - component: {fileID: 5242297390801959267}
   - component: {fileID: 6919831125054823182}
+  - component: {fileID: 380882821197402715}
   m_Layer: 0
   m_Name: meat (4)
   m_TagString: meatPart
@@ -190,6 +207,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &380882821197402715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 563333793604919794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f00670c64c3ed48a4b68af0420262d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBot: {fileID: 4828168686521885006}
+  cofDamage: 1
+  hp: 1
 --- !u!1 &876688172290732110
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,6 +234,7 @@ GameObject:
   - component: {fileID: 5196678954649876532}
   - component: {fileID: 2485078231265011953}
   - component: {fileID: 2864444655121086248}
+  - component: {fileID: 4306928836195505672}
   m_Layer: 0
   m_Name: meat (2)
   m_TagString: meatPart
@@ -285,6 +318,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4306928836195505672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876688172290732110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f00670c64c3ed48a4b68af0420262d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBot: {fileID: 4828168686521885006}
+  cofDamage: 1
+  hp: 1
 --- !u!1 &1684076101328896099
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,6 +345,7 @@ GameObject:
   - component: {fileID: 1351086565953531953}
   - component: {fileID: 6713240180365593117}
   - component: {fileID: 2337485628259459340}
+  - component: {fileID: 7703082342043371706}
   m_Layer: 0
   m_Name: meat (4)
   m_TagString: meatPart
@@ -380,6 +429,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7703082342043371706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684076101328896099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f00670c64c3ed48a4b68af0420262d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBot: {fileID: 4828168686521885006}
+  cofDamage: 0.4
+  hp: 1
 --- !u!1 &1784295733514786828
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,6 +456,7 @@ GameObject:
   - component: {fileID: 6438540191153147311}
   - component: {fileID: 2623714064210105089}
   - component: {fileID: 6805036161890306305}
+  - component: {fileID: 2535927417518990715}
   m_Layer: 0
   m_Name: meat (10)
   m_TagString: meatPart
@@ -475,6 +540,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2535927417518990715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784295733514786828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f00670c64c3ed48a4b68af0420262d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBot: {fileID: 4828168686521885006}
+  cofDamage: 1
+  hp: 1
 --- !u!1 &1843015778786208102
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,6 +567,7 @@ GameObject:
   - component: {fileID: 5959888530693268195}
   - component: {fileID: 6214840790001820153}
   - component: {fileID: 3160314800709364915}
+  - component: {fileID: 8869414087971505634}
   m_Layer: 0
   m_Name: meat (5)
   m_TagString: meatPart
@@ -570,6 +651,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8869414087971505634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1843015778786208102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f00670c64c3ed48a4b68af0420262d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBot: {fileID: 4828168686521885006}
+  cofDamage: 1
+  hp: 1
 --- !u!1 &2028794204275331610
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,6 +678,7 @@ GameObject:
   - component: {fileID: 8394731796697299871}
   - component: {fileID: 189272323902779838}
   - component: {fileID: 8384925170759597395}
+  - component: {fileID: 982929298013750798}
   m_Layer: 0
   m_Name: meat (27)
   m_TagString: meatPart
@@ -665,6 +762,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &982929298013750798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028794204275331610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f00670c64c3ed48a4b68af0420262d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBot: {fileID: 4828168686521885006}
+  cofDamage: 1
+  hp: 1
 --- !u!1 &3981685463215222074
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,6 +789,7 @@ GameObject:
   - component: {fileID: 2321416428141282480}
   - component: {fileID: 4030729228442072173}
   - component: {fileID: 4404682776386480949}
+  - component: {fileID: 4980338019414592820}
   m_Layer: 0
   m_Name: meat (27)
   m_TagString: meatPart
@@ -760,6 +873,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4980338019414592820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3981685463215222074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f00670c64c3ed48a4b68af0420262d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBot: {fileID: 4828168686521885006}
+  cofDamage: 0.4
+  hp: 1
 --- !u!1 &4334892254085517922
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,6 +900,7 @@ GameObject:
   - component: {fileID: 5398287417750148595}
   - component: {fileID: 2140736583293015264}
   - component: {fileID: 767726659276997950}
+  - component: {fileID: 3766531367232312193}
   m_Layer: 0
   m_Name: meat (1)
   m_TagString: meatPart
@@ -855,6 +984,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3766531367232312193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4334892254085517922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f00670c64c3ed48a4b68af0420262d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBot: {fileID: 4828168686521885006}
+  cofDamage: 1
+  hp: 1
 --- !u!1 &4828168684653849684
 GameObject:
   m_ObjectHideFlags: 0
@@ -867,6 +1011,7 @@ GameObject:
   - component: {fileID: 4828168684653849680}
   - component: {fileID: 4828168684653849681}
   - component: {fileID: 4828168684653849682}
+  - component: {fileID: 6930855651857359239}
   m_Layer: 0
   m_Name: Cube
   m_TagString: meatPart
@@ -950,6 +1095,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6930855651857359239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4828168684653849684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f00670c64c3ed48a4b68af0420262d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBot: {fileID: 4828168686521885006}
+  cofDamage: 1
+  hp: 3
 --- !u!1 &4828168685296967219
 GameObject:
   m_ObjectHideFlags: 0
@@ -973,12 +1133,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4828168685296967219}
-  m_LocalRotation: {x: 0.22534809, y: 0.09637691, z: -0.9690163, w: -0.030612651}
-  m_LocalPosition: {x: 0.24996376, y: 1.3271822, z: 0.076}
-  m_LocalScale: {x: 1.6227787, y: 1.82838, z: 0.64542055}
+  m_LocalRotation: {x: 0.22398409, y: 0.13406244, z: -0.964525, w: -0.039370324}
+  m_LocalPosition: {x: 0.11696376, y: 0.08221293, z: 0.02848888}
+  m_LocalScale: {x: 1.6227785, y: 1.8283799, z: 0.64542055}
   m_Children:
   - {fileID: 4828168684653849683}
-  m_Father: {fileID: 4828168686521885007}
+  m_Father: {fileID: 6114726413255254543}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -189.961, y: -206.706, z: -5.9890137}
 --- !u!1 &4828168686521884993
@@ -1011,11 +1171,10 @@ Transform:
   m_LocalPosition: {x: 31.33, y: 13.731, z: 5.925}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 8024225994577971183}
-  - {fileID: 4828168685296967218}
   - {fileID: 6595994238284498470}
   - {fileID: 7848886405202514613}
   - {fileID: 5269793535855907555}
+  - {fileID: 6114726413255254543}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1054,7 +1213,13 @@ MonoBehaviour:
   distView: 12
   gunIsset: 0
   hp: 14
+  lerpSpeed: 0.09
+  lerpSpeedHand: 1
+  jumpRandomFrom: 1200
   timerAttackMax: 0.9
+  attackDamage: 15
+  fireRayDist: 2
+  handCenter: {fileID: 6114726413255254543}
   walkingSpeed: 2
   runningSpeed: 4
   jumpSpeed: 12
@@ -1087,6 +1252,7 @@ GameObject:
   - component: {fileID: 5229479508481103649}
   - component: {fileID: 771577676017025857}
   - component: {fileID: 3561815941636542441}
+  - component: {fileID: 2560451878285270177}
   m_Layer: 0
   m_Name: meat (1)
   m_TagString: meatPart
@@ -1170,6 +1336,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2560451878285270177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5035880135329077083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f00670c64c3ed48a4b68af0420262d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBot: {fileID: 4828168686521885006}
+  cofDamage: 0.4
+  hp: 1
 --- !u!1 &5179099098235969617
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,6 +1363,7 @@ GameObject:
   - component: {fileID: 2069423213321903772}
   - component: {fileID: 3673654145155740813}
   - component: {fileID: 8163200706145396801}
+  - component: {fileID: 2977665250547570201}
   m_Layer: 0
   m_Name: meat (11)
   m_TagString: meatPart
@@ -1265,6 +1447,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2977665250547570201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5179099098235969617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f00670c64c3ed48a4b68af0420262d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBot: {fileID: 4828168686521885006}
+  cofDamage: 1
+  hp: 1
 --- !u!1 &5722808632306212401
 GameObject:
   m_ObjectHideFlags: 0
@@ -1277,6 +1474,7 @@ GameObject:
   - component: {fileID: 7817530551228743222}
   - component: {fileID: 3064275570635777605}
   - component: {fileID: 8559446706351727244}
+  - component: {fileID: 27210090780193344}
   m_Layer: 0
   m_Name: meat (10)
   m_TagString: meatPart
@@ -1360,6 +1558,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &27210090780193344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5722808632306212401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f00670c64c3ed48a4b68af0420262d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBot: {fileID: 4828168686521885006}
+  cofDamage: 0.4
+  hp: 1
 --- !u!1 &6192022450925651103
 GameObject:
   m_ObjectHideFlags: 0
@@ -1384,11 +1597,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6192022450925651103}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.4742821, z: 0.552}
+  m_LocalPosition: {x: 0, y: 1.123, z: 0.319}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4828168686521885007}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6312282148073734439
 GameObject:
@@ -1402,6 +1615,7 @@ GameObject:
   - component: {fileID: 8388757695936830910}
   - component: {fileID: 9202737399372601041}
   - component: {fileID: 3482225445742378062}
+  - component: {fileID: 5069421345647809086}
   m_Layer: 0
   m_Name: meat (5)
   m_TagString: meatPart
@@ -1485,6 +1699,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5069421345647809086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6312282148073734439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f00670c64c3ed48a4b68af0420262d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBot: {fileID: 4828168686521885006}
+  cofDamage: 0.4
+  hp: 1
 --- !u!1 &6419434947710824417
 GameObject:
   m_ObjectHideFlags: 0
@@ -1497,6 +1726,7 @@ GameObject:
   - component: {fileID: 4549475569927044303}
   - component: {fileID: 6252325145428372630}
   - component: {fileID: 6473182126212949225}
+  - component: {fileID: 8544687782392494224}
   m_Layer: 0
   m_Name: meat (14)
   m_TagString: meatPart
@@ -1580,6 +1810,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8544687782392494224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6419434947710824417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f00670c64c3ed48a4b68af0420262d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBot: {fileID: 4828168686521885006}
+  cofDamage: 1
+  hp: 1
 --- !u!1 &6448758343243217634
 GameObject:
   m_ObjectHideFlags: 0
@@ -1617,7 +1862,7 @@ Transform:
   - {fileID: 5870478170947403365}
   - {fileID: 6040111657628043890}
   m_Father: {fileID: 4828168686521885007}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7117409279692932651
 GameObject:
@@ -1631,6 +1876,7 @@ GameObject:
   - component: {fileID: 1599630624879132832}
   - component: {fileID: 8044046563991936296}
   - component: {fileID: 2157592877558159508}
+  - component: {fileID: 4619259978730104712}
   m_Layer: 0
   m_Name: meat (2)
   m_TagString: meatPart
@@ -1714,6 +1960,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4619259978730104712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7117409279692932651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f00670c64c3ed48a4b68af0420262d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBot: {fileID: 4828168686521885006}
+  cofDamage: 0.4
+  hp: 1
 --- !u!1 &7170227744724361569
 GameObject:
   m_ObjectHideFlags: 0
@@ -1738,11 +1999,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7170227744724361569}
   m_LocalRotation: {x: -0.074940205, y: 0.098159485, z: -0.9915596, w: 0.039474614}
-  m_LocalPosition: {x: -0.22731781, y: 1.305, z: -0.02513504}
-  m_LocalScale: {x: 1.6227787, y: 1.82838, z: 0.5925172}
+  m_LocalPosition: {x: -0.359, y: 0.036, z: -0.04}
+  m_LocalScale: {x: 1.6227785, y: 1.8283801, z: 0.59251714}
   m_Children:
   - {fileID: 2741452823943844364}
-  m_Father: {fileID: 4828168686521885007}
+  m_Father: {fileID: 6114726413255254543}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -190.88, y: -170.838, z: 5.4340057}
 --- !u!1 &7345331641046062610
@@ -1757,6 +2018,7 @@ GameObject:
   - component: {fileID: 7424447457611213077}
   - component: {fileID: 1273626707172131555}
   - component: {fileID: 2389045814861488882}
+  - component: {fileID: 3970677515979823029}
   m_Layer: 0
   m_Name: meat (12)
   m_TagString: meatPart
@@ -1840,6 +2102,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3970677515979823029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7345331641046062610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f00670c64c3ed48a4b68af0420262d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBot: {fileID: 4828168686521885006}
+  cofDamage: 0.4
+  hp: 44
 --- !u!1 &7434956683786092823
 GameObject:
   m_ObjectHideFlags: 0
@@ -1852,6 +2129,7 @@ GameObject:
   - component: {fileID: 3501961215330493466}
   - component: {fileID: 354203089814888762}
   - component: {fileID: 3980514079083893362}
+  - component: {fileID: 3985534344178229408}
   m_Layer: 0
   m_Name: Cube
   m_TagString: meatPart
@@ -1935,6 +2213,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3985534344178229408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7434956683786092823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f00670c64c3ed48a4b68af0420262d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBot: {fileID: 4828168686521885006}
+  cofDamage: 1
+  hp: 6
 --- !u!1 &7585940480947211442
 GameObject:
   m_ObjectHideFlags: 0
@@ -1972,7 +2265,7 @@ Transform:
   - {fileID: 2302307911118552099}
   - {fileID: 3380727554544472231}
   m_Father: {fileID: 4828168686521885007}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7788798534782470601
 GameObject:
@@ -1986,6 +2279,7 @@ GameObject:
   - component: {fileID: 6943543606211405148}
   - component: {fileID: 3105205121869310431}
   - component: {fileID: 3459264945990980858}
+  - component: {fileID: 7246655815261944479}
   m_Layer: 0
   m_Name: meat (11)
   m_TagString: meatPart
@@ -2069,6 +2363,53 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7246655815261944479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7788798534782470601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f00670c64c3ed48a4b68af0420262d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBot: {fileID: 4828168686521885006}
+  cofDamage: 0.4
+  hp: 1
+--- !u!1 &7802072934147103250
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6114726413255254543}
+  m_Layer: 0
+  m_Name: handRot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6114726413255254543
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7802072934147103250}
+  m_LocalRotation: {x: -0.101119764, y: -0, z: -0, w: 0.99487424}
+  m_LocalPosition: {x: 0.133, y: 1.243, z: 0.054}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 8024225994577971183}
+  - {fileID: 4828168685296967218}
+  m_Father: {fileID: 4828168686521885007}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: -11.607, y: 0, z: 0}
 --- !u!1 &9082535127317381037
 GameObject:
   m_ObjectHideFlags: 0
@@ -2081,6 +2422,7 @@ GameObject:
   - component: {fileID: 2989153573673416387}
   - component: {fileID: 8176534242456776370}
   - component: {fileID: 8223770977144555016}
+  - component: {fileID: 4842990150838246846}
   m_Layer: 0
   m_Name: meat (12)
   m_TagString: meatPart
@@ -2164,3 +2506,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4842990150838246846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9082535127317381037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f00670c64c3ed48a4b68af0420262d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBot: {fileID: 4828168686521885006}
+  cofDamage: 1
+  hp: 1

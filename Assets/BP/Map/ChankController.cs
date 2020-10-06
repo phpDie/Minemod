@@ -270,7 +270,7 @@ public class ChankController : MonoBehaviour
 
 
         watch.Stop();
-        print($"Parse chank file Time: {watch.ElapsedMilliseconds} ms");
+      //  print($"Parse chank file Time: {watch.ElapsedMilliseconds} ms");
 
 
         return true;

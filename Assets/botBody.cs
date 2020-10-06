@@ -20,10 +20,22 @@ public class botBody : MonoBehaviour
     public float distView = 12f;
     public bool gunIsset = false;
     public float hp = 1f;
+    public float lerpSpeed = 0.3f;
+    public float lerpSpeedHand = 15f;
+    public int jumpRandomFrom = 1200;
+
+
+    [Header("Attack")]
+    public float timerAttackMax = 0.9f;
+    public float attackDamage= 1f;
+    public float fireRayDist= 2f;
 
 
     float timerAttack;
-    public float timerAttackMax = 0.9f;
+
+
+    [Header("Body Part")]
+    public Transform handCenter;
 
 
     [Header("Body")]
@@ -83,9 +95,20 @@ public class botBody : MonoBehaviour
 
     public void gunFire()
     {
-        Vector3 forward = transform.TransformDirection(Vector3.forward);
+         
 
-        Transform w = transform.Find("start").transform;
+        Vector3 deltaVec = target.transform.position - transform.position;
+        Quaternion rotation = Quaternion.LookRotation(deltaVec);
+        
+        
+               Vector3 forward = transform.forward;
+
+                forward = rotation.ToEulerAngles();
+
+                forward = handCenter.transform.forward;
+
+        forward += new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f));
+
 
         Vector3 rayOrigin = transform.Find("start").transform.position;
 
@@ -94,14 +117,23 @@ public class botBody : MonoBehaviour
         // Set the start position for our visual effect for our laser to the position of gunEnd
 
 
+        float distRay = fireRayDist;
+
+        if (gunIsset)
+        {
+            distRay = 25f;
+        }
+
+        Debug.DrawRay(rayOrigin, forward * 25f, Color.red, 5f);
 
         // Check if our raycast has hit anything
-        if (Physics.Raycast(rayOrigin, transform.forward, out hit, 25f))
+        if (Physics.Raycast(rayOrigin, forward, out hit, distRay))
         {
 
             Transform damTo = hit.transform;
 
 
+           
 
             if (hit.transform.tag == "Untagged")
             {
@@ -113,18 +145,25 @@ public class botBody : MonoBehaviour
 
             }
 
-            //print(damTo.transform.tag);
-            Debug.DrawRay(rayOrigin, transform.forward * 25f, Color.red, 5f);
+             
 
 
             if (damTo.transform.tag == "block")
             {
 
-                damTo.GetComponent<BlockController>().Damage(1f, blockMaterial.all, null);
+                damTo.GetComponent<BlockController>().Damage(attackDamage, blockMaterial.all, null);
+                return;
             }
-            if (damTo.transform.tag == "Player")
+
+            if (damTo.transform.tag == "meatPart")
             {
-                damTo.GetComponent<PlayerAction>().Damage(1f);
+                damTo.transform.GetComponent<meatPart>().Damage(attackDamage);
+
+            }
+
+                if (damTo.transform.tag == "Player")
+            {
+                damTo.GetComponent<PlayerAction>().Damage(attackDamage);
             }
             else
             {
@@ -133,12 +172,7 @@ public class botBody : MonoBehaviour
                 bulHole.transform.position = hit.point;
                 bulHole.transform.LookAt(transform.position, -Vector3.up);
             }
-            /*
-             * 
-            GameObject bulHole = Instantiate(pref_bulletHole);
-            bulHole.transform.position = hit.point;
-            bulHole.transform.LookAt(transform.position, -Vector3.up);
-             */
+          
 
 
         }
@@ -166,14 +200,35 @@ public class botBody : MonoBehaviour
         */
 
 
+
         Vector3 lTargetDir = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z) - transform.position;
         lTargetDir.y = 0.0f;
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lTargetDir), Time.time * 0.5f);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lTargetDir), Time.time * lerpSpeed);
+
+        
+
+       lTargetDir = target.transform.position + Vector3.up*1f - handCenter.transform.position;
+
+        handCenter.transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lTargetDir), Time.time * lerpSpeedHand);
+
+
 
         // transform.LookAt(new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z));
 
 
         float moveForw = 0f;
+
+        timerAttack -= Time.deltaTime;
+        if (timerAttack <= 0f)
+        {
+            timerAttack = timerAttackMax;
+
+            if (Vector3.Distance(transform.position, target.transform.position) < 10f)
+            {
+                gunFire();
+            }
+
+        }
 
 
 
@@ -181,7 +236,7 @@ public class botBody : MonoBehaviour
         {
             moveForw = 1f;
 
-            if (Random.Range(1, 526) < 2)
+            if (Random.Range(1, jumpRandomFrom) < 2)
             {
                 jump();
             }
@@ -190,23 +245,8 @@ public class botBody : MonoBehaviour
         else
         {
             moveForw = 0f;
-
-            timerAttack -= Time.deltaTime;
-            if (timerAttack <= 0f)
-            {
-
-                timerAttack = timerAttackMax;
-                if (gunIsset)
-                {
-                    gunFire();
-                }
-                else
-                {
-                    target.GetComponent<PlayerAction>().Damage(1f);
-                }
-            }
-
         }
+
 
 
         float curSpeedX = canMove ? (isRunning ? runningSpeed : walkingSpeed) * moveForw : 0;

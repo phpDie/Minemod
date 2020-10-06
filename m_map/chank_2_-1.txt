@@ -501,7 +501,7 @@
 -2:1:7 Core:gravel 8
 -2:2:7 Core:stone 6
 -2:3:7 Core:stone 6
--2:4:7 Core:grass 8
+-2:4:7 Core:grass 6
 -1:0:-8 Core:bad 5000
 -1:1:-8 Core:gravel 8
 -1:2:-8 Core:stone 6

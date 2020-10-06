@@ -18,8 +18,11 @@ public class itemElement
 public class inv : MonoBehaviour
 {
 
+    public Transform contentBox;
+
     public invItem blankItem;
     public List<itemElement> items= new List<itemElement>();
+
 
 
     public invData myData;

@@ -8,7 +8,7 @@
 -9:7:-8 Core:grass 8
 -8:6:-9 Core:grass 8
 -8:7:-9 Block:block1 5
--8:5:-8 Block:block1 5
+-8:5:-8 Block:block1 4
 -8:6:-8 Block:block1 5
 -8:7:-8 Block:block1 5
 -8:6:-7 Core:grass 8
@@ -1141,4 +1141,3 @@
 7:1:7 Core:gravel 8
 7:2:7 Core:stone 6
 7:3:7 Core:gravel 8
--7:8:-8 Core:spawnZomb 5

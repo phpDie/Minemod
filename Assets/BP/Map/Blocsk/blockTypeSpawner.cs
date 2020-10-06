@@ -52,7 +52,7 @@ public class blockTypeSpawner : MonoBehaviour
 
             if (myMob == null)
             {
-                print("SPAWN MOB");
+              //  print("SPAWN MOB");
                 myMob = Instantiate(mobBlank);
                 myMob.transform.position = transform.position + Vector3.up * 2f;
             }

@@ -189,7 +189,7 @@ public class invData : MonoBehaviour
 
         foreach (itemElement it in items)
         {
-            it.e.transform.SetParent(myViewInvUi.transform);
+            it.e.transform.SetParent(myViewInvUi.contentBox);
         }
 
             myViewInvUi.ReRender(fullUpd);

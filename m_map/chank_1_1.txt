@@ -874,7 +874,7 @@
 4:1:-5 Core:gravel 8
 4:2:-5 Core:stone 6
 4:3:-5 Core:gravel 8
-4:4:-5 Core:grass 8
+4:4:-5 Core:grass 7
 4:0:-4 Core:bad 5000
 4:1:-4 Core:gravel 8
 4:2:-4 Core:gravel 8
@@ -1158,4 +1158,3 @@
 7:1:7 Core:stone 6
 7:2:7 Core:stone 6
 7:3:7 Core:grass 8
-4:5:-4 Core:spawnZomb 5
