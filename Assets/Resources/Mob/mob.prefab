@@ -1121,7 +1121,7 @@ GameObject:
   - component: {fileID: 4828168685296967218}
   m_Layer: 0
   m_Name: hand
-  m_TagString: meatPart
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1986,7 +1986,7 @@ GameObject:
   - component: {fileID: 8024225994577971183}
   m_Layer: 0
   m_Name: hand2
-  m_TagString: meatPart
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
