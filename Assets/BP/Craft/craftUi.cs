@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class receptCraftElement
 {
+    //public string name;
     public string ind;
     public int cout = 1;
 }
@@ -45,7 +46,7 @@ public class craftUi : MonoBehaviour
         if (issetAll)
         {
             checkReceptIssetIngridients(curentRecept,true);
-            print("CRAFT");
+            //print("CRAFT");
         }
 
 
@@ -59,6 +60,19 @@ public class craftUi : MonoBehaviour
 
         sidebar.SetActive(true);
         transform.Find("sidebar/h1").GetComponent<Text>().text = re.name;
+
+
+        string recText = "";
+        foreach (receptCraftElement it in re.ingredients)
+        {
+            string _name = Global.Links.getModLoader().itemBaseGetFromInd(it.ind).nameView;
+            recText += "\n " + _name+ " ("+it.cout+" x) ";
+
+        }
+
+        transform.Find("sidebar/rec").GetComponent<Text>().text = recText;
+
+
 
         bool issetAll = checkReceptIssetIngridients(re);
         btnBlocker.SetActive(!issetAll);

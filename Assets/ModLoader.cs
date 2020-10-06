@@ -195,12 +195,36 @@ public class ModLoader : MonoBehaviour
 
 
 
-            receptCraft _craft = new receptCraft();
-            _craft.name= newItem.nameView;
-            _craft.ind = ind;
-            _craft.icon = newItem.icon;
-            Global.Links.getCraftUi().items.Add(_craft);
-            
+            //Подгрузка рецептов крафат
+            int craftIsset = MyIni.ReadInt("craftCount", "craft", 0);
+            if (craftIsset > 0) {
+
+                receptCraft _craft = new receptCraft();
+                _craft.name = newItem.nameView;
+                _craft.ind = ind;
+                _craft.icon = newItem.icon;
+                _craft.cout = MyIni.ReadInt("craftGive", "craft", 0);  ///мы получем
+
+              for (int i = 0; i < craftIsset; i++)
+                {
+                    receptCraftElement _ingrCraft = new receptCraftElement();
+                    _ingrCraft.ind = MyIni.Read("craftIngr"+i.ToString(), "craft", "not");
+
+                    string[] _pars = _ingrCraft.ind.Split(' ');
+
+                    _ingrCraft.ind = _pars[0];
+                    _ingrCraft.cout = System.Convert.ToInt32(_pars[1]);
+
+
+                    if (_ingrCraft.ind != "not")
+                    {
+                        _craft.ingredients.Add(_ingrCraft);
+                    }
+                }
+
+                Global.Links.getCraftUi().items.Add(_craft);
+
+            }
 
 
             Global.Links.getPlayerInv().myData.itemAdd(ind);
@@ -315,8 +339,10 @@ public class ModLoader : MonoBehaviour
     void Start()
     {
 
-         
 
+
+        var watch = System.Diagnostics.Stopwatch.StartNew();
+ 
 
         pathMods = Application.dataPath + "/../Mods/";
         modInstall("eat");
@@ -326,13 +352,17 @@ public class ModLoader : MonoBehaviour
         modInstall("Core");
 
 
+
+        watch.Stop();
+        print($"Mod Loaded: {watch.ElapsedMilliseconds} ms");
+
+
         Global.Links.getMapController().mapInit();
 
         Global.Links.getCraftUi().RenderList();
 
         //  createMod("Mine");
-
-
+         
 
     }
 
