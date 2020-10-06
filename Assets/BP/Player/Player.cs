@@ -40,6 +40,8 @@ public class Player: MonoBehaviour
 
     void Update()
     {
+
+
         // We are grounded, so recalculate move direction based on axes
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
@@ -59,12 +61,17 @@ public class Player: MonoBehaviour
             moveDirection.y = movementDirectionY;
         }
 
+         
+      
+
         // Apply gravity. Gravity is multiplied by deltaTime twice (once here, and once below
         // when the moveDirection is multiplied by deltaTime). This is because gravity should be applied
         // as an acceleration (ms^-2)
         if (!characterController.isGrounded)
         {
             moveDirection.y -= gravity * Time.deltaTime;
+
+           // if (moveDirection.y < gravity * -1) moveDirection.y = gravity * -1;
         }
 
         // Move the controller
@@ -81,5 +88,14 @@ public class Player: MonoBehaviour
             centerCamHand.transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed*-0.3f, 0);
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
+
+        if (transform.position.y < -6f)
+        {
+            //print(transform.position.y);
+            moveDirection.y = 1f;
+            transform.position = new Vector3(transform.position.x, 37f, transform.position.z);
+
+        }
+
     }
 }

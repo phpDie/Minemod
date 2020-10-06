@@ -29,6 +29,21 @@ public class blockGenWorld
 }
 
 
+
+public class itemBlockSettings
+{
+    public float width = 1f;
+    public float height = 1f;
+    public int hpMax = 5; 
+
+    public int buildCount = 0;  //блок билдер
+    public string dropInd="not"; 
+
+    public blockMaterial material = blockMaterial.ground; 
+    public blockType type = blockType.none; 
+}
+
+
 public class itemSave
 {
 
@@ -98,11 +113,11 @@ public class ModLoader : MonoBehaviour
             newItem.nameView = MyIni.Read("name", "itemInfo");
             newItem.emptyIsset = MyIni.ReadBool("emptyIsset", "itemInfo");
 
-            
+
             newItem.stackSize = Convert.ToInt32(MyIni.Read("stackSize", "itemInfo"));
-            
-             
-            newItem.icon = defIcon; 
+
+
+            newItem.icon = defIcon;
 
             string pToIcon = pModDir + "texture/" + MyIni.Read("icon", "itemInfo");
             if (File.Exists(pToIcon))
@@ -112,7 +127,7 @@ public class ModLoader : MonoBehaviour
             }
             else
             {
-                print("["+ ind + "] No exist icon item path: " + pToIcon);
+                print("[" + ind + "] No exist icon item path: " + pToIcon);
             }
 
 
@@ -132,7 +147,7 @@ public class ModLoader : MonoBehaviour
 
 
 
-          newItem.type = (itemType)Enum.Parse(typeof(itemType), MyIni.Read("type", "itemInfo", "none"));
+            newItem.type = (itemType)Enum.Parse(typeof(itemType), MyIni.Read("type", "itemInfo", "none"));
 
 
 
@@ -156,8 +171,30 @@ public class ModLoader : MonoBehaviour
             }
 
 
-           
-          itemBase.Add(ind, newItem);
+
+            itemBase.Add(ind, newItem);
+
+
+
+            itemBlockSettings newblockBase = new itemBlockSettings();
+            newblockBase.width = MyIni.ReadInt("width", "block", 100) / 100f;
+            newblockBase.height = MyIni.ReadInt("height", "block", 100) / 100f;
+            newblockBase.hpMax =  MyIni.ReadInt("hp", "block", 5);
+            newblockBase.material= (blockMaterial)Enum.Parse(typeof(blockMaterial), MyIni.Read("material", "block", "ground"));
+            newblockBase.type = (blockType)Enum.Parse(typeof(blockType), MyIni.Read("blockType", "block", "none"));
+
+            newblockBase.buildCount = MyIni.ReadInt("buildCount", "build", 0);
+
+
+            newblockBase.dropInd = MyIni.Read("drop", "block", "self");
+            if (newblockBase.dropInd == "self") newblockBase.dropInd = ind;
+            if (newblockBase.dropInd == "not") newblockBase.dropInd = "";
+
+
+            blockBase.Add(ind, newblockBase);
+
+
+
 
             Global.Links.getPlayerInv().myData.itemAdd(ind);
 
@@ -256,6 +293,12 @@ public class ModLoader : MonoBehaviour
     }
 
      public Dictionary<string, itemSave> itemBase = new Dictionary<string, itemSave>();
+
+
+    //Это кэш предметов которые блоки. Что бы не читать ини файлы и тд.
+     public Dictionary<string, itemBlockSettings> blockBase = new Dictionary<string, itemBlockSettings>();
+
+
 
     // public Dictionary<string, itemSave> blockGenMap = new Dictionary<string, itemSave>();
 

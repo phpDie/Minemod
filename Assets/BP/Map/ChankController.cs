@@ -28,6 +28,8 @@ public class ChankController : MonoBehaviour
 
     }
 
+    float chankDist = 23f;
+
     float timer=0f;
     void slowUpdate()
     {
@@ -35,15 +37,15 @@ public class ChankController : MonoBehaviour
 
 
 
-        if (distToPlayer <= 31f)
+        if (distToPlayer <= chankDist)
         {
             loadAutoChank();
         }
         else
         {
-            if (distToPlayer > 49f)
+            if (distToPlayer > chankDist*1.2f)
             {
-                deloadChank((distToPlayer>80f));
+                deloadChank((distToPlayer> chankDist*6f));
             }
         }
 
@@ -63,6 +65,12 @@ public class ChankController : MonoBehaviour
     //Сохраняем чанк в файл
     public void chankSave()
     {
+        if (!isLoaded) return;
+        //if (!isActive) return false;
+    
+       // var watch = System.Diagnostics.Stopwatch.StartNew();
+        
+       
         string chData = getData();
     
 
@@ -76,6 +84,9 @@ public class ChankController : MonoBehaviour
 
         }
         File.WriteAllText(pathChankFile, chData);
+
+      //  watch.Stop();
+      //  print($"Save chank Time: {watch.ElapsedMilliseconds} ms");
     }
 
 
@@ -86,16 +97,20 @@ public class ChankController : MonoBehaviour
     {
         if (!isLoaded) return false;
 
+         
         
+
 
         //Полное удаление чанка
         if (isDelte)
         {
+            chankSave();
+
             isLoaded = false;
 
             //print("delete chank");
 
-            for (int i = 0; i < transform.childCount; i++)
+            for (int i = 1; i < transform.childCount; i++)
             {
                 Destroy(transform.GetChild(i).gameObject);
             }
@@ -107,7 +122,8 @@ public class ChankController : MonoBehaviour
         //Только отключ блоков, чтоб потом не подгружать
         if (!isDelte)
         {
-          //  print("deActive chank");
+
+            //  print("deActive chank");
             for (int i = 0; i < transform.childCount; i++)
             {
                 transform.GetChild(i).gameObject.SetActive(false);
@@ -166,8 +182,8 @@ public class ChankController : MonoBehaviour
         if (File.Exists(pathChankFile))
         {
 
-
-            //print("Load chank: "+ pathChankFile);
+           
+           // print("Load FILE chank: "+ pathChankFile);
 
             string saveDataChank = "";
 
@@ -175,9 +191,11 @@ public class ChankController : MonoBehaviour
             saveDataChank = writer.ReadToEnd();
             writer.Close();
 
+            //print("loadEnd");
+         
 
 
-           return loadData(saveDataChank);
+            return loadData(saveDataChank);
         }
         else
         {
@@ -193,6 +211,9 @@ public class ChankController : MonoBehaviour
     {
 
 
+        var watch = System.Diagnostics.Stopwatch.StartNew();
+       
+
         string[] lines = dataLoad.Split('\n');
 
 
@@ -204,7 +225,7 @@ public class ChankController : MonoBehaviour
         }
 
         //удаляем блоки внутри
-        for (int i = 0; i < transform.childCount; i++)
+        for (int i = 1; i < transform.childCount; i++)
         {
             Destroy(transform.GetChild(i).gameObject);
         }
@@ -221,21 +242,24 @@ public class ChankController : MonoBehaviour
             b.transform.name = lineOne[0];
             b.itemInd = lineOne[1];
 
-           
 
-            b.hp = float.Parse(lineOne[2]);
-            //if (b.hp < 0) b.hp = 1f;
+            b.mod = mod;
 
-            b.setToItemInd();
+            b.hp = float.Parse(lineOne[2]); 
+
+
+           b.setToItemInd();
 
 
             string[] posBlock = lineOne[0].Split(':');
-            
 
-            b.transform.localPosition = getCubePosFix(new Vector3(System.Convert.ToInt32(posBlock[0]), System.Convert.ToInt32(posBlock[1]), System.Convert.ToInt32(posBlock[2])));
-            //lineOne[0]
 
-            b.transform.name = Global.Links.vectorToString(b.transform.localPosition);
+            //getCubePosFix здесь не нужен, потому что он должен быть только при создание мира
+            //  b.transform.localPosition = getCubePosFix(new Vector3(System.Convert.ToInt32(posBlock[0]), System.Convert.ToInt32(posBlock[1]), System.Convert.ToInt32(posBlock[2])));
+            b.transform.localPosition = (new Vector3(System.Convert.ToInt32(posBlock[0]), System.Convert.ToInt32(posBlock[1]), System.Convert.ToInt32(posBlock[2])));
+           
+
+            //b.transform.name = Global.Links.vectorToString(b.transform.localPosition);
 
             if (b.myType == blockType.cargo)
             {
@@ -243,6 +267,10 @@ public class ChankController : MonoBehaviour
                 loadDataInvInBlock(b);
             }
         }
+
+
+        watch.Stop();
+        print($"Parse chank file Time: {watch.ElapsedMilliseconds} ms");
 
 
         return true;
@@ -277,20 +305,23 @@ public class ChankController : MonoBehaviour
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            BlockController b = transform.GetChild(i).GetComponent<BlockController>();
-            if (b.myType == blockType.cargo)
+            if (transform.GetChild(i).GetComponent<BlockController>() != null)
             {
-
-                string path = mapCon.mapPathDir + "" + b.transform.name.Replace(":", "_") + "_inv.txt";
-                if (!File.Exists(path))
+                BlockController b = transform.GetChild(i).GetComponent<BlockController>();
+                if (b.myType == blockType.cargo)
                 {
-                    File.Create(path).Close();
+
+                    string path = mapCon.mapPathDir + "" + b.transform.name.Replace(":", "_") + "_inv.txt";
+                    if (!File.Exists(path))
+                    {
+                        File.Create(path).Close();
+                    }
+
+                    File.WriteAllText(path, b.GetComponent<invData>().dataGet());
+
                 }
 
-                File.WriteAllText(path, b.GetComponent<invData>().dataGet());
-
             }
-
         }
     }
 
@@ -298,19 +329,21 @@ public class ChankController : MonoBehaviour
     {
         string Out ="";
 
-        for (int i = 0; i <transform.childCount; i++)
+        for (int i = 1; i <transform.childCount; i++)
         {
             string line = "\n";
             line += transform.GetChild(i).transform.name;
 
-           BlockController b = transform.GetChild(i).GetComponent<BlockController>();
+           
+                BlockController b = transform.GetChild(i).GetComponent<BlockController>();
 
-            string itemInd = b.itemInd;
-            if (itemInd == "" || itemInd == " ") itemInd = "not";
+                string itemInd = b.itemInd;
+                if (itemInd == "" || itemInd == " ") itemInd = "not";
 
-            line += " "+ itemInd;
-            line += " "+ Mathf.RoundToInt(b.hp).ToString();
-            Out += line;
+                line += " " + itemInd;
+                line += " " + Mathf.RoundToInt(b.hp).ToString();
+                Out += line;
+            
            // print(line);
         }
 
@@ -369,7 +402,9 @@ public class ChankController : MonoBehaviour
 
                     if (iy <= mapCon.blockCountHeight + hCorrent)
                     {
-                        BlockController b = Instantiate(mapCon.blockBlank, transform); 
+                        BlockController b = Instantiate(mapCon.blockBlank, transform);
+
+                        b.mod = mod;
 
                         // if (iy + hCorrent > 0) yPos = iy + hCorrent;
 
@@ -391,6 +426,8 @@ public class ChankController : MonoBehaviour
                 }
             }
         }
+
+       // chankSave();
     }
 
     public string genBlockFromYPos(int yPos=0, bool top = false)
@@ -444,8 +481,8 @@ public class ChankController : MonoBehaviour
 
     public Vector3 getCubePosFix( Vector3 posIn)
     {
-        posIn.x -=Mathf.Round( mapCon.blockCountWidth / 2);
-        posIn.z -=Mathf.Round( mapCon.blockCountWidth / 2);
+        posIn.x -=Mathf.Round( mapCon.blockCountWidth / 2f);
+        posIn.z -=Mathf.Round( mapCon.blockCountWidth / 2f);
 
         return posIn;
     }

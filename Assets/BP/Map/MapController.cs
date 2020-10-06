@@ -38,10 +38,11 @@ public class MapController : MonoBehaviour
     {
         if (isInit) return;
 
-        for (int ix = 0; ix < chankCountStart; ix++)
+        for (int ix = -chankCountStart; ix <= chankCountStart; ix++)
         {
-            for (int iz = 0; iz < chankCountStart; iz++)
+            for (int iz = -chankCountStart; iz <= chankCountStart; iz++)
             {
+
                 ChankController b = Instantiate(chankBlank, transform);
                 b.transform.name = "chank:" + ix.ToString() + ":" + iz.ToString();
                 b.transform.localPosition = new Vector3(ix * blockCountWidth, 0, iz * blockCountWidth);
@@ -62,13 +63,16 @@ public class MapController : MonoBehaviour
 
     public void mapSave()
     {
-        print("MAP SAVE");
+        
 
+        var watch = System.Diagnostics.Stopwatch.StartNew();
         for (int i = 0; i < transform.childCount; i++)
         {
             transform.GetChild(i).GetComponent<ChankController>().chankSave();
 
         }
+        watch.Stop();
+        print($"FULL MAP SAVE Time: {watch.ElapsedMilliseconds} ms");
 
     }
 

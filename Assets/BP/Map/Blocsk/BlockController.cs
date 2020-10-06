@@ -24,6 +24,7 @@ public enum blockType
     none = 0,
     cargo = 1,
     door = 2,
+    mobSpawn = 3,
 }
 
 public class BlockController : MonoBehaviour
@@ -35,8 +36,6 @@ public class BlockController : MonoBehaviour
 
     public float hpMax = 9f;
     public float hp = 8f;
-    public float myWidth = 1f;
-    public float myHeight = 1f;
 
 
 
@@ -118,8 +117,12 @@ public class BlockController : MonoBehaviour
 
 
 
-    void createBuild(IniFile MyIni)
-    { 
+    void createBuild(string iniFilePath)
+    {
+        IniFile MyIni = new IniFile(iniFilePath);
+
+
+
         int buildCount = MyIni.ReadInt("buildCount", "build", 0);
 
         for(int i=0; i< buildCount; i++)
@@ -206,26 +209,51 @@ public class BlockController : MonoBehaviour
     }
 
 
+    public ModLoader mod;
+
+    public itemBlockSettings myBlockSetting;
+
     public void setToItemInd()
     {
-        if (itemInd == string.Empty) return;
-        if (itemInd == "def:not") return;
 
-        myData = Global.Links.getModLoader().itemBaseGetFromInd(itemInd);
+        if (itemInd == string.Empty) itemInd = "Core:dirt";
+        if (itemInd == "def:not") itemInd = "Core:dirt";
+        if (itemInd == "not") itemInd = "Core:dirt";
+
+
+        if (mod == null)
+        {
+            mod = Global.Links.getModLoader();
+        }
+
+
+
+        if (!mod.blockBase.ContainsKey(itemInd))
+        {
+            itemInd = "Core:dirt";
+        }
+
+        myBlockSetting = mod.blockBase[itemInd];
+        myData = mod.itemBaseGetFromInd(itemInd);
 
         if (myData == null)
         {
             return;
         }
 
+        /*
+        var watch = System.Diagnostics.Stopwatch.StartNew();
+        watch.Stop();
+        print($"Execution Time: {watch.ElapsedMilliseconds} ms");
+        */
 
-        IniFile MyIni = new IniFile(myData.iniFilePath);
-
-        myWidth = MyIni.ReadInt("width", "block", 100) / 100f;
-        myHeight = MyIni.ReadInt("height", "block", 100) / 100f;
+        // IniFile MyIni = new IniFile(myData.iniFilePath);
 
 
-        hpMax = MyIni.ReadInt("hp", "block", 5);
+
+
+
+        hpMax = myBlockSetting.hpMax;
 
         if (hp <= 0)
         {
@@ -243,41 +271,44 @@ public class BlockController : MonoBehaviour
 
 
 
-        myMaterial = (blockMaterial)Enum.Parse(typeof(blockMaterial), MyIni.Read("material", "block", "ground"));
+        myMaterial = myBlockSetting.material;
+        myType = myBlockSetting.type;
 
+  
 
-        myType = (blockType)Enum.Parse(typeof(blockType), MyIni.Read("blockType", "block", "none"));
+        dropInd = myBlockSetting.dropInd;
 
+    
 
-
-        if (MyIni.ReadBool("hp", "block", true) == true)
+        if (myBlockSetting.width != 1f)
         {
-
-            dropInd = MyIni.Read("drop", "block", itemInd);
-            if (dropInd == "self") dropInd = itemInd;
-            if (dropInd == "not") dropInd = "";
-
+            transform.localScale = new Vector3(myBlockSetting.width, myBlockSetting.height, myBlockSetting.width);
         }
 
-
-
-        transform.localScale = new Vector3(myWidth, myHeight, myWidth);
 
         GetComponent<MeshRenderer>().material.mainTexture = myData.icon;
         //GetComponent<Material>().mod
 
-
+ 
         //Генерация строений
-        int buildCount = MyIni.ReadInt("buildCount", "build", 0);
+        int buildCount = myBlockSetting.buildCount;// MyIni.ReadInt("buildCount", "build", 0);
         if (buildCount > 0)
         {
-            createBuild(MyIni);
+            createBuild(myData.iniFilePath);
         }
 
 
         if (myType == blockType.cargo)
         {
             createCargo();
+        }
+
+
+
+        if (myType == blockType.mobSpawn)
+        {
+            gameObject.AddComponent<blockTypeSpawner>().init();
+             
         }
 
 
