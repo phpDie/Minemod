@@ -52,5 +52,11 @@ namespace Global
             return GameObject.Find("Map").GetComponent<MapController>();
 
         }
+
+        public static craftUi getCraftUi()
+        {
+            return GameObject.Find("SUI/winCraft").GetComponent<craftUi>();
+
+        }
     }
 }

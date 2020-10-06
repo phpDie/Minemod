@@ -195,6 +195,13 @@ public class ModLoader : MonoBehaviour
 
 
 
+            receptCraft _craft = new receptCraft();
+            _craft.name= newItem.nameView;
+            _craft.ind = ind;
+            _craft.icon = newItem.icon;
+            Global.Links.getCraftUi().items.Add(_craft);
+            
+
 
             Global.Links.getPlayerInv().myData.itemAdd(ind);
 
@@ -321,8 +328,10 @@ public class ModLoader : MonoBehaviour
 
         Global.Links.getMapController().mapInit();
 
-      //  createMod("Mine");
-       
+        Global.Links.getCraftUi().RenderList();
+
+        //  createMod("Mine");
+
 
 
     }
