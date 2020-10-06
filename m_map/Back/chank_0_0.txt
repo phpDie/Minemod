@@ -1036,7 +1036,6 @@
 4:1:7 Core:dirt 5
 4:2:7 Core:dirt 5
 4:3:7 Core:dirt 5
-4:4:7 Core:dirt 5
 5:0:-8 Core:dirt 5
 5:1:-8 Core:dirt 5
 5:2:-8 Core:dirt 5
@@ -1111,12 +1110,9 @@
 5:1:6 Core:dirt 5
 5:2:6 Core:dirt 5
 5:3:6 Core:dirt 5
-5:4:6 Core:dirt 5
 5:0:7 Core:dirt 5
 5:1:7 Core:dirt 5
 5:2:7 Core:dirt 5
-5:3:7 Core:dirt 5
-5:4:7 Core:dirt 4
 6:0:-8 Core:dirt 5
 6:1:-8 Core:dirt 5
 6:2:-8 Core:dirt 5
@@ -1191,12 +1187,9 @@
 6:1:6 Core:dirt 5
 6:2:6 Core:dirt 5
 6:3:6 Core:dirt 5
-6:4:6 Core:dirt 5
 6:0:7 Core:dirt 5
 6:1:7 Core:dirt 5
 6:2:7 Core:dirt 5
-6:3:7 Core:dirt 5
-6:4:7 Core:dirt 5
 7:0:-8 Core:dirt 5
 7:1:-8 Core:dirt 5
 7:2:-8 Core:dirt 5
@@ -1421,7 +1414,6 @@
 0:9:-2 Block:block1 5
 0:9:-1 Block:block1 5
 0:9:-3 Block:block1 5
-0:9:-4 Core:dirt 5
 0:9:-5 Core:dirt 5
 -1:9:-5 Core:dirt 5
 -4:9:-5 Core:dirt 5
@@ -1440,7 +1432,7 @@
 0:9:0 Block:pblock_crafting_table_top 6
 0:9:1 Block:pblock_crafting_table_top 6
 -1:10:-5 Block:pblock_crafting_table_top 6
--1:10:-4 Block:pblock_crafting_table_top 5
+-1:10:-4 Block:pblock_crafting_table_top 6
 -1:10:-2 Block:pblock_crafting_table_top 6
 -1:10:1 Block:pblock_crafting_table_top 6
 -1:10:0 Block:pblock_crafting_table_top 6
@@ -1475,7 +1467,7 @@
 -3:11:1 Block:pblock_stonebrick_mossy 4
 -4:11:1 Block:pblock_stonebrick_mossy 4
 -2:11:1 Block:pblock_stonebrick_mossy 4
--1:11:1 Block:pblock_stonebrick_mossy 4
+-1:11:1 Block:pblock_stonebrick_mossy 2
 -1:12:1 Block:pblock_stonebrick_mossy 4
 -2:12:1 Block:pblock_stonebrick_mossy 4
 -3:12:1 Block:pblock_stonebrick_mossy 4
@@ -1507,7 +1499,6 @@
 -6:8:-1 Block:pblock_glass_lime 3
 -6:8:-2 Block:pblock_glass_lime 3
 -4:10:-4 Block:pblock_cobblestone_mossy 5
--1:10:-3 Block:pblock_cobblestone_mossy 5
 -5:9:-4 Block:pblock_cobblestone_mossy 5
 -4:9:-4 Block:pblock_cobblestone_mossy 5
 -3:9:-4 Block:pblock_cobblestone_mossy 5
@@ -1522,5 +1513,5 @@
 -2:9:0 Block:pblock_cobblestone_mossy 5
 -1:9:0 Block:pblock_cobblestone_mossy 5
 -1:9:-1 Block:pblock_cobblestone_mossy 5
--1:9:-3 Block:pblock_cobblestone_mossy 5
+-1:9:-3 Block:pblock_cobblestone_mossy 3
 -1:9:-2 Block:pblock_cobblestone_mossy 5

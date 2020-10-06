@@ -294,7 +294,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4828168686521885006, guid: b003be795d81d5440881613e156b8277, type: 3}
       propertyPath: timerAttackMax
-      value: 0.4
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 4828168686521885006, guid: b003be795d81d5440881613e156b8277, type: 3}
       propertyPath: lerpSpeed

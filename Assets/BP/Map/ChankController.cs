@@ -279,8 +279,8 @@ public class ChankController : MonoBehaviour
 
     public void loadDataInvInBlock(BlockController b)
     {
-
-        string path = mapCon.mapPathDir + "" + b.transform.name.Replace(":", "_") + "_inv.txt";
+        string path = mapCon.mapPathDir + "cargoChank" + transform.name.Replace(":", "_") + "_cube" + b.transform.name.Replace(":", "_") + "_inv.txt";
+        //string path = mapCon.mapPathDir + "" + b.transform.name.Replace(":", "_") + "_inv.txt";
 
         if (File.Exists(path))
         {
@@ -311,7 +311,7 @@ public class ChankController : MonoBehaviour
                 if (b.myType == blockType.cargo)
                 {
 
-                    string path = mapCon.mapPathDir + "" + b.transform.name.Replace(":", "_") + "_inv.txt";
+                    string path = mapCon.mapPathDir + "cargoChank"+transform.name.Replace(":", "_") + "_cube" + b.transform.name.Replace(":", "_") + "_inv.txt";
                     if (!File.Exists(path))
                     {
                         File.Create(path).Close();

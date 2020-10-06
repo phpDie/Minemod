@@ -61,11 +61,63 @@ public class MapController : MonoBehaviour
 
 
 
+    public void gameLoad()
+    {
+        string path = mapPathDir + "invMain.txt";
+        if (File.Exists(path))
+        {
+            string saveDataChank;
+            StreamReader writer = new StreamReader(path, true);
+            saveDataChank = writer.ReadToEnd();
+            writer.Close();
+
+            Global.Links.getIndDataPlayerCargo().dataSet(saveDataChank);
+        }
+
+
+         path = mapPathDir + "invAction.txt";
+        if (File.Exists(path))
+        {
+            string saveDataChank;
+            StreamReader writer = new StreamReader(path, true);
+            saveDataChank = writer.ReadToEnd();
+            writer.Close();
+
+            Global.Links.getIndDataPlayerAction().dataSet(saveDataChank);
+        }
+
+
+    }
+
+    public void gameSave()
+    {
+
+        string path = mapPathDir + "invMain.txt";
+        if (!File.Exists(path))
+        {
+            File.Create(path).Close();
+        }
+        File.WriteAllText(path, Global.Links.getIndDataPlayerCargo().dataGet());
+
+
+        path = mapPathDir + "invAction.txt";
+        if (!File.Exists(path))
+        {
+            File.Create(path).Close();
+        }
+        File.WriteAllText(path, Global.Links.getIndDataPlayerAction().dataGet());
+
+    }
+
+
     public void mapSave()
     {
-        
 
-        var watch = System.Diagnostics.Stopwatch.StartNew();
+        gameSave();
+
+
+
+               var watch = System.Diagnostics.Stopwatch.StartNew();
         for (int i = 0; i < transform.childCount; i++)
         {
             transform.GetChild(i).GetComponent<ChankController>().chankSave();

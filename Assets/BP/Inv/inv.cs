@@ -118,8 +118,11 @@ public class inv : MonoBehaviour
                 it.active = false;
             }
 
+            it.e.GetComponent<RectTransform>().rotation = new Quaternion(0,0,0,0);
             it.e.transform.GetChild(1).GetComponent<Text>().text = it.count.ToString() + " / " + it.infoItemSave.stackSize.ToString();
             it.e.transform.GetChild(3).gameObject.SetActive(it.active);
+
+
 
             i++;
         }

@@ -64,7 +64,7 @@ public class itemSave
 
 public class ModLoader : MonoBehaviour
 {
-     
+
 
 
     private string pathMods;
@@ -72,15 +72,15 @@ public class ModLoader : MonoBehaviour
     public Texture2D defIcon;
 
 
-    public  itemSave itemBaseGetFromInd(string ind)
+    public itemSave itemBaseGetFromInd(string ind)
     {
-        
+
         if (!itemBase.ContainsKey(ind))
         {
             return null;
         }
 
-        itemSave res = itemBase[ind] as itemSave; 
+        itemSave res = itemBase[ind] as itemSave;
         return res;
     }
 
@@ -175,14 +175,14 @@ public class ModLoader : MonoBehaviour
             itemBase.Add(ind, newItem);
 
 
-            Global.Links.getPlayerMainInvUi().myData.itemAdd(ind);
+            Global.Links.getIndDataAdminCargo().itemAdd(ind);
 
 
             itemBlockSettings newblockBase = new itemBlockSettings();
             newblockBase.width = MyIni.ReadInt("width", "block", 100) / 100f;
             newblockBase.height = MyIni.ReadInt("height", "block", 100) / 100f;
-            newblockBase.hpMax =  MyIni.ReadInt("hp", "block", 5);
-            newblockBase.material= (blockMaterial)Enum.Parse(typeof(blockMaterial), MyIni.Read("material", "block", "ground"));
+            newblockBase.hpMax = MyIni.ReadInt("hp", "block", 5);
+            newblockBase.material = (blockMaterial)Enum.Parse(typeof(blockMaterial), MyIni.Read("material", "block", "ground"));
             newblockBase.type = (blockType)Enum.Parse(typeof(blockType), MyIni.Read("blockType", "block", "none"));
 
             newblockBase.buildCount = MyIni.ReadInt("buildCount", "build", 0);
@@ -190,7 +190,9 @@ public class ModLoader : MonoBehaviour
 
             newblockBase.dropInd = MyIni.Read("drop", "block", "self");
             if (newblockBase.dropInd == "self") newblockBase.dropInd = ind;
-            if (newblockBase.dropInd == "not") newblockBase.dropInd = "";
+            if (newblockBase.dropInd == "not") newblockBase.dropInd = "not";
+         
+
 
 
             blockBase.Add(ind, newblockBase);
@@ -199,7 +201,8 @@ public class ModLoader : MonoBehaviour
 
             //Подгрузка рецептов крафат
             int craftIsset = MyIni.ReadInt("craftCount", "craft", 0);
-            if (craftIsset > 0) {
+            if (craftIsset > 0)
+            {
 
                 receptCraft _craft = new receptCraft();
                 _craft.name = newItem.nameView;
@@ -207,10 +210,10 @@ public class ModLoader : MonoBehaviour
                 _craft.icon = newItem.icon;
                 _craft.cout = MyIni.ReadInt("craftGive", "craft", 0);  ///мы получем
 
-              for (int i = 0; i < craftIsset; i++)
+                for (int i = 0; i < craftIsset; i++)
                 {
                     receptCraftElement _ingrCraft = new receptCraftElement();
-                    _ingrCraft.ind = MyIni.Read("craftIngr"+i.ToString(), "craft", "not");
+                    _ingrCraft.ind = MyIni.Read("craftIngr" + i.ToString(), "craft", "not");
 
                     string[] _pars = _ingrCraft.ind.Split(' ');
 
@@ -227,7 +230,7 @@ public class ModLoader : MonoBehaviour
                 Global.Links.getCraftUi().items.Add(_craft);
 
             }
-             
+
 
         }
 
@@ -236,10 +239,10 @@ public class ModLoader : MonoBehaviour
 
     void createMod(string modName)
     {
-   
+
 
         //string p = ("Assets/Resources/Mods/" + modName+"/");
-        string p = (pathMods + modName+"/");
+        string p = (pathMods + modName + "/");
         if (Directory.Exists(p))
         {
             //return;
@@ -247,9 +250,9 @@ public class ModLoader : MonoBehaviour
 
 
         Directory.CreateDirectory(p);
-        Directory.CreateDirectory(p+"blocks");
-        Directory.CreateDirectory(p+"items");
-        Directory.CreateDirectory(p+"texture");
+        Directory.CreateDirectory(p + "blocks");
+        Directory.CreateDirectory(p + "items");
+        Directory.CreateDirectory(p + "texture");
 
         var MyIni = new IniFile(p + "/items/testItem.ini");
         MyIni.Write("price", "12", "itemInfo");
@@ -270,7 +273,7 @@ public class ModLoader : MonoBehaviour
 
         MyIni.Write("hp", "35", "block");
         MyIni.Write("damageType", "axe", "block");
-        MyIni.Write("texture", "wood.png", "block"); 
+        MyIni.Write("texture", "wood.png", "block");
 
 
     }
@@ -304,7 +307,7 @@ public class ModLoader : MonoBehaviour
     }
 
 
-  
+
 
 
     public Texture2D getItemSprite()
@@ -323,11 +326,11 @@ public class ModLoader : MonoBehaviour
         block.GetComponent<MeshRenderer>().material.mainTexture = tNew;
     }
 
-     public Dictionary<string, itemSave> itemBase = new Dictionary<string, itemSave>();
+    public Dictionary<string, itemSave> itemBase = new Dictionary<string, itemSave>();
 
 
     //Это кэш предметов которые блоки. Что бы не читать ини файлы и тд.
-     public Dictionary<string, itemBlockSettings> blockBase = new Dictionary<string, itemBlockSettings>();
+    public Dictionary<string, itemBlockSettings> blockBase = new Dictionary<string, itemBlockSettings>();
 
 
 
@@ -342,7 +345,7 @@ public class ModLoader : MonoBehaviour
 
 
         var watch = System.Diagnostics.Stopwatch.StartNew();
- 
+
 
         pathMods = Application.dataPath + "/../Mods/";
         modInstall("eat");
@@ -357,19 +360,47 @@ public class ModLoader : MonoBehaviour
         print($"Mod Loaded: {watch.ElapsedMilliseconds} ms");
 
 
+
         Global.Links.getMapController().mapInit();
         Global.Links.getPlayerInvUi().selectNewActiveInde(5);
 
         Global.Links.getCraftUi().RenderList();
 
-        //  createMod("Mine");
+
          
+
+
 
     }
 
+    void FirstTick()
+    {
+        //print("LOAD GAME");
+        Global.Links.getMapController().gameLoad();
+    }
+
+
+
+
+
+    float timerFirstTick = 0.4f;
     // Update is called once per frame
     void Update()
     {
-        
+        if (timerFirstTick != -1f)
+        {
+            if (timerFirstTick > 0f)
+            {
+                timerFirstTick -= Time.deltaTime;
+            }
+            else
+            {
+                FirstTick();
+                timerFirstTick = -1f;
+            }
+        }
+
     }
+
+   
 }

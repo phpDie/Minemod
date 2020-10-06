@@ -56,7 +56,7 @@ public class BlockController : MonoBehaviour
 
     //Вернуть дроп
     public string getDrop()
-    {
+    { 
         return dropInd;
     }
 
@@ -103,7 +103,7 @@ public class BlockController : MonoBehaviour
             if (author != null)
             {
                 string _drop = getDrop();
-                if (_drop != "")
+                if (_drop != "" && _drop != "not")
                 {
                     author.GetComponent<PlayerAction>().myInv.myData.itemAdd(_drop, 1);
                 }

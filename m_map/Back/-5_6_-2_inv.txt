@@ -2,7 +2,7 @@ eat:bread 3
 eat:med1 3
 eat:shava 3
 Weapon:ammo762 144
-Weapon:ammo9 144
+Weapon:ammo9 64
 Weapon:apistol 9
 Weapon:arrow 64
 Weapon:axe 81

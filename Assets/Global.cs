@@ -30,7 +30,8 @@ namespace Global
 
         public static inv getPlayerInvUi()
         {
-            return GameObject.Find("SUI/inv").GetComponent<inv>();
+            return getSui().winInvAction;
+            //return GameObject.Find("SUI/inv").GetComponent<inv>();
 
         }
 
@@ -77,6 +78,11 @@ namespace Global
         public static invData getIndDataPlayerCargo()
         {
             return GameObject.Find("Player/invCargo").GetComponent<invData>();
+        }
+
+        public static invData getIndDataAdminCargo()
+        {
+            return GameObject.Find("Player/invAdmin").GetComponent<invData>();
         }
 
     }

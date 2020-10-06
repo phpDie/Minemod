@@ -1216,8 +1216,8 @@ MonoBehaviour:
   lerpSpeed: 0.09
   lerpSpeedHand: 1
   jumpRandomFrom: 1200
-  timerAttackMax: 0.9
-  attackDamage: 15
+  timerAttackMax: 1.2
+  attackDamage: 8
   fireRayDist: 2
   handCenter: {fileID: 6114726413255254543}
   walkingSpeed: 2

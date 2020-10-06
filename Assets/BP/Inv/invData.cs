@@ -225,7 +225,7 @@ public class invData : MonoBehaviour
         nItem.myData = this;
         nItem.transform.GetChild(2).GetComponent<Text>().text = itemData.nameView.ToString();
 
-
+        nItem.GetComponent<RectTransform>().rotation = new Quaternion(0, 0, 0, 0);
 
         nItem.transform.GetChild(3).gameObject.SetActive(false);
 
@@ -297,12 +297,15 @@ public class invData : MonoBehaviour
 
     public bool dataSet( string inputTextData)
     {
-        
-        if (myViewInvUi != null)
-        {
 
-            myViewInvUi.closeCargo();
-            print("CLOSE CARGO");
+        if (!isActionBar)
+        {
+            if (myViewInvUi != null)
+            {
+
+                myViewInvUi.closeCargo();
+                print("CLOSE CARGO");
+            }
         }
 
 

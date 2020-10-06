@@ -72,6 +72,8 @@ public class PlayerAction : MonoBehaviour
 
         setCurLock(true);
 
+        setHandItem(null);
+
         suiRender();
     }
 
@@ -109,7 +111,15 @@ public class PlayerAction : MonoBehaviour
     {
         hand.GetComponent<Animator>().SetBool("attack", false);
 
-        if (myInv.activeElement.infoItemSave.type == itemType.handTool)
+
+        if (myItemType == itemType.block)
+        {
+            ActionItem_CrackBlock();
+
+        }
+
+
+        if (myItemType == itemType.handTool)
         {
 
             if (giveUse > 0)
@@ -123,11 +133,15 @@ public class PlayerAction : MonoBehaviour
                     myInv.giveActive(giveUse);
                 }
             }
+            else
+            {
+                ActionItem_CrackBlock();
+            }
           
         }
 
 
-        if (myInv.activeElement.infoItemSave.type == itemType.eat)
+        if (myItemType == itemType.eat)
         {
 
             if (myInv.giveActive(1))
@@ -143,7 +157,7 @@ public class PlayerAction : MonoBehaviour
         }
 
 
-        if (myInv.activeElement.infoItemSave.type == itemType.gun)
+        if (myItemType == itemType.gun)
         {
             ActionItem_Fire(); 
         }
@@ -159,6 +173,21 @@ public class PlayerAction : MonoBehaviour
     {
         hand.gameObject.SetActive(true);
         handWeapon.gameObject.SetActive(false);
+
+
+        if (it == null)
+        {
+            myItemType = itemType.handTool;
+            giveUse = 0;
+            toolDamage =1;
+            toolDist =2;
+            timeAttackMax =0.3f;
+
+            handSprite.SetActive(false);
+            handCube.SetActive(false);
+            return;
+        }
+
 
         setSpriteHand(it.infoItemSave.iconInHand, it.infoItemSave.type == itemType.block);
 
@@ -281,6 +310,12 @@ public class PlayerAction : MonoBehaviour
                 if (timeAttack<=0f)
                 {
 
+                    if (myItemType == itemType.block)
+                    {
+                        hand.GetComponent<Animator>().SetBool("attack", true);
+                        timeAttack = timeAttackMax;
+                    }
+
                     if (myItemType == itemType.handTool || myItemType == itemType.eat)
                     {
                         
@@ -352,6 +387,22 @@ public class PlayerAction : MonoBehaviour
         {
             myInv.myData.itemAdd("Core:dirt", 1);
         }
+
+        //Админский инвентарь
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            Global.Links.getSui().winCloseAll();
+
+
+            Global.Links.getSui().winOpen("invMain");
+            Global.Links.getSui().winOpen("winInvOther");
+            Global.Links.getOtherInvUi().openCargo(Global.Links.getIndDataAdminCargo());
+
+
+            setCurLock(false);
+
+        }
+
         if (Input.GetKeyDown(KeyCode.I))
         {
 
@@ -480,7 +531,7 @@ public class PlayerAction : MonoBehaviour
         {
             //print("Fire block");
             //Destroy(go); 
-            go.GetComponent<BlockController>().Damage(toolDamage/4f, blockMaterial.all, gameObject);
+            go.GetComponent<BlockController>().Damage(toolDamage/4f, blockMaterial.all, null);
         }
 
         if (go.transform.tag == "meatPart")
