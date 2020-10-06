@@ -214,7 +214,13 @@ public class invData : MonoBehaviour
             init();
         }
 
-        invItem nItem = Instantiate(blankItem, transform);
+        Transform _parentNew = transform;
+        if (myViewInvUi != null)
+        {
+            _parentNew = myViewInvUi.contentBox;
+        }
+
+        invItem nItem = Instantiate(blankItem, _parentNew);
 
         nItem.myData = this;
         nItem.transform.GetChild(2).GetComponent<Text>().text = itemData.nameView.ToString();

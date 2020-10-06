@@ -343,10 +343,15 @@ public class PlayerAction : MonoBehaviour
 
             Global.Links.getSui().winCloseAll();
             Global.Links.getSui().winOpen("winCraft");
+            
 
         }
 
 
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            myInv.myData.itemAdd("Core:dirt", 1);
+        }
         if (Input.GetKeyDown(KeyCode.I))
         {
 
