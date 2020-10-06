@@ -1314,7 +1314,7 @@
 0:5:1 Block:pblock_brick 7
 -1:5:1 Block:pblock_brick 8
 -2:5:1 Block:pblock_brick 8
--3:5:1 Block:pblock_brick 8
+-3:5:1 Block:pblock_brick 7
 -4:5:1 Block:pblock_brick 8
 -5:5:1 Block:pblock_brick 8
 -6:5:1 Block:pblock_brick 8
@@ -1344,9 +1344,9 @@
 -6:7:0 Block:pblock_brick 8
 -6:7:1 Block:pblock_brick 8
 -5:6:1 Block:pblock_brick 8
--4:6:1 Block:pblock_brick 8
+-4:6:1 Block:pblock_brick 7
 -3:6:1 Block:pblock_brick 8
--1:6:1 Block:pblock_brick 8
+-1:6:1 Block:pblock_brick 6
 0:6:0 Block:pblock_brick 6
 0:6:-1 Block:pblock_brick 5
 0:6:-4 Block:pblock_brick 6

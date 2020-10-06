@@ -80,14 +80,20 @@ public class Player: MonoBehaviour
         // Player and Camera rotation
         if (canMove)
         {
+             
 
             rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
             rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
             playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
 
-            centerCamHand.transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed*-0.3f, 0);
+           centerCamHand.transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed*-0.3f, 0);
+
+            centerCamHand.transform.position += new Vector3( Input.GetAxis("Mouse X") * lookSpeed,0f, 0f) * -0.006f;
+            centerCamHand.transform.position += new Vector3(0f, Input.GetAxis("Mouse Y") * lookSpeed, 0f) * -0.004f;
+
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
+         
 
         if (transform.position.y < -6f)
         {

@@ -96,7 +96,12 @@ public class PlayerAction : MonoBehaviour
     public void updCenterCam()
     {
 
-        centerCamHand.transform.rotation = Quaternion.Lerp(centerCamHand.transform.rotation, mCam.transform.rotation, Time.deltaTime * 4.6f);
+        float trSpeed = 12.6f;
+        if (Vector3.Distance(centerCamHand.transform.localPosition, new Vector3(0f, 0.647f, -0.127f) )< 0.07f){
+            trSpeed = 3.7f;
+        }
+        centerCamHand.transform.localPosition = Vector3.Lerp(centerCamHand.transform.localPosition, new Vector3(0f, 0.647f, -0.127f), Time.deltaTime * trSpeed);
+        centerCamHand.transform.rotation = Quaternion.Lerp(centerCamHand.transform.rotation, mCam.transform.rotation, Time.deltaTime *18.6f);
     }
 
 
@@ -414,16 +419,22 @@ public class PlayerAction : MonoBehaviour
 
 
         mCam.fieldOfView += 1.3f;
-        GetComponent<Player>().rotationX -= 0.35f;
-        centerCamHand.transform.rotation *= Quaternion.Euler(-3.1f, 0f, 0);
 
+        GetComponent<Player>().rotationX -= 0.35f;
+        centerCamHand.transform.rotation *= Quaternion.Euler(-2.2f, 0f, 0);
+        //centerCamHand.transform.position += new Vector3(0f, 0.009f, 0f) ;
 
         if (go == null)
         {
             return;
         }
 
-       GameObject bulHole =  Instantiate(pref_bulletHole, go.transform);
+        if (go == gameObject)
+        {
+            return;
+        }
+
+            GameObject bulHole =  Instantiate(pref_bulletHole, go.transform);
         bulHole.transform.position = lastHitTestPoint;
         //bulHole.transform.rotation =  Quaternion.LookRotation(lastHitTestPoint, mCam.transform.position);
         bulHole.transform.LookAt(mCam.transform.position, -Vector3.up);// =  Quaternion.Euler(mCam.transform.forward);

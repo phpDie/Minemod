@@ -1353,13 +1353,13 @@
 3:8:-5 Block:pblock_crafting_table_top 6
 3:9:-5 Block:pblock_cobblestone_mossy 4
 4:5:-12 Block:pblock_anvil_base 6
-4:6:-12 Block:pblock_sandstone_smooth 4
+4:6:-12 Block:pblock_sandstone_smooth 3
 4:7:-12 Block:pblock_sandstone_smooth 4
 4:8:-12 Block:pblock_crafting_table_top 6
 4:9:-12 Block:pblock_cobblestone_mossy 4
 4:5:-11 Block:pblock_anvil_base 6
 4:6:-11 Block:pblock_sandstone_smooth 4
-4:7:-11 Block:pblock_mob_spawner 5
+4:7:-11 Block:pblock_mob_spawner 4
 4:8:-11 Block:pblock_mob_spawner 5
 4:9:-11 Block:pblock_cobblestone_mossy 4
 4:5:-10 Block:pblock_anvil_base 6
@@ -1382,7 +1382,7 @@
 4:9:-5 Block:pblock_cobblestone_mossy 4
 5:5:-10 Block:pblock_anvil_base 6
 5:6:-10 Block:pblock_sandstone_smooth 4
-5:7:-10 Block:pblock_sandstone_smooth 4
+5:7:-10 Block:pblock_sandstone_smooth 2
 5:8:-10 Block:pblock_crafting_table_top 6
 5:9:-10 Block:pblock_cobblestone_mossy 4
 5:5:-9 Block:pblock_stonebrick_mossy 4

@@ -8,14 +8,22 @@ public class blockTypeSpawner : MonoBehaviour
     public GameObject mobBlank;
 
 
+    string mobIndBase = "mob";
+
     GameObject player;
     GameObject myMob;
     public void init()
     {
-         
-      //  mobBlank = Resources.Load("Resources/Mob/mob") as GameObject;
 
-        mobBlank = Resources.Load<GameObject>("Mob/mob");
+        //  mobBlank = Resources.Load("Resources/Mob/mob") as GameObject;
+
+        if (Random.Range(1, 9) == 1)
+        {
+            mobIndBase = "mob People";
+        }
+        
+
+        mobBlank = Resources.Load<GameObject>("Mob/"+ mobIndBase);
 
         if (mobBlank == null)
         {

@@ -1165,3 +1165,8 @@
 7:2:7 Core:gravel 8
 7:3:7 Core:gravel 8
 7:4:7 Core:grass 8
+7:5:5 Core:spawnZomb 5
+7:5:-2 Core:spawnZomb 5
+7:5:-8 Core:spawnZomb 5
+0:5:-7 Core:spawnZomb 5
+1:7:3 Core:spawnZomb 5

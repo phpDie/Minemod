@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
- 
+
 
 
 [RequireComponent(typeof(CharacterController))]
@@ -48,10 +48,10 @@ public class botBody : MonoBehaviour
 
     public void Damage(float val)
     {
-   
+
         hp -= val;
         if (hp <= 0f)
-        { 
+        {
             Destroy(gameObject);
         }
     }
@@ -66,13 +66,13 @@ public class botBody : MonoBehaviour
 
         target = GameObject.Find("Player");
 
-    
+
     }
 
 
     public void jump()
     {
-        if ( canMove && characterController.isGrounded)
+        if (canMove && characterController.isGrounded)
         {
             moveDirection.y = jumpSpeed;
         }
@@ -93,7 +93,7 @@ public class botBody : MonoBehaviour
 
         // Set the start position for our visual effect for our laser to the position of gunEnd
 
-        
+
 
         // Check if our raycast has hit anything
         if (Physics.Raycast(rayOrigin, transform.forward, out hit, 25f))
@@ -103,7 +103,7 @@ public class botBody : MonoBehaviour
 
 
 
-            if(hit.transform.tag== "Untagged")
+            if (hit.transform.tag == "Untagged")
             {
                 damTo = hit.transform.parent;
                 if (damTo.transform.tag == "Untagged")
@@ -119,8 +119,8 @@ public class botBody : MonoBehaviour
 
             if (damTo.transform.tag == "block")
             {
-                
-                damTo.GetComponent<BlockController>().Damage( 1f, blockMaterial.all, null);
+
+                damTo.GetComponent<BlockController>().Damage(1f, blockMaterial.all, null);
             }
             if (damTo.transform.tag == "Player")
             {
@@ -156,7 +156,7 @@ public class botBody : MonoBehaviour
 
         bool isRunning = false;
 
-      
+
 
         /*
         if (Random.Range(1, 6)<3)
@@ -170,7 +170,7 @@ public class botBody : MonoBehaviour
         lTargetDir.y = 0.0f;
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lTargetDir), Time.time * 0.5f);
 
-       // transform.LookAt(new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z));
+        // transform.LookAt(new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z));
 
 
         float moveForw = 0f;
@@ -194,7 +194,7 @@ public class botBody : MonoBehaviour
             timerAttack -= Time.deltaTime;
             if (timerAttack <= 0f)
             {
-                
+
                 timerAttack = timerAttackMax;
                 if (gunIsset)
                 {
@@ -214,9 +214,9 @@ public class botBody : MonoBehaviour
         float movementDirectionY = moveDirection.y;
         moveDirection = (forward * curSpeedX) + (right * curSpeedY);
 
-      
-            moveDirection.y = movementDirectionY;
-       
+
+        moveDirection.y = movementDirectionY;
+
 
         // Apply gravity. Gravity is multiplied by deltaTime twice (once here, and once below
         // when the moveDirection is multiplied by deltaTime). This is because gravity should be applied
@@ -229,6 +229,10 @@ public class botBody : MonoBehaviour
         // Move the controller
         characterController.Move(moveDirection * Time.deltaTime);
 
-       
+
+        if (transform.position.y < -6f)
+        {
+            Destroy(gameObject);
+        }
     }
 }
