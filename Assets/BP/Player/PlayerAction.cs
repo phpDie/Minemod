@@ -378,7 +378,11 @@ public class PlayerAction : MonoBehaviour
 
             Global.Links.getSui().winCloseAll();
             Global.Links.getSui().winOpen("winCraft");
-            
+
+
+            Global.Links.getSui().winOpen("invMain");
+            Global.Links.getPlayerMainInvUi().openCargo(Global.Links.getIndDataPlayerCargo());
+
 
         }
 

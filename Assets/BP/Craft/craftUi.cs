@@ -35,6 +35,18 @@ public class craftUi : MonoBehaviour
 
     public GameObject btnBlocker;
 
+
+    public void btnShowIssetCraft()
+    {
+        RenderList(true);
+    }
+
+    public void btnShowAllCraft()
+    {
+        RenderList();
+    }
+
+
     public void btnCraft()
     {
 
@@ -46,6 +58,9 @@ public class craftUi : MonoBehaviour
         if (issetAll)
         {
             checkReceptIssetIngridients(curentRecept,true);
+
+
+            Global.Links.getIndDataPlayerCargo().itemAdd(curentRecept.ind, curentRecept.cout);
             //print("CRAFT");
         }
 
@@ -100,12 +115,9 @@ public class craftUi : MonoBehaviour
     }
 
 
-    public void RenderList()
+    public void firstRender()
     {
-        sidebar.SetActive(false);
-        curentRecept = null;
-
-        for (int i=0; i < contentBox.childCount; i++)
+        for (int i = 0; i < contentBox.childCount; i++)
         {
             Destroy(contentBox.GetChild(i));
         }
@@ -119,10 +131,46 @@ public class craftUi : MonoBehaviour
             e.RenderThis();
         }
 
+    }
+
+
+
+    public void RenderList( bool showIsset = false)
+    {
+        sidebar.SetActive(false);
+        curentRecept = null;
+
+        for (int i=0; i < contentBox.childCount; i++)
+        {
+
+            craftItem e = contentBox.GetChild(i).GetComponent<craftItem>();
+
+
+            bool _thisShow = true;
+
+            if (showIsset)
+            {
+                _thisShow = checkReceptIssetIngridients(e.myRecept);
+            }
+
+
+            e.gameObject.SetActive(_thisShow);
+            
+        }
+
+  
+
 
 
     }
 
+    private void OnEnable()
+    {
+        print("u");
+        RenderList();
+    }
+
+    
     void Start()
     {
          

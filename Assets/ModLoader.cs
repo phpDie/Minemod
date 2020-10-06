@@ -364,7 +364,7 @@ public class ModLoader : MonoBehaviour
         Global.Links.getMapController().mapInit();
         Global.Links.getPlayerInvUi().selectNewActiveInde(5);
 
-        Global.Links.getCraftUi().RenderList();
+        Global.Links.getCraftUi().firstRender();
 
 
          

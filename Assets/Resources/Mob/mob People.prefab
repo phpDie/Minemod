@@ -374,11 +374,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4980338019414592820, guid: b003be795d81d5440881613e156b8277, type: 3}
       propertyPath: cofDamage
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4980338019414592820, guid: b003be795d81d5440881613e156b8277, type: 3}
       propertyPath: hp
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5069421345647809086, guid: b003be795d81d5440881613e156b8277, type: 3}
       propertyPath: cofDamage

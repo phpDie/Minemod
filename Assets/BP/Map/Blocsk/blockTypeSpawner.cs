@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class blockTypeSpawner : MonoBehaviour
 {
+    public float MytimeSpawn = 10f; //колв секунд между спавнами
 
     public GameObject mobBlank;
 
@@ -38,11 +39,18 @@ public class blockTypeSpawner : MonoBehaviour
         player = Global.Links.getPlayerAction().gameObject;
     }
 
-
+     
 
     float timer = 3.5f;
     void slowUpdate()
     {
+        if (myMob == null)
+        {
+            timeSpawn -= 1f;
+            if (timeSpawn > 0f) return;
+            timeSpawn = MytimeSpawn;
+        }
+
         float distToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
 
@@ -61,6 +69,7 @@ public class blockTypeSpawner : MonoBehaviour
 
     }
 
+    private float timeSpawn = 1f;
 
     void Update()
     {
@@ -68,7 +77,7 @@ public class blockTypeSpawner : MonoBehaviour
         if (timer <= 0f)
         {
             slowUpdate();
-            timer = 0.5f;
+            timer = 1f;
         }
     }
 }

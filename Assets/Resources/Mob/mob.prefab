@@ -1212,7 +1212,7 @@ MonoBehaviour:
   distAttack: 1.5
   distView: 12
   gunIsset: 0
-  hp: 14
+  hp: 4
   lerpSpeed: 0.09
   lerpSpeedHand: 1
   jumpRandomFrom: 1200

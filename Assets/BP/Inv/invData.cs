@@ -311,7 +311,8 @@ public class invData : MonoBehaviour
 
         for (int j = 0; j < items.Count; j++)
         {
-            itemRemoveIndex(j);/*
+            itemRemoveIndex(j);
+            /*
             itemElement it = items[j];
 
             //it.e.transform.SetParent(GameObject)
@@ -339,9 +340,13 @@ public class invData : MonoBehaviour
 
         for (int i = 0; i < lines.Length; i++)
         {
-
-            string[] lineOne = lines[i].Split(' ');
-            itemAdd(lineOne[0]);
+            if (lines[i] != String.Empty)
+            {
+                string[] lineOne = lines[i].Split(' ');
+               // print(lines[i]);
+                 itemAdd(lineOne[0], System.Convert.ToInt32(lineOne[1]) );
+                //itemAdd(lineOne[0]);
+            }
         }
 
         //print("INV LOADED");

@@ -1,0 +1,5 @@
+Core:doska 2
+Core:doska 13
+Weapon:bita 48
+Weapon:shovel 91
+Weapon:axe 74
