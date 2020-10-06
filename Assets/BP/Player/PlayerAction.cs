@@ -449,9 +449,10 @@ public class PlayerAction : MonoBehaviour
 
         if (go.transform.tag == "meatPart")
         {
+
             if (go.transform.parent.tag == "mob")
             {
-                go.transform.parent.GetComponent<botBody>().Damage(toolDamage*3);
+                go.transform.parent.GetComponent<botBody>().Damage(toolDamage*1.3f);
                 //Destroy(go);
             }
 
