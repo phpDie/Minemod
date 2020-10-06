@@ -353,6 +353,7 @@ public class ModLoader : MonoBehaviour
         modInstall("Block");
         modInstall("Chest");
         modInstall("Core");
+        modInstall("Ruda");
 
 
 
@@ -360,8 +361,7 @@ public class ModLoader : MonoBehaviour
         print($"Mod Loaded: {watch.ElapsedMilliseconds} ms");
 
 
-
-        Global.Links.getMapController().mapInit();
+         
         Global.Links.getPlayerInvUi().selectNewActiveInde(5);
 
         Global.Links.getCraftUi().firstRender();
@@ -375,6 +375,9 @@ public class ModLoader : MonoBehaviour
 
     void FirstTick()
     {
+
+        Global.Links.getMapController().mapInit();
+
         //print("LOAD GAME");
         Global.Links.getMapController().gameLoad();
     }

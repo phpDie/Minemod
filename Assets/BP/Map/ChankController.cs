@@ -21,9 +21,16 @@ public class ChankController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       // init();
+
+
+
+    }
+
+    public void init()
+    {
         player = Global.Links.getPlayerAction().gameObject;
         mod = Global.Links.getModLoader();
-
 
 
     }

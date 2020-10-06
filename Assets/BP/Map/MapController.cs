@@ -9,13 +9,12 @@ public class MapController : MonoBehaviour
     public BlockController blockBlank;
     public ChankController chankBlank;
 
-    public int blockCountWidth = 50;  //x, z
-    public int blockCountHeight = 50; //y
+    public int preloadChankInStart = 0; //Прелодить чанки при старте игры, это долго зато без фриз
 
-
+    [HideInInspector]
+    public int blockCountWidth = 16;  //x, z
+    public int blockCountHeight = 12; //y
     private int chankCountStart = 5; //y
-
-
     public string mapPathDir;
     // Start is called before the first frame update
 
@@ -51,6 +50,12 @@ public class MapController : MonoBehaviour
 
 
                 b.mapCon = this;
+                b.init();
+
+                if (Mathf.Abs(ix) <= preloadChankInStart && Mathf.Abs(iz) <= preloadChankInStart)
+                {
+                    b.loadAutoChank();
+                }
                 // b.genChank();
             }
         }
