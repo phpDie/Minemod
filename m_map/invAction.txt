@@ -1,0 +1,3 @@
+Core:brevno 5
+Core:dirt 4
+Core:stone 2

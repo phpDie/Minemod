@@ -35,6 +35,7 @@ public class craftUi : MonoBehaviour
 
     public GameObject btnBlocker;
 
+    
 
     public void btnShowIssetCraft()
     {
@@ -166,7 +167,7 @@ public class craftUi : MonoBehaviour
 
     private void OnEnable()
     { 
-        RenderList();
+        RenderList(true);
     }
 
     

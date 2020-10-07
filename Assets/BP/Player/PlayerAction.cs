@@ -470,12 +470,8 @@ public class PlayerAction : MonoBehaviour
     {
         Vector3 rayOrigin = mCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
 
-        // Declare a raycast hit to store information about what our raycast has hit
+       
         RaycastHit hit;
-
-        // Set the start position for our visual effect for our laser to the position of gunEnd
-
-        // Check if our raycast has hit anything
 
         
         Vector3 forw = mCam.transform.forward;
@@ -792,7 +788,7 @@ public class PlayerAction : MonoBehaviour
 
             if (eat > 0f)
             {
-                eat -= 1f;
+                eat -= 0.2f;
             }
 
             
