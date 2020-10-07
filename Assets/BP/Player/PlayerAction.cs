@@ -357,6 +357,17 @@ public class PlayerAction : MonoBehaviour
             myInv.selectNewActiveInde(myInv.actveIndex - 1);
         }
 
+        if (Input.GetKeyDown(KeyCode.Alpha1)) myInv.selectNewActiveInde(0);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) myInv.selectNewActiveInde(1);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) myInv.selectNewActiveInde(2);
+        if (Input.GetKeyDown(KeyCode.Alpha4)) myInv.selectNewActiveInde(3);
+        if (Input.GetKeyDown(KeyCode.Alpha5)) myInv.selectNewActiveInde(4);
+        if (Input.GetKeyDown(KeyCode.Alpha6)) myInv.selectNewActiveInde(5);
+        if (Input.GetKeyDown(KeyCode.Alpha7)) myInv.selectNewActiveInde(6);
+        if (Input.GetKeyDown(KeyCode.Alpha8)) myInv.selectNewActiveInde(7);
+        if (Input.GetKeyDown(KeyCode.Alpha9)) myInv.selectNewActiveInde(8);
+
+
         if (timeAttack <= 0f)
         {
 

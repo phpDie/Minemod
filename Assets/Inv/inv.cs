@@ -4,16 +4,7 @@ using UnityEngine;
 using Global;
 using UnityEngine.UI;
 
-
-public class itemElement
-{
-    public int count = 1;
-    public string ind;
-    public itemSave infoItemSave;
-    public invItem e;
-    public bool active = false; 
-}
-
+ 
 
 public class inv : MonoBehaviour
 {
@@ -28,19 +19,18 @@ public class inv : MonoBehaviour
     public invData myData;
 
 
-    
 
 
-    public bool giveActive(int countGive, bool giveOnOrCheck =true)
+
+    public bool giveActive(int countGive, bool giveOnOrCheck = true)
     {
-        int i = 0;
         foreach (itemElement it in items)
         {
             if (it == activeElement)
             {
                 if (it.count - countGive < 0)
                 {
-                 
+
                     return false;
                 }
 
@@ -50,18 +40,19 @@ public class inv : MonoBehaviour
                 }
 
                 it.count -= countGive;
-                if(!it.infoItemSave.emptyIsset)if (it.count <= 0)
-                {
 
-                    print("DEsty item");
-                    Destroy(it.e.gameObject);
-                    
-                    items.Remove(it);
-                    selectNewActiveInde(0);
-                }
+                if (!it.infoItemSave.emptyIsset) if (it.count <= 0)
+                    {
+
+                        myData.itemRemoveIndex(it.i);
+                        ReRender(true);
+
+                    }
+
+
                 ReRender();
 
-                i++;
+
                 return true;
             }
         }
@@ -94,34 +85,74 @@ public class inv : MonoBehaviour
 
     public void ReRender(bool isHard = false)
     {
+
+      //  myData.ReParentes();
+
         int i = 0;
         foreach (itemElement it in items)
         {
-        
+
+       
+
             if (actveIndex == i)
             {
                 activeElement = it;
                 it.active = true;
+
+                it.e.transform.GetChild(3).gameObject.SetActive(true);
 
                 if (isHard)
                 {
                     if (isPlayer)
                     {
 
-                        Global.Links.getPlayerAction().setHandItem(it);
-                        //Global.Links.getPlayerAction().setSpriteHand(it.infoItemSave.iconInHand, it.infoItemSave.type == itemType.block);
+                        if (it.isset)
+                        {
+                            Global.Links.getPlayerAction().setHandItem(it);
+                        }
+                        else
+                        {
+                            Global.Links.getPlayerAction().setHandItem(null);
+
+                        }
+                       
                     }
                 }
             }
             else
             {
+                it.e.transform.GetChild(3).gameObject.SetActive(false);
                 it.active = false;
             }
 
-            it.e.GetComponent<RectTransform>().rotation = new Quaternion(0,0,0,0);
-            it.e.transform.GetChild(1).GetComponent<Text>().text = it.count.ToString() + " / " + it.infoItemSave.stackSize.ToString();
-            it.e.transform.GetChild(3).gameObject.SetActive(it.active);
 
+            if (it.e == null)
+            {
+                print("ERROR");
+                return;
+
+            }
+
+
+
+            it.e.GetComponent<RectTransform>().rotation = new Quaternion(0,0,0,0);
+
+            if (it.isset)
+            {
+
+                if (it.infoItemSave != null)
+                {
+
+                    it.e.transform.GetChild(1).GetComponent<Text>().text = it.count.ToString() + " / " + it.infoItemSave.stackSize.ToString();
+                    it.e.transform.GetChild(3).gameObject.SetActive(it.active);
+
+                }
+                else
+                {
+                    print("ERROR SAVE DATA");
+                }
+
+            }
 
 
             i++;
@@ -146,6 +177,12 @@ public class inv : MonoBehaviour
 
     public void openCargo(invData newCargo)
     {
+        if (myData != null)
+        {
+            myData.myViewInvUi = null;
+            myData.ReRender();
+        }
+
         myData = newCargo;
         items = newCargo.items;
         newCargo.myViewInvUi = this;

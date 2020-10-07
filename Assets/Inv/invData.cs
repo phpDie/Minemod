@@ -4,11 +4,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
+public class itemElement
+{
+    public int i = -1; // индекс
+    public int count = 1;
+    public string ind;
+    public itemSave infoItemSave;
+    public invItem e;
+    public bool active = false;
+    public bool isset = false;
+
+   
+}
+
+
 public class invData : MonoBehaviour
 {
     [Header("Параметры")]
     public bool isActionBar = false;
     public bool isPlayerMainInv= false;
+    public int size = 16;
+
+
 
 
     [HideInInspector]
@@ -16,11 +35,154 @@ public class invData : MonoBehaviour
     public inv myViewInvUi;
     public invItem blankItem;
 
-    public void itemRemoveIndex(int J)
-    { 
-        Destroy(items[J].e.gameObject);
 
-        items.Remove(items[J]);
+
+    bool isInit =false;
+    public void init()
+    {
+
+        if (isInit) return;
+        isInit = true;
+
+        blankItem = Resources.Load<invItem>("invItem");
+
+        for (int i = 0; i < size; i++)
+        {
+
+            invItem nItem = Instantiate(blankItem, transform);
+            
+            nItem.myData = this;
+
+            //nItem.transform.GetChild(2).GetComponent<Text>().text = "empty";
+            nItem.GetComponent<RectTransform>().rotation = new Quaternion(0, 0, 0, 0);
+          //  nItem.transform.GetChild(3).gameObject.SetActive(false);
+
+            nItem.setNull();
+
+
+            itemElement newElement = new itemElement();
+            newElement.isset = false;
+            newElement.e = nItem;
+            newElement.i = i;
+            items.Add(newElement);
+
+        }
+    }
+
+
+
+    public bool itemAdd(string ind, int count = 0, bool isAutoRender =false )
+    {
+
+        if(ind == "not" || ind == "")
+        {
+            return false;
+        }
+
+        itemSave itemData = Global.Links.getModLoader().itemBaseGetFromInd(ind);
+
+
+        if (itemData == null)
+        {
+            print("itemAdd not exist element: " + ind);
+            return false;
+        }
+
+        if (blankItem == null)
+        {
+            print("Принудительная инициализация инв");
+            init();
+        }
+
+        
+        if (!itemData.stackHpMode)
+        {
+            int issetIndex = searchIsset(ind, 1);
+
+
+            if (issetIndex > -1)
+            {
+
+                if (items[issetIndex].count - count <= itemData.stackSize)
+                {
+                    items[issetIndex].count += count;
+                     if (isAutoRender) ReRender();
+                    return true;
+                }
+            }
+        }
+
+
+
+
+        
+        /*
+
+        Transform _parentNew = transform;
+        if (myViewInvUi != null)
+        {
+            _parentNew = myViewInvUi.contentBox;
+        }
+        */
+
+
+        int J = searchEmpty();
+        if (J <= -1) return false;
+
+       
+
+        invItem nItem = items[J].e;
+         
+
+        nItem.myData = this;
+        nItem.transform.GetChild(2).GetComponent<Text>().text = itemData.nameView.ToString();
+        nItem.GetComponent<RectTransform>().rotation = new Quaternion(0, 0, 0, 0);
+        nItem.transform.GetChild(3).gameObject.SetActive(false);
+
+        nItem.transform.GetChild(0).gameObject.SetActive(true);
+        Texture2D blurredTexture = itemData.icon;
+        Sprite newSprite = Sprite.Create(blurredTexture, new Rect(0, 0, blurredTexture.width, blurredTexture.height), new Vector2(32f, 32f));
+        nItem.transform.GetChild(0).GetComponent<Image>().sprite = newSprite;
+
+
+        itemElement newElement = items[J];
+        
+        newElement.isset = true;
+        newElement.ind = ind;
+        newElement.infoItemSave = itemData;
+
+        if (itemData == null)
+        {
+            print("GAVNo");
+        }
+
+
+        newElement.e = nItem;
+
+        if (count == 0)
+        {
+            newElement.count = itemData.stackSize;
+        }
+        else
+        {
+            newElement.count = count;
+        }
+
+        nItem.myElement = newElement;
+
+        //   items.Add(newElement);
+
+        if (isAutoRender)ReRender();
+        return true;
+    }
+
+
+    public void itemRemoveIndex(int J)
+    {  
+
+        items[J].e.setNull();
+         
+        items[J].isset = false;
 
 
     }
@@ -42,11 +204,21 @@ public class invData : MonoBehaviour
  
     public bool moveInOtherInv(inv otherWinInv, itemElement myItemE)
     {
-       // otherWinInv.myData.items.Add(myItemE);
-        otherWinInv.myData.itemAdd(myItemE.ind, myItemE.count);
+        if (myItemE == null)
+        {
+           // print("EMPTY ITEM");
+            return false;
+        }
 
-        Destroy(myItemE.e.gameObject);
-        items.Remove(myItemE);
+       // otherWinInv.myData.items.Add(myItemE);
+       bool isMoved =  otherWinInv.myData.itemAdd(myItemE.ind, myItemE.count);
+
+        if (!isMoved) return false;
+
+
+
+        itemRemoveIndex(myItemE.i);
+
 
         otherWinInv.myData.ReRender(true);
         ReRender(true);
@@ -67,10 +239,14 @@ public class invData : MonoBehaviour
             //Переброс в сундук
             if (Global.Links.getSui().winInvOther.gameObject.active)
             {
+                moveInOtherInv(Global.Links.getSui().winInvOther, e);
+
+                /*
                 Global.Links.getOtherInvUi().myData.items.Add(e);
                 items.Remove(e);
                 Global.Links.getOtherInvUi().myData.ReRender(true);
                 ReRender(true);
+                */
                 return;
             }
             else
@@ -79,12 +255,7 @@ public class invData : MonoBehaviour
                 //Переброс с глав инв в экшен бар
 
                 moveInOtherInv(Global.Links.getSui().winInvAction, e);
-                /*
-                Global.Links.getPlayerInvUi().myData.items.Add(e);
-                items.Remove(e);
-                Global.Links.getPlayerInvUi().myData.ReRender(true);
-                ReRender(true);
-                */
+          
                 return;
             }
         }
@@ -94,42 +265,15 @@ public class invData : MonoBehaviour
         //Я сундук, значит из меня копируют в другое место
         if (!isPlayerMainInv && !isActionBar)
         {
-            Global.Links.getPlayerMainInvUi().myData.items.Add(e);
-            items.Remove(e);
 
-            Global.Links.getPlayerMainInvUi().myData.ReRender(true);
-            ReRender(true);
+            moveInOtherInv(Global.Links.getPlayerMainInvUi(), e);
+
+          
             return;
         }
 
-        /*
-        if (Global.Links.getSui().winInvOther.gameObject.active)
-        {
-            //print("Move mode");
+      
 
-
-            if (myViewInvUi.isPlayer)
-            {
-                Global.Links.getOtherInvUi().myData.items.Add(e);
-                items.Remove(e);
-                Global.Links.getOtherInvUi().myData.ReRender(true);
-                ReRender(true);
-            }
-            else
-            {
-                Global.Links.getPlayerInvUi().myData.items.Add(e);
-                items.Remove(e);
-
-                Global.Links.getPlayerInvUi().myData.ReRender(true);
-                ReRender(true);
-
-            }
-
-
-            return;
-        }
-
-        */
         if (isActionBar)
         {
 
@@ -169,17 +313,34 @@ public class invData : MonoBehaviour
         return true;
     }
 
+    public int searchEmpty()
+    {
+        for (int j = 0; j < size; j++)
+        {
+            itemElement it = items[j];
+            if (!it.isset)
+            {
+                return j;
+            }
+        }
+
+        return -1;
+    }
+
 
     public int searchIsset(string ind, int count)
     {
         for (int j = 0; j < items.Count; j++)
         {
             itemElement it = items[j];
-            if (it.ind == ind)
+            if (it.isset)
             {
-                if (it.count >= count)
+                if (it.ind == ind)
                 {
-                    return j;
+                    if (it.count >= count)
+                    {
+                        return j;
+                    }
                 }
             }
         }
@@ -189,86 +350,10 @@ public class invData : MonoBehaviour
     }
 
 
-    public void itemAdd(string ind,int count = 0)
+    public void ReParentes()
     {
-        itemSave itemData = Global.Links.getModLoader().itemBaseGetFromInd(ind);
-
-
-        if (!itemData.stackHpMode)
+        if (myViewInvUi == null)
         {
-            int issetIndex = searchIsset(ind, 1);
-
-       
-            if (issetIndex > -1)
-            {
-
-                if (items[issetIndex].count-count <= itemData.stackSize)
-                {
-                    items[issetIndex].count += count;
-                    ReRender();
-                    return;
-                }
-            }
-        }
-
-
-        
-        
-        if (itemData == null)
-        {
-            print("itemAdd not exist element: " + ind);
-            return;
-        }
-
-        if (blankItem == null)
-        {
-            print("Принудительная инициализация инв");
-            init();
-        }
-
-        Transform _parentNew = transform;
-        if (myViewInvUi != null)
-        {
-            _parentNew = myViewInvUi.contentBox;
-        }
-
-        invItem nItem = Instantiate(blankItem, _parentNew);
-
-        nItem.myData = this;
-        nItem.transform.GetChild(2).GetComponent<Text>().text = itemData.nameView.ToString();
-
-        nItem.GetComponent<RectTransform>().rotation = new Quaternion(0, 0, 0, 0);
-
-        nItem.transform.GetChild(3).gameObject.SetActive(false);
-
-        // nItem.transform.GetChild(1).GetComponent<Text>().text = itemData.nameView.ToString();
-        Texture2D blurredTexture = itemData.icon;
-        Sprite newSprite = Sprite.Create(blurredTexture, new Rect(0, 0, blurredTexture.width, blurredTexture.height), new Vector2(32f, 32f));
-        nItem.transform.GetChild(0).GetComponent<Image>().sprite = newSprite;
-
-        itemElement newElement = new itemElement();
-        newElement.ind = ind;
-        newElement.infoItemSave = itemData;
-        newElement.e = nItem;
-
-        if (count == 0)
-        {
-            newElement.count = itemData.stackSize;
-        }
-        else
-        {
-            newElement.count = count;
-        }
-
-        nItem.myElement= newElement;
-        items.Add(newElement);
-
-        ReRender();
-    }
-
-    public void ReRender(bool fullUpd =false)
-    {
-        if (myViewInvUi == null) {
 
             foreach (itemElement it in items)
             {
@@ -286,16 +371,22 @@ public class invData : MonoBehaviour
             it.e.myData = this;
         }
 
-            myViewInvUi.ReRender(fullUpd);
-        
-
     }
-
-    // Start is called before the first frame update
-    public void init()
+    public void ReRender(bool fullUpd =false)
     {
-        blankItem = Resources.Load<invItem>("invItem");
+
+        ReParentes();
+
+        if (myViewInvUi != null)
+        {
+
+            myViewInvUi.ReRender(fullUpd);
+        }
+
     }
+
+
+
     void Start()
     {
         init();
@@ -323,22 +414,10 @@ public class invData : MonoBehaviour
 
         for (int j = 0; j < items.Count; j++)
         {
-            itemRemoveIndex(j);
-            /*
-            itemElement it = items[j];
-
-            //it.e.transform.SetParent(GameObject)
-            if (it.e != null)
-            {
-                it.e.transform.SetParent(transform);
-                Destroy(it.e.gameObject);
-                items.Remove(it);
-            }
-            */
-            
+            itemRemoveIndex(j);    
             
         }
-        items.Clear();
+        //items.Clear();
 
 
         string[] lines = inputTextData.Split('\n');

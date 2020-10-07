@@ -55,7 +55,7 @@ public class itemSave
     public string modName; 
     public string ind;  //инд
     public string iniFilePath; //путь до ини файла
-    public int stackSize;//размер стака
+    public int stackSize = 0;//размер стака
     public bool stackHpMode; //количество предмета это хп. То есть для лопат, кирок, пушку. стак=хп
 
     public itemType type; //тип предмета, блок, оружие..
@@ -180,7 +180,7 @@ public class ModLoader : MonoBehaviour
             itemBase.Add(ind, newItem);
 
 
-            Global.Links.getIndDataAdminCargo().itemAdd(ind);
+           Global.Links.getIndDataAdminCargo().itemAdd(ind);
 
 
 
@@ -382,7 +382,13 @@ public class ModLoader : MonoBehaviour
         Global.Links.getCraftUi().firstRender();
 
 
-         
+        Global.Links.getIndDataAdminCargo().ReRender(true);
+
+        if (Global.Links.getIndDataAdminCargo().size < itemBase.Count)
+        {
+            print($"Не хватает места в админ сундуке, у нас вещей: {itemBase.Count}");
+        }
+
 
 
 
