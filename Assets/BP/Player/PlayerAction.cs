@@ -437,6 +437,7 @@ public class PlayerAction : MonoBehaviour
             ActionItem_Use(true);
         }
 
+        //test
 
         if (Input.GetButtonDown("Fire2"))
         {
