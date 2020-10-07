@@ -277,8 +277,7 @@ MonoBehaviour:
   myMaterial: 0
   hpMax: 5
   hp: 5
-  myWidth: 1
-  myHeight: 1
   dropInd: 
   myCrackEffect: {fileID: 2141591115397653440}
   myCrackEffectEasy: {fileID: 2948665969829712805}
+  mod: {fileID: 0}

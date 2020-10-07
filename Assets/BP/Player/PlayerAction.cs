@@ -738,7 +738,7 @@ public class PlayerAction : MonoBehaviour
         newBlock.transform.name = newBlock.transform.localPosition.x.ToString() + ":" + newBlock.transform.localPosition.y.ToString() + ":" + newBlock.transform.localPosition.z.ToString();
 
         newBlock.itemInd = myInv.activeElement.ind;
-        newBlock.setToItemInd();
+        newBlock.initBlock();
 
         //newBlock.GetComponent<MeshRenderer>().material.mainTexture = myInv.activeElement.infoItemSave.icon;
 

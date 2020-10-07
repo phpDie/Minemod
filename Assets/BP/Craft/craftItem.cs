@@ -23,18 +23,9 @@ public class craftItem : MonoBehaviour
 
     public void btnSelectMe()
     {
+        if (myCallBack == null) return;
         Global.Links.getCraftUi().selectRecept(myRecept);
 
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

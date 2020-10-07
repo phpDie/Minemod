@@ -24,6 +24,7 @@ public class receptCraft
 public class craftUi : MonoBehaviour
 {
 
+    public Transform receptBox;
     public Transform contentBox;
     public craftItem blankElemnt;
 
@@ -35,7 +36,7 @@ public class craftUi : MonoBehaviour
 
     public GameObject btnBlocker;
 
-    
+     
 
     public void btnShowIssetCraft()
     {
@@ -81,15 +82,32 @@ public class craftUi : MonoBehaviour
         transform.Find("sidebar/h1").GetComponent<Text>().text = re.name;
 
 
-        string recText = "";
-        foreach (receptCraftElement it in re.ingredients)
+   
+        for (int i = 0; i < receptBox.childCount; i++)
         {
-            string _name = Global.Links.getModLoader().itemBaseGetFromInd(it.ind).nameView;
-            recText += "\n " + _name+ " ("+it.cout+" x) ";
-
+            Destroy(receptBox.GetChild(i).gameObject);
         }
 
-        transform.Find("sidebar/rec").GetComponent<Text>().text = recText;
+        foreach (receptCraftElement it in re.ingredients)
+        {
+           
+            itemSave _loadItemData = Global.Links.getModLoader().itemBaseGetFromInd(it.ind);
+            if (_loadItemData == null)
+            {
+                print("Error load recept for : " + it.ind);
+            }
+            else
+            {
+                craftItem e = Instantiate(blankElemnt, receptBox);
+                e.myRecept = new receptCraft();
+                e.myRecept.name = _loadItemData.nameView;
+                e.myRecept.icon = _loadItemData.icon;
+                e.myRecept.cout = it.cout;
+
+                e.myCallBack = null;
+                e.RenderThis();
+            }
+        }
 
 
 

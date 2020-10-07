@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1568727313715724060
 Transform:
   m_ObjectHideFlags: 0
@@ -143,4 +143,5 @@ MonoBehaviour:
   isLoaded: 0
   isActive: 0
   mapCon: {fileID: 0}
+  mod: {fileID: 0}
   pathChankFile: 

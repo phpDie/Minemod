@@ -131,7 +131,7 @@ public class ChankController : MonoBehaviour
         {
 
             //  print("deActive chank");
-            for (int i = 0; i < transform.childCount; i++)
+            for (int i = 1; i < transform.childCount; i++)
             {
                 transform.GetChild(i).gameObject.SetActive(false);
             }
@@ -157,7 +157,7 @@ public class ChankController : MonoBehaviour
             if (!isActive)
             {
               //  print("active chank");
-                for (int i = 0; i < transform.childCount; i++)
+                for (int i = 1; i < transform.childCount; i++)
                 {
                     transform.GetChild(i).gameObject.SetActive(true);
                 }
@@ -252,10 +252,15 @@ public class ChankController : MonoBehaviour
 
             b.mod = mod;
 
-            b.hp = float.Parse(lineOne[2]); 
+            b.hp = float.Parse(lineOne[2]);
 
 
-           b.setToItemInd();
+
+            itemBlockSettings myBlockSetting = mod.blockBase[b.itemInd];
+            b.myBlockSetting = myBlockSetting;
+
+            b.initBlockPreload();
+ 
 
 
             string[] posBlock = lineOne[0].Split(':');
@@ -270,7 +275,7 @@ public class ChankController : MonoBehaviour
 
             if (b.myType == blockType.cargo)
             {
-
+                b.initBlock();
                 loadDataInvInBlock(b);
             }
         }
@@ -362,9 +367,9 @@ public class ChankController : MonoBehaviour
     public void genNewStructureChank()
     {
 
+        var watch = System.Diagnostics.Stopwatch.StartNew();
 
-
-       // print("Gen new chank");
+        // print("Gen new chank");
 
         int hCorrent = 1;
 
@@ -428,13 +433,42 @@ public class ChankController : MonoBehaviour
 
                         b.hp = 0;
                         b.itemInd = genBlockFromYPos(yPos, yPos == mapCon.blockCountHeight + hCorrent);
-                        b.setToItemInd();
+
+
+                        itemBlockSettings myBlockSetting = mod.blockBase[b.itemInd];
+                        b.myBlockSetting = myBlockSetting;
+
+                        b.initBlockPreload();
+                        //b.initBlock();
+
+
+
+
+                        /*
+                    //Решаем когда билдить блок
+                    if (yPos >= mapCon.blockCountHeight + hCorrent - 1)
+                    {
+                        b.initBlock();
+                    }
+                    else
+                    {
+                        itemBlockSettings myBlockSetting = mod.blockBase[b.itemInd];
+                        if (myBlockSetting.buildCount > 0)
+                        {
+                            b.initBlock();
+                        }
+                    }
+                    */
+
                     }
                 }
             }
         }
 
-       // chankSave();
+        // chankSave();
+
+        watch.Stop();
+        print($"Chank gen Time: {watch.ElapsedMilliseconds} ms");
     }
 
     public string genBlockFromYPos(int yPos=0, bool top = false)

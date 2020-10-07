@@ -42,8 +42,12 @@ public class invData : MonoBehaviour
  
     public bool moveInOtherInv(inv otherWinInv, itemElement myItemE)
     {
-        otherWinInv.myData.items.Add(myItemE);
+       // otherWinInv.myData.items.Add(myItemE);
+        otherWinInv.myData.itemAdd(myItemE.ind, myItemE.count);
+
+        Destroy(myItemE.e.gameObject);
         items.Remove(myItemE);
+
         otherWinInv.myData.ReRender(true);
         ReRender(true);
 
@@ -187,19 +191,28 @@ public class invData : MonoBehaviour
 
     public void itemAdd(string ind,int count = 0)
     {
-        int issetIndex = searchIsset(ind, 1);
+        itemSave itemData = Global.Links.getModLoader().itemBaseGetFromInd(ind);
 
-        if (issetIndex > -1)
+
+        if (!itemData.stackHpMode)
         {
-            //print("STACKING");
-            items[issetIndex].count += count;
-            ReRender();
-            return;
+            int issetIndex = searchIsset(ind, 1);
+
+       
+            if (issetIndex > -1)
+            {
+
+                if (items[issetIndex].count-count <= itemData.stackSize)
+                {
+                    items[issetIndex].count += count;
+                    ReRender();
+                    return;
+                }
+            }
         }
 
 
-
-        itemSave itemData = Global.Links.getModLoader().itemBaseGetFromInd(ind);
+        
         
         if (itemData == null)
         {

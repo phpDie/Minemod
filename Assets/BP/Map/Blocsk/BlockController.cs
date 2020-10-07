@@ -69,9 +69,53 @@ public class BlockController : MonoBehaviour
         myCrackEffect.SetActive(hp < hpMax * 0.5f);
     }
 
+    public void sosedBuild()
+    {
+
+
+        initBlock();
+
+        return;
+
+        Vector3 location = transform.position + new Vector3(1, 0, 0);
+       
+        
+        RaycastHit[] hits = Physics.BoxCastAll(transform.position, transform.localScale*2f, Vector3.up*-0.2f,transform.rotation,3f);
+        if (hits.Length > 0)
+        {
+            for (int i = 0; i < hits.Length; i++)
+             
+                if (hits[i].transform.tag == "block")
+                {
+                hits[i].transform.GetComponent<BlockController>().initBlock();
+
+
+                }
+        }
+
+        
+        
+    /*
+
+    RaycastHit hit;
+        if (Physics.BoxCast(transform.position, transform.forward*2f, out hit))
+        {
+            Debug.Log("Point of contact: " + hit.point);
+            if(hit.transform.tag == "block")
+            {
+                hit.transform.GetComponent<BlockController>().initBlock();
+
+
+            }
+        }
+        */
+ 
+    }
+
     public void Damage(float dam, blockMaterial attackMaterial = blockMaterial.all, GameObject author = null)
     {
 
+        sosedBuild();
 
         float cofDamage = 1f;
 
@@ -158,9 +202,14 @@ public class BlockController : MonoBehaviour
 
 
                 b.itemInd = conf[1];
-
                 b.hp = 0;
-                b.setToItemInd();
+
+
+                itemBlockSettings myBlockSetting = mod.blockBase[b.itemInd];
+                b.myBlockSetting = myBlockSetting;
+                b.initBlockPreload();
+
+               // b.initBlock();
 
 
 
@@ -213,10 +262,65 @@ public class BlockController : MonoBehaviour
 
     public itemBlockSettings myBlockSetting;
 
-    public void setToItemInd()
-    {
 
-        if (itemInd == string.Empty) itemInd = "Core:dirt";
+
+
+    public void initBlockPreload()
+    {
+        if (myBlockSetting == null)
+        {
+            myBlockSetting = mod.blockBase[itemInd];
+        }
+
+
+        if (isInit) return;
+        if (isInitPreload) return;
+        isInitPreload = true;
+
+
+        GetComponent<MeshRenderer>().material.mainTexture = myBlockSetting.icon;
+
+
+        if (myBlockSetting.buildCount > 0)
+        {
+            initBlock();
+        }
+
+
+        hpMax = myBlockSetting.hpMax;
+        if (hp <= 0)
+        {
+            hp = hpMax;
+        }
+        else
+        {
+            if (hp < hpMax)
+            {
+                crackUpdate();
+            }
+        }
+
+    }
+
+
+
+    bool isInitPreload = false;
+     bool isInit = false;
+    public void initBlock()
+    {
+        if (isInit) return;
+        isInit = true;
+        isInitPreload = true;
+
+
+
+        if (myBlockSetting == null)
+        {
+            print("ERROR LOAD");
+            return;
+        }
+
+            if (itemInd == string.Empty) itemInd = "Core:dirt";
         if (itemInd == "def:not") itemInd = "Core:dirt";
         if (itemInd == "not") itemInd = "Core:dirt";
 
@@ -233,7 +337,7 @@ public class BlockController : MonoBehaviour
             itemInd = "Core:dirt";
         }
 
-        myBlockSetting = mod.blockBase[itemInd];
+       
         myData = mod.itemBaseGetFromInd(itemInd);
 
         if (myData == null)
@@ -253,19 +357,7 @@ public class BlockController : MonoBehaviour
 
 
 
-        hpMax = myBlockSetting.hpMax;
-
-        if (hp <= 0)
-        {
-            hp = hpMax;
-        }
-        else
-        {
-            if (hp < hpMax)
-            {
-                crackUpdate();
-            }
-        }
+        
 
 
 
@@ -286,8 +378,8 @@ public class BlockController : MonoBehaviour
         }
 
 
-        GetComponent<MeshRenderer>().material.mainTexture = myData.icon;
-        //GetComponent<Material>().mod
+      //  GetComponent<MeshRenderer>().material.mainTexture = myData.icon;
+         
 
  
         //Генерация строений

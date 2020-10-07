@@ -40,7 +40,9 @@ public class itemBlockSettings
     public string dropInd="not"; 
 
     public blockMaterial material = blockMaterial.ground; 
-    public blockType type = blockType.none; 
+    public blockType type = blockType.none;
+
+    public Texture2D icon;
 }
 
 
@@ -49,16 +51,17 @@ public class itemSave
 
     public bool emptyIsset = true; //удалять предмет, когда у него колв = 0. Нет для пушек.
 
-    public string nameView; 
+    public string nameView; //название
     public string modName; 
-    public string ind; 
-    public string iniFilePath;
-    public int stackSize;
+    public string ind;  //инд
+    public string iniFilePath; //путь до ини файла
+    public int stackSize;//размер стака
+    public bool stackHpMode; //количество предмета это хп. То есть для лопат, кирок, пушку. стак=хп
 
-    public itemType type;
+    public itemType type; //тип предмета, блок, оружие..
     //public IniFile iniF; 
     public Texture2D icon;
-    public Texture2D iconInHand;
+    public Texture2D iconInHand; //иконка в руке, если отличается
     public blockGenWorld genWorl;
 }
 
@@ -114,7 +117,9 @@ public class ModLoader : MonoBehaviour
             newItem.emptyIsset = MyIni.ReadBool("emptyIsset", "itemInfo");
 
 
-            newItem.stackSize = Convert.ToInt32(MyIni.Read("stackSize", "itemInfo"));
+            newItem.stackSize = MyIni.ReadInt("stackSize", "itemInfo",1);
+            newItem.stackHpMode =MyIni.ReadBool("stackHpMode", "itemInfo",false);
+
 
 
             newItem.icon = defIcon;
@@ -178,25 +183,29 @@ public class ModLoader : MonoBehaviour
             Global.Links.getIndDataAdminCargo().itemAdd(ind);
 
 
-            itemBlockSettings newblockBase = new itemBlockSettings();
-            newblockBase.width = MyIni.ReadInt("width", "block", 100) / 100f;
-            newblockBase.height = MyIni.ReadInt("height", "block", 100) / 100f;
-            newblockBase.hpMax = MyIni.ReadInt("hp", "block", 5);
-            newblockBase.material = (blockMaterial)Enum.Parse(typeof(blockMaterial), MyIni.Read("material", "block", "ground"));
-            newblockBase.type = (blockType)Enum.Parse(typeof(blockType), MyIni.Read("blockType", "block", "none"));
 
-            newblockBase.buildCount = MyIni.ReadInt("buildCount", "build", 0);
+            if (MyIni.Read("material", "block", "not") != "not")
+            {
+
+                itemBlockSettings newblockBase = new itemBlockSettings();
+                newblockBase.icon = newItem.icon;
+
+                newblockBase.width = MyIni.ReadInt("width", "block", 100) / 100f;
+                newblockBase.height = MyIni.ReadInt("height", "block", 100) / 100f;
+                newblockBase.hpMax = MyIni.ReadInt("hp", "block", 5);
+                newblockBase.material = (blockMaterial)Enum.Parse(typeof(blockMaterial), MyIni.Read("material", "block", "ground"));
+                newblockBase.type = (blockType)Enum.Parse(typeof(blockType), MyIni.Read("blockType", "block", "none"));
+
+                newblockBase.buildCount = MyIni.ReadInt("buildCount", "build", 0);
 
 
-            newblockBase.dropInd = MyIni.Read("drop", "block", "self");
-            if (newblockBase.dropInd == "self") newblockBase.dropInd = ind;
-            if (newblockBase.dropInd == "not") newblockBase.dropInd = "not";
-         
+                newblockBase.dropInd = MyIni.Read("drop", "block", "self");
+                if (newblockBase.dropInd == "self") newblockBase.dropInd = ind;
+                if (newblockBase.dropInd == "not") newblockBase.dropInd = "not";
 
-
-
-            blockBase.Add(ind, newblockBase);
-
+                
+                blockBase.Add(ind, newblockBase);
+            }
 
 
             //Подгрузка рецептов крафат

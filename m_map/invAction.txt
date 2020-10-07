@@ -1,7 +1,8 @@
-Weapon:smg 22
-Weapon:ammo762 32
-Core:brevno 4
-Weapon:smg 45
+Weapon:m16 0
 Weapon:apistol 9
+Weapon:diamond_pickaxe 33
+Eat:med1 3
 Weapon:ammo762 144
-Weapon:ammo9 19
+Weapon:ammo9 64
+Eat:shava 3
+Core:stone 1
