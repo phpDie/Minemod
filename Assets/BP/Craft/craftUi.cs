@@ -62,16 +62,19 @@ public class craftUi : MonoBehaviour
 
 
             Global.Links.getIndDataPlayerCargo().itemAdd(curentRecept.ind, curentRecept.cout);
+
+            RenderList(true);
             //print("CRAFT");
         }
 
 
         selectRecept(curentRecept);
     }
-
+     
 
     public void selectRecept(receptCraft re)
     {
+        if (re == null) return;
         curentRecept = re;
 
         sidebar.SetActive(true);

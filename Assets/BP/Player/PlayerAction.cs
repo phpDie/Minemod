@@ -280,98 +280,10 @@ public class PlayerAction : MonoBehaviour
     public bool btnAttackDown = false;
 
 
- 
-
-    void updConroll()
-        {
-
-            if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
-        {
-            myInv.selectNewActiveInde(myInv.actveIndex + 1);
-        }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0f) // backwards
-        {
-            myInv.selectNewActiveInde(myInv.actveIndex - 1);
-        }
-
-        if (timeAttack <= 0f)
-        {
-
-        }
-        else { 
-            timeAttack -= Time.deltaTime;
-        }
-
-        if (!Cursor.visible)
-        {
-
-            if (Input.GetButton("Fire1"))
-            {
-                if (timeAttack<=0f)
-                {
-
-                    if (myItemType == itemType.block)
-                    {
-                        hand.GetComponent<Animator>().SetBool("attack", true);
-                        timeAttack = timeAttackMax;
-                    }
-
-                    if (myItemType == itemType.handTool || myItemType == itemType.eat)
-                    {
-                        
-                       
-                        hand.GetComponent<Animator>().SetBool("attack", true);
-                        timeAttack = timeAttackMax;
-                    }
 
 
-                    if (myItemType == itemType.gun)
-                    {
-                        ActionItem_Fire(); 
-                        timeAttack = timeAttackMax;
-                    }
-                }
-
-            }
-
-            if (myItemType == itemType.gun)
-            {
-
-                if (Input.GetKeyDown(KeyCode.H))
-                {
-                    handWeapon.GetComponent<Animator>().SetTrigger("show");
-                }
-
-
-                if (Input.GetButton("Fire2"))
-                {
-                    camFiledView = 35;
-                }
-                else
-                {
-                    camFiledView = 65;
-                }
-            }
-
-
-            if (Input.GetButtonDown("Fire2"))
-            {
-                
-
-
-                if (myItemType == itemType.block)
-                {
-                    ActionItem_Build();
-                }
-            } 
-
-
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                ActionItem_Use();
-            }
-        }
-
+    void updConrollUi()
+    {
         if (Input.GetKeyDown(KeyCode.C))
         {
             if (!Cursor.visible) setCurLock(false);
@@ -429,10 +341,114 @@ public class PlayerAction : MonoBehaviour
 
                 setCurLock(false);
             }
-            
+
 
         }
-    
+    }
+    void updConroll()
+    {
+
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
+        {
+            myInv.selectNewActiveInde(myInv.actveIndex + 1);
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0f) // backwards
+        {
+            myInv.selectNewActiveInde(myInv.actveIndex - 1);
+        }
+
+        if (timeAttack <= 0f)
+        {
+
+        }
+        else
+        {
+            timeAttack -= Time.deltaTime;
+        }
+
+        updConrollUi();
+
+        if (Cursor.visible) return;
+
+
+        if (Input.GetButton("Fire1"))
+        {
+            if (timeAttack <= 0f)
+            {
+
+                if (myItemType == itemType.block)
+                {
+                    hand.GetComponent<Animator>().SetBool("attack", true);
+                    timeAttack = timeAttackMax;
+                }
+
+                if (myItemType == itemType.handTool || myItemType == itemType.eat)
+                {
+
+
+                    hand.GetComponent<Animator>().SetBool("attack", true);
+                    timeAttack = timeAttackMax;
+                }
+
+
+                if (myItemType == itemType.gun)
+                {
+                    ActionItem_Fire();
+                    timeAttack = timeAttackMax;
+                }
+            }
+
+        }
+
+        if (myItemType == itemType.gun)
+        {
+
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                handWeapon.GetComponent<Animator>().SetTrigger("show");
+            }
+
+
+            if (Input.GetButton("Fire2"))
+            {
+                camFiledView = 35;
+            }
+            else
+            {
+                camFiledView = 65;
+            }
+        }
+
+
+
+
+        if (Input.GetButtonDown("Fire2"))
+        {
+
+            if (myItemType == itemType.block)
+            {
+                ActionItem_Build();
+            }
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            ActionItem_Use(true);
+        }
+
+
+        if (Input.GetButtonDown("Fire2"))
+        {
+            if (myItemType != itemType.gun && myItemType != itemType.block)
+            {
+                ActionItem_Use(false);
+            }
+        }
+
+
+      
+
 
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -450,10 +466,10 @@ public class PlayerAction : MonoBehaviour
 
                 if (needCount > 0)
                 {
-                    
+
 
                     if (myInv.myData.giveFromInd(ammoReloadInd, needCount))
-                    { 
+                    {
                         myInv.activeElement.count += needCount;
                         myInv.ReRender();
                     }
@@ -606,13 +622,13 @@ public class PlayerAction : MonoBehaviour
         return false;
     }
 
-    void ActionItem_Use()
+    bool ActionItem_Use(bool isInfoBlockOn =false)
     {
 
         GameObject go = GetBlockFromRayCamera();
         if (go == null)
         {
-            return;
+            return false;
         }
         if (go.transform.tag == "block")
         {
@@ -630,7 +646,7 @@ public class PlayerAction : MonoBehaviour
                 Global.Links.getOtherInvUi().openCargo(b.GetComponent<invData>());
 
                 setCurLock(false);
-                return;
+                return true;
                 // print("Open cargo");
             }
 
@@ -643,27 +659,32 @@ public class PlayerAction : MonoBehaviour
             if (b.itemInd == "Core:adminBuild")
             {
                 b.GetComponent<adminBuilderBlock>().createAdminBuildExportData();
-                return;
+                return true;
             }
 
-            //info
 
-            print("\n ---- -----");
-            print(b.transform.name);
-            print(b.itemInd);
-            print(b.myMaterial);
-            print("HP:"+b.hp);
+            if (isInfoBlockOn)
+            {
+                print("\n ---- -----");
+                print(b.transform.name);
+                print(b.itemInd);
+                print(b.myMaterial);
+                print("HP:" + b.hp);
+            }
 
 
          
 
-            return;
-        }
             
+        }
+        return false;
 
     }
     void ActionItem_Build()
     {
+
+            if (ActionItem_Use(false)) return;
+
         if (!myInv.giveActive(1, false)) return;
 
         /*

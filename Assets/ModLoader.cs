@@ -217,6 +217,11 @@ public class ModLoader : MonoBehaviour
 
                     string[] _pars = _ingrCraft.ind.Split(' ');
 
+                    if (_pars.Length != 2)
+                    {
+                        print(ind + " error recept craft "+ " " + _ingrCraft.ind);
+                    }
+
                     _ingrCraft.ind = _pars[0];
                     _ingrCraft.cout = System.Convert.ToInt32(_pars[1]);
 

@@ -1,3 +1,7 @@
-Core:brevno 5
-Core:dirt 4
-Core:stone 2
+Weapon:smg 22
+Weapon:ammo762 32
+Core:brevno 4
+Weapon:smg 45
+Weapon:apistol 9
+Weapon:ammo762 144
+Weapon:ammo9 19

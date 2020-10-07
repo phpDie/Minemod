@@ -31,7 +31,6 @@
 -8:2:-4 Core:stone 6
 -8:3:-4 Core:stone 6
 -8:4:-4 Core:stone 6
--8:5:-4 Core:grass 8
 -8:0:-3 Core:bad 5000
 -8:1:-3 Core:stone 6
 -8:2:-3 Core:gravel 8
@@ -898,7 +897,6 @@
 2:2:4 Core:gravel 8
 2:3:4 Core:gravel 8
 2:4:4 Core:grass 8
-2:5:4 Core:grass 8
 2:0:5 Core:bad 5000
 2:1:5 Core:stone 6
 2:2:5 Core:gravel 8
@@ -962,17 +960,13 @@
 2:7:-4 Core:leaves 3
 2:6:-3 Core:leaves 3
 2:7:-3 Core:leaves 3
-3:6:-4 Core:leaves 3
 3:7:-4 Core:brevno 5
-3:5:-3 Core:brevno 5
 3:6:-3 Core:brevno 5
 3:7:-3 Core:brevno 5
-3:6:-2 Core:leaves 3
 3:7:-2 Core:leaves 3
 4:7:-4 Core:leaves 3
 4:6:-3 Core:leaves 3
 4:7:-3 Core:leaves 3
-3:5:-3 Core:grass 8
 3:0:-2 Core:bad 5000
 3:1:-2 Core:gravel 8
 3:2:-2 Core:stone 6
@@ -1050,8 +1044,6 @@
 4:0:0 Core:bad 5000
 4:1:0 Core:stone 6
 4:2:0 Core:gravel 8
-3:6:-1 Core:leaves 3
-3:6:0 Core:leaves 3
 4:5:-1 Core:leaves 3
 4:6:-1 Core:brevno 5
 4:4:0 Core:brevno 5
