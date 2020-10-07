@@ -1,2 +1,0 @@
-Block:pblock_glass 50
-eat:shava 3

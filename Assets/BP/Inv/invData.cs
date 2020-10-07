@@ -59,8 +59,7 @@ public class invData : MonoBehaviour
         //Это главный инв
         if (isPlayerMainInv)
         {
-
-            print("isPlayerMainInv");
+             
             //Переброс в сундук
             if (Global.Links.getSui().winInvOther.gameObject.active)
             {

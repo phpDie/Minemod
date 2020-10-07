@@ -32,7 +32,7 @@ public class buildController : MonoBehaviour
 
 
         // Check if our raycast has hit anything
-        if (Physics.Raycast(rayOrigin, plAct.mCam.transform.forward, out hit, 15f))
+        if (Physics.Raycast(rayOrigin + plAct.mCam.transform.forward*0.1f, plAct.mCam.transform.forward, out hit, 15f))
         {
             if (hit.transform.tag == "block")
             {

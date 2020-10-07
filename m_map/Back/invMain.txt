@@ -1,5 +1,0 @@
-Core:dirt 47
-Block:pblock_cobblestone_mossy 29
-Weapon:diamond_pickaxe 41
-Weapon:axe 81
-Weapon:bita 57

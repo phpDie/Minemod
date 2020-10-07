@@ -485,8 +485,9 @@ public class PlayerAction : MonoBehaviour
             forw = myWeapon.transform.forward;
         }
 
-        if (Physics.Raycast(rayOrigin, forw, out hit, toolDist))
+        if (Physics.Raycast(rayOrigin + forw*0.1f, forw, out hit, toolDist))
         {
+
             lastHitTestPoint = hit.point;
             //  print(hit.transform.name);
             return hit.transform.gameObject;

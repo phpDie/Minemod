@@ -97,7 +97,7 @@ public class craftUi : MonoBehaviour
     public bool checkReceptIssetIngridients(receptCraft re, bool isGive =false)
     {
 
-        inv myInv =  Global.Links.getPlayerInvUi();
+        inv myInv =  Global.Links.getPlayerMainInvUi();
         
         foreach (receptCraftElement it in re.ingredients)
         {
@@ -165,8 +165,7 @@ public class craftUi : MonoBehaviour
     }
 
     private void OnEnable()
-    {
-        print("u");
+    { 
         RenderList();
     }
 

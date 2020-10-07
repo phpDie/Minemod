@@ -348,12 +348,13 @@ public class ModLoader : MonoBehaviour
 
 
         pathMods = Application.dataPath + "/../Mods/";
-        modInstall("eat");
+        modInstall("Eat");
         modInstall("Weapon");
         modInstall("Block");
         modInstall("Chest");
         modInstall("Core");
         modInstall("Ruda");
+        modInstall("Hlam");
 
 
 
