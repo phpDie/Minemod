@@ -422,7 +422,7 @@ public class invData : MonoBehaviour
     }
 
 
-    public int searchBat(bool fullEn = false, int minEn=0)
+    public int searchBat(string wifi="not", bool fullEn = false, int minEn=0)
     {
 
 
@@ -431,25 +431,28 @@ public class invData : MonoBehaviour
             itemElement it = items[j];
             if (it.isset)
             {
-                if (it.infoItemSave.type == itemType.bat)
+                if (it.infoItemSave.wifi == wifi)
                 {
-                    if (!fullEn)
+                    if (it.infoItemSave.type == itemType.bat || (!fullEn && it.infoItemSave.wifi == wifi))
                     {
-                        if (it.count < it.infoItemSave.stackSize)
+                        if (!fullEn)
                         {
-                            return j;
+                            if (it.count < it.infoItemSave.stackSize)
+                            {
+                                return j;
+                            }
                         }
-                    }
-                    else
-                    {
-                        if (it.count >= minEn)
+                        else
                         {
-                            return j;
+                            if (it.count >= minEn)
+                            {
+                                return j;
+                            }
+
                         }
 
+
                     }
-
-
                 }
             }
         }
@@ -585,7 +588,15 @@ public class invData : MonoBehaviour
         foreach (itemElement it in items)
         {
             string line = "\n";
-            line += it.ind + " " + it.count.ToString();
+
+            if (it.isset)
+            {
+                line += it.ind + " " + it.count.ToString();
+            }
+            else
+            {
+                line += "not 0";
+            }
             Out += line;
         }
 

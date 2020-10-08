@@ -471,7 +471,6 @@
 -7:4:-1 Block:pblock_anvil_base 6
 -7:5:-1 Block:pblock_glass 1
 -7:6:-1 Block:pblock_glass 1
--7:7:-1 Block:pblock_glass 1
 -7:8:-1 Block:pblock_cobblestone_mossy 4
 -7:4:0 Block:pblock_sandstone_smooth 4
 -7:5:0 Block:pblock_sandstone_smooth 4
@@ -633,12 +632,9 @@
 -1:6:-1 Block:pblock_mob_spawner 5
 -1:8:-1 Block:pblock_cobblestone_mossy 4
 -1:4:0 Block:pblock_stonebrick_mossy 4
--1:5:0 Block:pblock_sandstone_smooth 4
--1:6:0 Block:pblock_mob_spawner 5
 -1:7:0 Block:pblock_mob_spawner 5
 -1:8:0 Block:pblock_cobblestone_mossy 4
 -1:4:1 Block:pblock_stonebrick_mossy 4
--1:5:1 Block:pblock_sandstone_smooth 4
 -1:7:1 Block:pblock_crafting_table_top 6
 -1:8:1 Block:pblock_cobblestone_mossy 4
 -1:4:2 Block:pblock_stonebrick_mossy 4
@@ -910,8 +906,6 @@
 -2:4:2 Core:brevno 5
 -2:5:2 Core:brevno 5
 -2:6:2 Core:brevno 5
--1:6:1 Core:leaves 3
--1:5:2 Core:leaves 3
 -1:6:2 Core:leaves 3
 -2:0:3 Core:bad 5000
 -2:1:3 Core:gravel 8
@@ -926,7 +920,6 @@
 -2:6:3 Core:brevno 5
 -2:5:4 Core:leaves 3
 -2:6:4 Core:leaves 3
--1:6:2 Core:leaves 3
 -1:5:3 Core:leaves 3
 -1:6:3 Core:leaves 3
 -2:0:4 Core:bad 5000

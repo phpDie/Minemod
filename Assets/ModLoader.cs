@@ -50,6 +50,14 @@ public class itemBlockSettings
 }
 
 
+public class wifiType
+{
+    public string name = "Жижа";
+    public string ind = "not";
+    public string ed = "j";
+}
+
+
 public class itemSave
 {
 
@@ -61,6 +69,7 @@ public class itemSave
     public string nameView; //название
     public string modName; 
     public string ind;  //инд
+    public string wifi="nont";  //инд
     public string iniFilePath; //путь до ини файла
     public int stackSize = 0;//размер стака
     public bool stackHpMode; //количество предмета это хп. То есть для лопат, кирок, пушку. стак=хп
@@ -94,7 +103,47 @@ public class ModLoader : MonoBehaviour
         return res;
     }
 
-    void modInstall(string modName)
+    public wifiType wifiGetFromInd(string ind)
+    {
+
+        if (!wifi.ContainsKey(ind))
+        {
+            return null;
+        }
+
+        wifiType res = wifi[ind] as wifiType;
+        return res;
+    }
+
+    void modInstall_wifi(string modName)
+    {
+        string pModDir = pathMods + modName + "/energy/";
+ 
+        if (!Directory.Exists(pModDir)) return;
+
+        DirectoryInfo dir = new DirectoryInfo(pModDir);
+        FileInfo[] info = dir.GetFiles("*.*");
+        foreach (FileInfo f in info)
+        {
+            IniFile MyIni = new IniFile(f.FullName);
+            string en_name = MyIni.Read("name", "energy", "not");
+
+            if (en_name != "not")
+            {
+
+                wifiType wNew = new wifiType();
+                wNew.ind = f.Name.Replace(".ini", "");
+                wNew.ed = MyIni.Read("ed", "energy", "xz");
+                wNew.name = MyIni.Read("name", "energy", "xz");
+                 
+                wifi.Add(wNew.ind, wNew);
+
+            }
+
+        }
+    }
+
+        void modInstall(string modName)
     {
         string pModDir = pathMods + modName + "/";
 
@@ -123,6 +172,8 @@ public class ModLoader : MonoBehaviour
             newItem.modName = modName;
 
             newItem.ind = modName+":"+nameItem;
+
+            newItem.wifi = MyIni.Read("wifi", "itemInfo","not");
 
             newItem.nameView = MyIni.Read("name", "itemInfo");
             newItem.emptyIsset = MyIni.ReadBool("emptyIsset", "itemInfo");
@@ -358,6 +409,7 @@ public class ModLoader : MonoBehaviour
     }
 
     public Dictionary<string, itemSave> itemBase = new Dictionary<string, itemSave>();
+    public Dictionary<string, wifiType> wifi = new Dictionary<string, wifiType>();
 
 
     //Это кэш предметов которые блоки. Что бы не читать ини файлы и тд.
@@ -379,6 +431,7 @@ public class ModLoader : MonoBehaviour
 
 
         pathMods = Application.dataPath + "/../Mods/";
+        /*
         modInstall("Agregat");
         modInstall("Eat");
         modInstall("Weapon");
@@ -387,10 +440,25 @@ public class ModLoader : MonoBehaviour
         modInstall("Core");
         modInstall("Ruda");
         modInstall("Hlam");
+        */
+
+        string pModDir = pathMods ;
+        DirectoryInfo dir = new DirectoryInfo(pModDir);
+        DirectoryInfo[] info = dir.GetDirectories("*.*");
+
+        foreach (DirectoryInfo f in info)
+        { 
+           modInstall_wifi(f.Name);
+        }
+        foreach (DirectoryInfo f in info)
+        {
+            modInstall(f.Name);
+        }
+        
 
 
 
-        watch.Stop();
+            watch.Stop();
         print($"Mod Loaded: {watch.ElapsedMilliseconds} ms");
 
 

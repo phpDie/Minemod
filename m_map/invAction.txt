@@ -1,9 +1,9 @@
 Weapon:m16 32
-Weapon:apistol 9
-Weapon:diamond_pickaxe 33
-Agregat:bat 20
-Agregat:gen 28
-Weapon:ammo9 64
-Eat:shava 3
-Agregat:a1 28
-Core:stone 1
+Weapon:apistol 8
+Block:pblock_cobblestone_mossy 0
+Weapon:diamond_pickaxe 4
+Weapon:axe 281
+Agregat:swordEn 0
+not 0
+Block:blockKolona 95
+not 0
