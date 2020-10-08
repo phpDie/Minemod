@@ -1,0 +1,16 @@
+Agregat:a1 29
+Core:stone 1
+Agregat:a1 28
+Core:brevno 1
+Core:dirt 43
+Core:brevno 1
+Core:brevno 1
+ 1
+ 1
+ 1
+Core:brevno 1
+Core:brevno 1
+Core:brevno 1
+Core:brevno 1
+ 1
+ 1

@@ -311,8 +311,17 @@ public class ChankController : MonoBehaviour
 
 
     }
+    /*
+    public void metaSaveCargo(BlockController b, )
+    {
+        if (!File.Exists(path))
+        {
+            File.Create(path).Close();
+        }
 
-
+        File.WriteAllText(path, b.GetComponent<invData>().dataGet());
+    }
+    */
     public void metaDataBlocksSave()
     {
         for (int i = 0; i < transform.childCount; i++)

@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class invItem : MonoBehaviour
+using UnityEngine.EventSystems;
+
+public class invItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+
    public invData myData;
     public itemElement myElement;
-    
+
+    public int myIndex = -1;
 
     public void setNull()
     {
@@ -23,4 +27,30 @@ public class invItem : MonoBehaviour
         
 
     }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        myData.dragElement(myElement,  eventData.position);
+        //Debug.Log ("OnDrag");
+
+        //this.transform.position = eventData.position;
+
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+
+        GameObject tempObj = eventData.pointerCurrentRaycast.gameObject;
+       
+
+        myData.dragEnd(myElement, tempObj);
+
+
+    }
 }
+

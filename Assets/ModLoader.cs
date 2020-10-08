@@ -110,8 +110,12 @@ public class ModLoader : MonoBehaviour
             itemSave newItem = new itemSave();
             // newItem.iniF = MyIni;
             newItem.iniFilePath = f.FullName;
-            newItem.ind = nameItem;
+
+            
+
             newItem.modName = modName;
+
+            newItem.ind = modName+":"+nameItem;
 
             newItem.nameView = MyIni.Read("name", "itemInfo");
             newItem.emptyIsset = MyIni.ReadBool("emptyIsset", "itemInfo");
@@ -362,6 +366,7 @@ public class ModLoader : MonoBehaviour
 
 
         pathMods = Application.dataPath + "/../Mods/";
+        modInstall("Agregat");
         modInstall("Eat");
         modInstall("Weapon");
         modInstall("Block");

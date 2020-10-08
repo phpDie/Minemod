@@ -8,9 +8,11 @@ public class sUi : MonoBehaviour
     [Header("TextElements")]
     public Text txtDayTime;
 
+
     [Header("WINDOWS")]
     public inv winInvAction;
     public inv winInvOther;
+    public agregatUi winAgregat;
 
 
     public inv winInvMain;

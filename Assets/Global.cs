@@ -41,6 +41,14 @@ namespace Global
            // return GameObject.Find("SUI/invMain").GetComponent<inv>();
 
         }
+        
+
+        public static agregatUi getAgregatUi()
+        {
+            return getSui().winAgregat;
+           // return GameObject.Find("SUI/invMain").GetComponent<inv>();
+
+        }
 
 
         public static inv getOtherInvUi()

@@ -75,6 +75,9 @@ public class PlayerAction : MonoBehaviour
         setHandItem(null);
 
         suiRender();
+
+        Global.Links.getSui().winCloseAll();
+        setCurLock(true);
     }
 
 
@@ -298,11 +301,17 @@ public class PlayerAction : MonoBehaviour
 
         }
 
-
+        /*
         if (Input.GetKeyDown(KeyCode.T))
         {
-            myInv.myData.itemAdd("Core:dirt", 1);
+            setCurLock(false);
+
+            Global.Links.getSui().winCloseAll();
+            Global.Links.getSui().winOpen("winAgregat");
+            Global.Links.getSui().winOpen("invMain"); 
         }
+        */
+
 
         //Админский инвентарь
         if (Input.GetKeyDown(KeyCode.U))
@@ -645,7 +654,8 @@ public class PlayerAction : MonoBehaviour
         if (go.transform.tag == "block")
         {
             BlockController b = go.GetComponent<BlockController>();
-         
+
+            b.initBlock();
 
             if (b.myType == blockType.cargo)
 
@@ -661,6 +671,18 @@ public class PlayerAction : MonoBehaviour
                 return true;
                 // print("Open cargo");
             }
+
+            if (b.myType == blockType.agregat)
+            {
+               
+                setCurLock(false);
+                Global.Links.getSui().winOpen("invMain");
+                Global.Links.getSui().winOpen("winAgregat");
+                b.GetComponent<blockTypeAgregat>().open();
+
+                return true;
+            }
+
 
             if (b.myType == blockType.door)
             {
@@ -749,6 +771,9 @@ public class PlayerAction : MonoBehaviour
         newBlock.transform.name = newBlock.transform.localPosition.x.ToString() + ":" + newBlock.transform.localPosition.y.ToString() + ":" + newBlock.transform.localPosition.z.ToString();
 
         newBlock.itemInd = myInv.activeElement.ind;
+        newBlock.hp =0f;
+
+        newBlock.initBlockPreload();
         newBlock.initBlock();
 
         //newBlock.GetComponent<MeshRenderer>().material.mainTexture = myInv.activeElement.infoItemSave.icon;

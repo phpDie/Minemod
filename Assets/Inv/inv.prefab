@@ -61,7 +61,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -415,7 +415,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -512,7 +512,7 @@ GameObject:
   - component: {fileID: 5103586828580927059}
   m_Layer: 5
   m_Name: inv
-  m_TagString: Untagged
+  m_TagString: invUi
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -614,7 +614,7 @@ MonoBehaviour:
   contentBox: {fileID: 4661591062898044234}
   blankItem: {fileID: 8163730146340243342, guid: de5bb92e362039545a7642e8792aa7f8, type: 3}
   myData: {fileID: 0}
-  actveIndex: 2
+  actveIndex: -1
   isPlayer: 0
 --- !u!1 &7773493011783869159
 GameObject:
@@ -735,7 +735,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6099474197118906371}
   m_HandleRect: {fileID: 7478655175500452217}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

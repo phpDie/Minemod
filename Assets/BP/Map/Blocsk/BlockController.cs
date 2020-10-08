@@ -25,12 +25,13 @@ public enum blockType
     cargo = 1,
     door = 2,
     mobSpawn = 3,
+    agregat = 4,
 }
 
 public class BlockController : MonoBehaviour
 {
     public string itemInd = "def:not";
-    itemSave myData;
+    public itemSave myData;
     public blockType myType;
     public blockMaterial myMaterial;
 
@@ -267,6 +268,13 @@ public class BlockController : MonoBehaviour
 
     public void initBlockPreload()
     {
+        if (mod == null)
+        {
+            mod = Global.Links.getModLoader();
+        }
+
+
+
         if (myBlockSetting == null)
         {
             myBlockSetting = mod.blockBase[itemInd];
@@ -300,6 +308,8 @@ public class BlockController : MonoBehaviour
             }
         }
 
+        
+
     }
 
 
@@ -325,11 +335,7 @@ public class BlockController : MonoBehaviour
         if (itemInd == "not") itemInd = "Core:dirt";
 
 
-        if (mod == null)
-        {
-            mod = Global.Links.getModLoader();
-        }
-
+       
 
 
         if (!mod.blockBase.ContainsKey(itemInd))
@@ -403,6 +409,12 @@ public class BlockController : MonoBehaviour
              
         }
 
+
+        if (myType == blockType.agregat)
+        {
+            gameObject.AddComponent<blockTypeAgregat>().init();
+
+        }
 
         if (itemInd == "Core:adminBuild")
         {

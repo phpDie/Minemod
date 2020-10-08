@@ -28,6 +28,7 @@ public class invData : MonoBehaviour
     public int size = 16;
 
 
+    public ghostItem ghost;
 
 
     [HideInInspector]
@@ -38,19 +39,29 @@ public class invData : MonoBehaviour
 
 
     bool isInit =false;
-    public void init()
+    public void init(int mySize =-1)
     {
 
         if (isInit) return;
         isInit = true;
 
+        if (mySize > -1)
+        {
+            size = mySize;
+        }
+
         blankItem = Resources.Load<invItem>("invItem");
+
+
+        ghost = Instantiate(Resources.Load<ghostItem>("ghostItem"), Global.Links.getSui().transform);
+        ghost.gameObject.SetActive(false);
 
         for (int i = 0; i < size; i++)
         {
 
             invItem nItem = Instantiate(blankItem, transform);
-            
+            nItem.myIndex = i;
+
             nItem.myData = this;
 
             //nItem.transform.GetChild(2).GetComponent<Text>().text = "empty";
@@ -71,8 +82,9 @@ public class invData : MonoBehaviour
 
 
 
-    public bool itemAdd(string ind, int count = 0, bool isAutoRender =false )
+    public bool itemAdd(string ind, int count = 0, bool isAutoRender =false, int inSelectIndex =-1)
     {
+        
 
         if(ind == "not" || ind == "")
         {
@@ -95,24 +107,49 @@ public class invData : MonoBehaviour
         }
 
         
+
         if (!itemData.stackHpMode)
         {
-            int issetIndex = searchIsset(ind, 1);
 
-
-            if (issetIndex > -1)
+            //стак в место
+            if (inSelectIndex > -1)
             {
-
-                if (items[issetIndex].count - count <= itemData.stackSize)
+                
+                if (items[inSelectIndex].isset)
                 {
-                    items[issetIndex].count += count;
-                     if (isAutoRender) ReRender();
+                    
+                    if (items[inSelectIndex].ind != itemData.ind) return false;
+                    if (items[inSelectIndex].count + count > itemData.stackSize) return false;
+
+                    items[inSelectIndex].count += count;
+                    if (isAutoRender) ReRender();
+
                     return true;
                 }
             }
+
+            //Автостак
+            if (inSelectIndex <= -1)
+            { 
+                int issetIndex = searchIsset(ind, 1);
+                
+                if (issetIndex > -1)
+                {
+
+
+                    if (items[issetIndex].count - count <= itemData.stackSize)
+                    {
+                        items[issetIndex].count += count;
+                        if (isAutoRender) ReRender();
+                        return true;
+                    }
+                }
+            }
+
+            
         }
 
-
+        
 
 
         
@@ -129,7 +166,14 @@ public class invData : MonoBehaviour
         int J = searchEmpty();
         if (J <= -1) return false;
 
-       
+
+        if (inSelectIndex > -1) {
+            if (!items[inSelectIndex].isset)
+            {
+                J = inSelectIndex;
+            }
+        }
+
 
         invItem nItem = items[J].e;
          
@@ -202,22 +246,67 @@ public class invData : MonoBehaviour
             return -1;
     }
  
-    public bool moveInOtherInv(inv otherWinInv, itemElement myItemE)
+    
+    public bool moveLocal(int I, int TO)
     {
+        if (!items[I].isset) return false;
+        
+        if (items[TO].isset)
+        {
+            if (items[I].ind != items[TO].ind) return false;
+        }
+        
+
+        if (itemAdd(items[I].ind, items[I].count, true, TO))
+        {
+            //items[I].isset = false;
+            itemRemoveIndex(I);
+            ReRender(true);
+            return true;
+        }
+
+        return false;
+    }
+
+
+    public bool moveInOtherInv(inv otherWinInv, itemElement myItemE, int J=-1)
+    {
+
+        if (myItemE == null) return false;
+        if (!myItemE.isset) return false;
+
+
+        if (otherWinInv.myData == this)
+        {
+            print("юзай moveLocal ");
+            return false;
+        }
+
+
         if (myItemE == null)
         {
            // print("EMPTY ITEM");
             return false;
         }
 
+
+        int oldIndex = myItemE.i;
+
        // otherWinInv.myData.items.Add(myItemE);
-       bool isMoved =  otherWinInv.myData.itemAdd(myItemE.ind, myItemE.count);
+        bool isMoved =  otherWinInv.myData.itemAdd(myItemE.ind, myItemE.count,false, J);
 
         if (!isMoved) return false;
 
+        /*
+        if (otherWinInv.myData == this)
+        {
 
+            ReRender(true);
+            return true;
+        }
+        */
 
-        itemRemoveIndex(myItemE.i);
+        itemRemoveIndex(oldIndex);
 
 
         otherWinInv.myData.ReRender(true);
@@ -462,5 +551,71 @@ public class invData : MonoBehaviour
 
         return Out;
 
+    }
+
+    bool isDrag = false;
+    public void dragElement(itemElement E, Vector2 pos)
+    {
+        if (!isDrag)
+        {
+            if (!E.isset) return;
+
+            ghost.gameObject.SetActive(true);
+            ghost.itemElement = E;
+            isDrag = true;
+            ghost.transform.GetChild(0).GetComponent<Text>().text = E.count.ToString();
+        }
+
+        ghost.isDrag = isDrag;
+        ghost.transform.position = pos;
+
+    }
+
+
+    public void dragEnd(itemElement E, GameObject go)
+    {
+        ghost.gameObject.SetActive(false);
+        isDrag = false;
+
+        if (go == null) return;
+
+
+        if (go.transform.tag == "invItem")
+        {
+            invItem it = go.GetComponent<invItem>();
+            
+
+            if (it.myData == this)
+            {
+                if (it.myIndex == E.i) return;
+                moveLocal(E.i, it.myIndex);
+            }
+            else
+            {
+                moveInOtherInv(it.myData.myViewInvUi, E, it.myIndex);
+            }
+        
+            /*
+            if (go.GetComponent<invItem>().myData == go.GetComponent<invItem>().myData)
+            {
+
+                moveInOtherInv(go.GetComponent<invItem>().myData.myViewInvUi, E);
+                myIndex
+                print("Move to me");
+            }
+            else
+            {
+                print("Move to other item");
+                moveInOtherInv(go.GetComponent<invItem>().myData.myViewInvUi, E);
+            }
+            */
+            return;
+        }
+
+        if (go.transform.tag == "invUi")
+        {
+            print("Move to other");
+           // moveInOtherInv(go.GetComponent<inv>(), E);
+        }
     }
 }
