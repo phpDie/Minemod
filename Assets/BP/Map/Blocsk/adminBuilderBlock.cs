@@ -30,8 +30,8 @@ public class adminBuilderBlock : MonoBehaviour
 
         string Out = "";
 
-        int w =8;
-        int h = 12;
+        int w =11;
+        int h = 16;
 
         int i = -1;
 

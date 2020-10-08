@@ -112,6 +112,7 @@ public class BlockController : MonoBehaviour
         */
  
     }
+     
 
     public void Damage(float dam, blockMaterial attackMaterial = blockMaterial.all, GameObject author = null)
     {
@@ -123,12 +124,14 @@ public class BlockController : MonoBehaviour
         if (attackMaterial != myMaterial)
         {
             cofDamage = 0.4f;
+            
             if (attackMaterial == blockMaterial.all) cofDamage = 1f;
             if (attackMaterial == blockMaterial.meat) cofDamage = 0.3f;
             if (myMaterial == blockMaterial.glass) cofDamage = 1f;
             if (myMaterial == blockMaterial.badrock) cofDamage = 0f;
             if (myMaterial == blockMaterial.all) cofDamage = 1f;
             if (myMaterial == blockMaterial.metal && attackMaterial == blockMaterial.stone) cofDamage = 1f;
+            if (attackMaterial == blockMaterial.glass && myMaterial != blockMaterial.glass) cofDamage = 0.1f;
         }
 
         dam = dam * cofDamage;

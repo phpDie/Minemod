@@ -55,7 +55,7 @@ public class botBody : MonoBehaviour
 
     public void animDeadEnd()
     {
-        print("ANIM END");
+       // print("ANIM END");
         Destroy(gameObject);
     }
 
@@ -117,7 +117,7 @@ public class botBody : MonoBehaviour
 
                 forward = handCenter.transform.forward;
 
-        forward += new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f));
+        forward += new Vector3(Random.Range(-0.2f, 0.2f), Random.Range(-0.8f, 0.2f), Random.Range(-0.2f, 0.2f));
 
 
         Vector3 rayOrigin = transform.Find("start").transform.position;
@@ -131,13 +131,13 @@ public class botBody : MonoBehaviour
 
         if (gunIsset)
         {
-            distRay = 25f;
+            distRay = 15f;
         }
 
-        Debug.DrawRay(rayOrigin, forward * 25f, Color.red, 5f);
+        //Debug.DrawRay(rayOrigin, forward * 25f, Color.red, 5f);
 
         // Check if our raycast has hit anything
-        if (Physics.Raycast(rayOrigin, forward, out hit, distRay))
+        if (Physics.Raycast(rayOrigin+ forward*0.2f, forward, out hit, distRay))
         {
 
             Transform damTo = hit.transform;
@@ -161,13 +161,13 @@ public class botBody : MonoBehaviour
             if (damTo.transform.tag == "block")
             {
 
-                damTo.GetComponent<BlockController>().Damage(attackDamage, blockMaterial.all, null);
+                damTo.GetComponent<BlockController>().Damage(attackDamage, blockMaterial.glass, null);
                 return;
             }
 
             if (damTo.transform.tag == "meatPart")
             {
-                damTo.transform.GetComponent<meatPart>().Damage(attackDamage);
+                damTo.transform.GetComponent<meatPart>().Damage(attackDamage,gameObject);
 
             }
 
@@ -189,6 +189,7 @@ public class botBody : MonoBehaviour
 
     }
 
+    float timeNoPlayer = 0f;
 
     void Update()
     {
@@ -202,6 +203,13 @@ public class botBody : MonoBehaviour
 
         bool isRunning = false;
 
+        timeNoPlayer += Time.deltaTime;
+        if (timeNoPlayer > 40f)
+        {
+            print("Моб выпилил себя, потому что не смог до вас добравться");
+            Destroy(gameObject);
+
+        }
 
 
         /*
@@ -237,6 +245,7 @@ public class botBody : MonoBehaviour
 
             if (Vector3.Distance(transform.position, target.transform.position) < 10f)
             {
+                timeNoPlayer = 0f;
                 gunFire();
             }
 

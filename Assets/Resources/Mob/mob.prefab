@@ -1213,18 +1213,18 @@ MonoBehaviour:
   distAttack: 1.5
   distView: 12
   gunIsset: 0
-  hp: 4
+  hp: 24
   lerpSpeed: 0.09
   lerpSpeedHand: 1
-  jumpRandomFrom: 1200
+  jumpRandomFrom: 350
   timerAttackMax: 1.2
   attackDamage: 8
   fireRayDist: 2
   handCenter: {fileID: 6114726413255254543}
   walkingSpeed: 2
   runningSpeed: 4
-  jumpSpeed: 12
-  gravity: 20
+  jumpSpeed: 20
+  gravity: 31
   rotationX: 0
   canMove: 1
   target: {fileID: 1670303531056663458, guid: a0e73c0a09838cc48b81391122e2a746, type: 3}

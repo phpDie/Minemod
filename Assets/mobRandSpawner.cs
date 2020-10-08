@@ -21,7 +21,13 @@ public class mobRandSpawner : MonoBehaviour
         pos.y = 37f;
 
 
-        string mobIndBase = "mob";
+        if(Mathf.Abs(pos.x) < 4f && Mathf.Abs(pos.z) < 4f)
+        {
+            pos+= new Vector3(Random.Range(-15f, 15f), 0f, Random.Range(-15f, 15f));
+        }
+
+
+            string mobIndBase = "mob";
         if (Random.Range(1, 9) == 1)
         {
             mobIndBase = "mob People";
@@ -43,10 +49,10 @@ public class mobRandSpawner : MonoBehaviour
         if (lastSpawn <= 0f)
         {
             spawn();
-            lastSpawn = 10f;
-            if (sui.Day.dayTime < 8f)
+            lastSpawn = 50f;
+            if (sui.Day.dayTime < 8f || sui.Day.dayTime>21f)
             {
-                lastSpawn = 8f;
+                lastSpawn = 16f;
             }
         }
         lastSpawn -= Time.deltaTime;
