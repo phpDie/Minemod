@@ -1,16 +1,16 @@
-Agregat:a1 29
-Core:stone 1
-Agregat:a1 28
-Core:brevno 1
+Agregat:a1 85
+Core:stone 3
+Core:brevno 7
 Core:dirt 43
-Core:brevno 1
-Core:brevno 1
- 1
- 1
- 1
-Core:brevno 1
-Core:brevno 1
-Core:brevno 1
-Core:brevno 1
+Agregat:bat 20
+Eat:shava 6
+Eat:med1 3
+Agregat:a1 28
+Weapon:ammo9 64
+Weapon:ammo762 144
+Agregat:gen 29
+Agregat:bat2 1
+Agregat:bat 20
+Agregat:a1 29
  1
  1

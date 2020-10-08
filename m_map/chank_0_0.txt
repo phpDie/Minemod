@@ -1624,3 +1624,4 @@
 7:3:7 Core:gravel 8
 7:4:7 Core:grass 8
 0:9:2 Agregat:a1 19
+1:9:0 Agregat:gen 19

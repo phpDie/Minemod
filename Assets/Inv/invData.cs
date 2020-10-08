@@ -84,7 +84,11 @@ public class invData : MonoBehaviour
 
     public bool itemAdd(string ind, int count = 0, bool isAutoRender =false, int inSelectIndex =-1)
     {
-        
+
+        if (inSelectIndex > -1)
+        {
+           // print(count);
+        }
 
         if(ind == "not" || ind == "")
         {
@@ -203,9 +207,9 @@ public class invData : MonoBehaviour
 
         newElement.e = nItem;
 
-        if (count == 0)
+        if (count == -1)
         {
-            newElement.count = itemData.stackSize;
+            newElement.count = itemData.startSize;
         }
         else
         {
@@ -383,6 +387,7 @@ public class invData : MonoBehaviour
         print("НЕ ПОНЯТНАЯ СИТУАЦИЯ И ИНВ");
     }
 
+
     public bool giveFromInd(string ind, int count)
     {
         int j = searchIsset(ind, count);
@@ -414,6 +419,43 @@ public class invData : MonoBehaviour
         }
 
         return -1;
+    }
+
+
+    public int searchBat(bool fullEn = false, int minEn=0)
+    {
+
+
+        for (int j = 0; j < items.Count; j++)
+        {
+            itemElement it = items[j];
+            if (it.isset)
+            {
+                if (it.infoItemSave.type == itemType.bat)
+                {
+                    if (!fullEn)
+                    {
+                        if (it.count < it.infoItemSave.stackSize)
+                        {
+                            return j;
+                        }
+                    }
+                    else
+                    {
+                        if (it.count >= minEn)
+                        {
+                            return j;
+                        }
+
+                    }
+
+
+                }
+            }
+        }
+
+        return -1;
+
     }
 
 
@@ -614,7 +656,7 @@ public class invData : MonoBehaviour
 
         if (go.transform.tag == "invUi")
         {
-            print("Move to other");
+           // print("Move to other");
            // moveInOtherInv(go.GetComponent<inv>(), E);
         }
     }

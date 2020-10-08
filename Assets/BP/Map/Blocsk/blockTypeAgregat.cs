@@ -22,6 +22,9 @@ public class blockTypeAgregat : MonoBehaviour
 
     public void open()
     {
+        agrUi = Global.Links.getSui().winAgregat;
+
+
         agrUi.myAgr = this;
 
         agrUi.myInvUiInput.openCargo(invInput);
@@ -89,9 +92,51 @@ public class blockTypeAgregat : MonoBehaviour
 
     }
 
+
+    void zarydka()
+    {
+      
+        if (wifiEnergy > 0f)
+        {
+            int batSearch = invOutput.searchBat(false);
+            if (batSearch > -1)
+            {
+                float give = invOutput.items[batSearch].infoItemSave.stackSize - invOutput.items[batSearch].count;
+                give = give * 10f;
+                give = Mathf.Min(give, wifiEnergy);
+
+                invOutput.items[batSearch].count += Mathf.RoundToInt(give/10f);
+                wifiEnergy -= give;
+                invOutput.ReRender();
+            }
+        }
+        
+
+        //вход
+        if (wifiEnergy <= 0f)
+        {
+            int batSearch = invInput.searchBat(true, Mathf.Abs(Mathf.RoundToInt( wifiEnergyGive/10f)));
+            if (batSearch > -1)
+            {
+
+                float give = invInput.items[batSearch].count*10f;
+                give = Mathf.Min(give, wifiEnergyMax - wifiEnergy );
+
+                //print(give);
+
+                invInput.items[batSearch].count -= Mathf.RoundToInt(give/10f);
+                wifiEnergy += give;
+                invInput.ReRender();
+            }
+        }
+
+    }
+
     public bool isOn = false;
     void tickAction()
     {
+        zarydka();
+
 
         //Если забор энергии
         if (wifiEnergyGive < 0)
@@ -112,12 +157,12 @@ public class blockTypeAgregat : MonoBehaviour
                 return;
             }
         }
+ 
 
 
-
-        if (invInput.giveFromInd(inputInd, 1))
+            if (invInput.giveFromInd(inputInd, 1))
         {
-            invOutput.itemAdd(outputInd, 1);
+            invOutput.itemAdd(outputInd, 1,true);
             wifiEnergy += wifiEnergyGive;
         }
         else
@@ -130,18 +175,27 @@ public class blockTypeAgregat : MonoBehaviour
     float timeerBaker = 0f;
     void slowUpd(float deltaTime)
     {
+        zarydka();
         timeerBaker += deltaTime;
 
          
         if (timeerBaker >= timeBake)
         {
+
             tickAction();
             timeerBaker = 0f;
         }
 
 
+
         if (agrUi != null)
         {
+            if (!agrUi.gameObject.active)
+            {
+                agrUi = null;
+                return;
+
+            }
             agrUi.barProgress.fillAmount = 1f / timeBake * timeerBaker;
             agrUi.barBatarey.fillAmount = 1f / wifiEnergyMax * wifiEnergy;
         }

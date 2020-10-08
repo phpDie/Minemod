@@ -1,8 +1,8 @@
 Weapon:m16 32
 Weapon:apistol 9
 Weapon:diamond_pickaxe 33
-Eat:med1 3
-Weapon:ammo762 144
+Agregat:bat 20
+Agregat:gen 28
 Weapon:ammo9 64
 Eat:shava 3
 Agregat:a1 28

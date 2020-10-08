@@ -16,7 +16,8 @@ public enum itemType
     gun = 2,
     handTool = 3, //ручной инструмент. Крика,лопата,топор, так же меч, копье
     eat = 4,
-    granate = 15,
+    bat = 5,
+    granate = 15, 
 }
 
 public class blockGenWorld
@@ -36,6 +37,9 @@ public class itemBlockSettings
     public float height = 1f;
     public int hpMax = 5; 
 
+     
+
+    
     public int buildCount = 0;  //блок билдер
     public string dropInd="not"; 
 
@@ -48,6 +52,9 @@ public class itemBlockSettings
 
 public class itemSave
 {
+
+    public int startSize = 5;
+
 
     public bool emptyIsset = true; //удалять предмет, когда у него колв = 0. Нет для пушек.
 
@@ -122,6 +129,17 @@ public class ModLoader : MonoBehaviour
 
 
             newItem.stackSize = MyIni.ReadInt("stackSize", "itemInfo",1);
+
+
+            newItem.startSize = MyIni.ReadInt("startSize", "itemInfo",-1);
+            if (newItem.startSize == -1)
+            {
+                newItem.startSize = newItem.stackSize;
+            }
+
+
+
+            newItem.stackSize = MyIni.ReadInt("stackSize", "itemInfo",1);
             newItem.stackHpMode =MyIni.ReadBool("stackHpMode", "itemInfo",false);
 
 
@@ -142,6 +160,7 @@ public class ModLoader : MonoBehaviour
 
             newItem.iconInHand = newItem.icon;
 
+
             pToIcon = pModDir + "texture/" + MyIni.Read("iconInHand", "itemInfo");
             if (string.Empty != pToIcon)
             {
@@ -159,34 +178,28 @@ public class ModLoader : MonoBehaviour
             newItem.type = (itemType)Enum.Parse(typeof(itemType), MyIni.Read("type", "itemInfo", "none"));
 
 
-
             if (ind != "Core:dirt")
             {
                 if (MyIni.ReadInt("minY", "gen", -1) > -1)
                 {
 
-                    blockGenWorld genWorl = new blockGenWorld();
 
+                    blockGenWorld genWorl = new blockGenWorld();
                     genWorl.minY = MyIni.ReadInt("minY", "gen", 0);
                     genWorl.maxY = MyIni.ReadInt("maxY", "gen", 0);
                     genWorl.rand = MyIni.ReadInt("rand", "gen", 0);
                     genWorl.top = MyIni.ReadBool("top", "gen", false);
                     genWorl.ind = ind;
 
-
                     blockGenMap.Add(genWorl); //ЭТОТ БЛОК ГЕНЕРИТ МИР
-
                 }
             }
 
-
-
+        
             itemBase.Add(ind, newItem);
+            
 
-
-           Global.Links.getIndDataAdminCargo().itemAdd(ind);
-
-
+            Global.Links.getIndDataAdminCargo().itemAdd(ind,-1);
 
             if (MyIni.Read("material", "block", "not") != "not")
             {
