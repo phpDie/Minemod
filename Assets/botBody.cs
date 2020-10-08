@@ -53,18 +53,28 @@ public class botBody : MonoBehaviour
 
 
 
+    public void animDeadEnd()
+    {
+        print("ANIM END");
+        Destroy(gameObject);
+    }
 
     [HideInInspector]
     public float rotationX = 0;
     public bool canMove = true;
 
+    bool isDeath = false;
     public void Damage(float val)
     {
+        if (isDeath) return;
 
         hp -= val;
         if (hp <= 0f)
         {
-            Destroy(gameObject);
+            canMove = false;
+            isDeath = true;
+            GetComponent<Animator>().SetBool("isDeath", true);
+            
         }
     }
 
@@ -182,6 +192,8 @@ public class botBody : MonoBehaviour
 
     void Update()
     {
+        if (isDeath) return;
+
         // We are grounded, so recalculate move direction based on axes
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);

@@ -259,8 +259,11 @@ public class ChankController : MonoBehaviour
             itemBlockSettings myBlockSetting = mod.blockBase[b.itemInd];
             b.myBlockSetting = myBlockSetting;
 
+            b.myType = myBlockSetting.type;
+
             b.initBlockPreload();
  
+
 
 
             string[] posBlock = lineOne[0].Split(':');
@@ -277,6 +280,13 @@ public class ChankController : MonoBehaviour
             {
                 b.initBlock();
                 loadDataInvInBlock(b);
+            }
+
+            if (b.myType == blockType.agregat)
+            {
+                string path = mapCon.mapPathDir + "agregatChank" + transform.name.Replace(":", "_") + "_cube" + b.transform.name.Replace(":", "_") + "_agr.ini";
+                b.initBlock();
+                b.GetComponent<blockTypeAgregat>().loadData(path);
             }
         }
 
@@ -329,7 +339,14 @@ public class ChankController : MonoBehaviour
             if (transform.GetChild(i).GetComponent<BlockController>() != null)
             {
                 BlockController b = transform.GetChild(i).GetComponent<BlockController>();
-                if (b.myType == blockType.cargo)
+
+                if (b.myType == blockType.agregat)
+                {
+                    string path = mapCon.mapPathDir + "agregatChank" + transform.name.Replace(":", "_") + "_cube" + b.transform.name.Replace(":", "_") + "_agr.ini";
+                    b.GetComponent<blockTypeAgregat>().saveData(path);
+                }
+
+                    if (b.myType == blockType.cargo)
                 {
 
                     string path = mapCon.mapPathDir + "cargoChank"+transform.name.Replace(":", "_") + "_cube" + b.transform.name.Replace(":", "_") + "_inv.txt";

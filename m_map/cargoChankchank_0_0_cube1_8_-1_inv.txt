@@ -1,0 +1,16 @@
+Eat:shava 6
+Weapon:axe 281
+Agregat:swordEn 0
+not 0
+not 0
+not 0
+not 0
+not 0
+not 0
+not 0
+not 0
+not 0
+not 0
+not 0
+not 0
+not 0

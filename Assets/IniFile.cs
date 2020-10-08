@@ -82,6 +82,13 @@ namespace MyProg
             return RetVal.ToString();
         }
 
+        public void WriteBool(string Key, bool ValueIn, string Section = null)
+        {
+            string Value = "true";
+            if(!ValueIn) Value = "false";
+            Write(Key, Value, Section);
+        }
+
         public void Write(string Key, string Value, string Section = null)
         {
             WritePrivateProfileString(Section ?? EXE, Key, Value, Path);

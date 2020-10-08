@@ -70,6 +70,7 @@ public class blockTypeAgregat : MonoBehaviour
     string btnText = "Перегнать";
     agregatType typeAgregat = agregatType.none;
 
+
     public void init()
     {
 
@@ -366,6 +367,54 @@ public class blockTypeAgregat : MonoBehaviour
         {
             agrUi.txtBtn.text = $"{ btnText}:выкл";
         }
+
+
+    }
+
+
+
+
+    public void loadData(string path) {
+
+        IniFile MyIni = new IniFile(path);
+        wifiBatCount = MyIni.ReadInt("wifiBatCount","option", 0);
+        isOn = MyIni.ReadBool("isOn", "option", false);
+
+        string _loadData;
+
+
+        _loadData = MyIni.Read("in", "inv", "not");
+        if (_loadData != "not")
+        {
+            var _writeB = System.Text.Encoding.UTF8.GetBytes(_loadData);
+             invInput.dataSet(System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(_loadData)));
+        }
+
+
+        _loadData = MyIni.Read("out", "inv", "not");
+        if (_loadData != "not")
+        {
+            var _writeB = System.Text.Encoding.UTF8.GetBytes(_loadData);
+            invOutput.dataSet(System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(_loadData)));
+        }
+
+
+    }
+
+    public void saveData(string path)
+    {
+        IniFile MyIni = new IniFile(path);
+        MyIni.Write("wifiBatCount",  Math.Round(wifiBatCount).ToString(), "option");
+        MyIni.WriteBool("isOn", isOn, "option");
+
+
+        var _writeB = System.Text.Encoding.UTF8.GetBytes(invInput.dataGet());
+        MyIni.Write("in", Convert.ToBase64String(_writeB), "inv");
+
+
+        _writeB = System.Text.Encoding.UTF8.GetBytes(invOutput.dataGet());
+        MyIni.Write("out", Convert.ToBase64String(_writeB), "inv");
+        
 
 
     }

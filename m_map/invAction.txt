@@ -1,9 +1,9 @@
 Weapon:m16 32
 Weapon:apistol 8
 Block:pblock_cobblestone_mossy 0
-Weapon:diamond_pickaxe 4
 Weapon:axe 281
-Agregat:swordEn 0
+Chest:cargo 15
 not 0
-Block:blockKolona 95
+not 0
+not 0
 not 0

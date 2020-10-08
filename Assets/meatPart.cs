@@ -28,8 +28,10 @@ public class meatPart : MonoBehaviour
 
 
 
-    public void Damage(float count)
+    public void Damage(float count,GameObject auth =null)
     {
+        if (auth == myBot.gameObject) return ;
+
         hp -= count;
         if (hp > 0f) return;
 

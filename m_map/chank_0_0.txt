@@ -1754,3 +1754,4 @@
 1:8:-2 Block:blockKolona 3
 1:9:-2 Block:blockKolona 3
 0:8:-2 Block:blockKolona 3
+1:8:-1 Chest:cargo 15

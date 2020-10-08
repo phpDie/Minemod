@@ -15,7 +15,7 @@ public class blockTypeSpawner : MonoBehaviour
     GameObject myMob;
     public void init()
     {
-
+         
         //  mobBlank = Resources.Load("Resources/Mob/mob") as GameObject;
 
         if (Random.Range(1, 9) == 1)
