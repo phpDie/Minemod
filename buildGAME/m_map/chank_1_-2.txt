@@ -1133,7 +1133,6 @@
 23:1:-31 Core:gravel 8
 23:2:-31 Core:gravel 8
 23:3:-31 Core:gravel 8
-23:4:-31 Core:buildTree 8
 23:0:-30 Core:bad 5000
 23:1:-30 Core:gravel 8
 23:2:-30 Core:gravel 8
@@ -1203,3 +1202,16 @@
 17:6:-34 Core:leaves 3
 17:5:-33 Core:leaves 3
 17:6:-33 Core:leaves 3
+22:7:-32 Core:leaves 3
+22:6:-31 Core:leaves 3
+22:7:-31 Core:leaves 3
+23:6:-32 Core:leaves 3
+23:7:-32 Core:brevno 5
+23:5:-31 Core:brevno 5
+23:6:-31 Core:brevno 5
+23:7:-31 Core:brevno 5
+23:6:-30 Core:leaves 3
+23:7:-30 Core:leaves 3
+24:7:-32 Core:leaves 3
+24:6:-31 Core:leaves 3
+24:7:-31 Core:leaves 3
