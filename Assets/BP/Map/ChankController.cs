@@ -9,14 +9,19 @@ public class ChankController : MonoBehaviour
 
     public bool isLoaded; //загружен ли этот чанк
     public bool isActive; //активен ли этот чанк
-    //public bool isGeneredBlank = false; //активен ли этот чанк
 
 
+
+    public int myPosGlobalX;
+    public int myPosGlobalZ;
 
     public MapController mapCon;
     public ModLoader mod;
 
     GameObject player;
+
+
+     
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +40,7 @@ public class ChankController : MonoBehaviour
 
     }
 
-    float chankDist = 23f;
+    float chankDist = 43f;
 
     float timer=0f;
     void slowUpdate()
@@ -47,9 +52,17 @@ public class ChankController : MonoBehaviour
         if (distToPlayer <= chankDist)
         {
             loadAutoChank();
+
+
+            if (distToPlayer < 15f)
+            {
+                allActive();
+            }
+            
         }
         else
         {
+            
             if (distToPlayer > chankDist*1.2f)
             {
                 deloadChank((distToPlayer> chankDist*6f));
@@ -104,8 +117,11 @@ public class ChankController : MonoBehaviour
     {
         if (!isLoaded) return false;
 
-         
-        
+
+        isBrainActived = false;
+        isActive= false;
+
+            
 
 
         //Полное удаление чанка
@@ -126,6 +142,7 @@ public class ChankController : MonoBehaviour
 
 
         if (!isActive) return false;
+
         //Только отключ блоков, чтоб потом не подгружать
         if (!isDelte)
         {
@@ -133,6 +150,7 @@ public class ChankController : MonoBehaviour
             //  print("deActive chank");
             for (int i = 1; i < transform.childCount; i++)
             {
+                transform.GetChild(i).GetComponent<MeshRenderer>().enabled = false;
                 transform.GetChild(i).gameObject.SetActive(false);
             }
             isActive = false;
@@ -148,6 +166,7 @@ public class ChankController : MonoBehaviour
     {
 
 
+
         if (isLoaded)
         {
             if (isActive) return false; //чанк активен и загружен
@@ -160,8 +179,12 @@ public class ChankController : MonoBehaviour
                 for (int i = 1; i < transform.childCount; i++)
                 {
                     transform.GetChild(i).gameObject.SetActive(true);
+                    
+                    
                 }
                 isActive = true;
+
+                brainActive();
                 return true;
             }
 
@@ -271,7 +294,7 @@ public class ChankController : MonoBehaviour
 
             //getCubePosFix здесь не нужен, потому что он должен быть только при создание мира
             //  b.transform.localPosition = getCubePosFix(new Vector3(System.Convert.ToInt32(posBlock[0]), System.Convert.ToInt32(posBlock[1]), System.Convert.ToInt32(posBlock[2])));
-            b.transform.localPosition = (new Vector3(System.Convert.ToInt32(posBlock[0]), System.Convert.ToInt32(posBlock[1]), System.Convert.ToInt32(posBlock[2])));
+            b.transform.position = (new Vector3(System.Convert.ToInt32(posBlock[0]), System.Convert.ToInt32(posBlock[1]), System.Convert.ToInt32(posBlock[2])));
            
 
             //b.transform.name = Global.Links.vectorToString(b.transform.localPosition);
@@ -371,6 +394,7 @@ public class ChankController : MonoBehaviour
         {
             string line = "\n";
             line += transform.GetChild(i).transform.name;
+           // line += $"{transform.GetChild(i).transform.localPosition.x}:";
 
            
                 BlockController b = transform.GetChild(i).GetComponent<BlockController>();
@@ -382,7 +406,7 @@ public class ChankController : MonoBehaviour
                 line += " " + Mathf.RoundToInt(b.hp).ToString();
                 Out += line;
             
-           // print(line);
+          
         }
 
 
@@ -391,7 +415,8 @@ public class ChankController : MonoBehaviour
     }
 
     public void genNewStructureChank()
-    {
+    {             
+
 
         var watch = System.Diagnostics.Stopwatch.StartNew();
 
@@ -455,46 +480,44 @@ public class ChankController : MonoBehaviour
 
 
                        // b.transform.name = "" + ix.ToString() + ":" + iy.ToString() + ":" + iz.ToString();
-                        b.transform.name = Global.Links.vectorToString(b.transform.localPosition ) ;
+                        //b.transform.name = Global.Links.vectorToString(b.transform.localPosition ) ;
+
+                        b.transform.name = getCubeIndInGlobal(b.transform.localPosition);
+                        
 
                         b.hp = 0;
                         b.itemInd = genBlockFromYPos(yPos, yPos == mapCon.blockCountHeight + hCorrent);
 
 
-                        itemBlockSettings myBlockSetting = mod.blockBase[b.itemInd];
-                        b.myBlockSetting = myBlockSetting;
+                        //itemBlockSettings myBlockSetting = mod.blockBase[b.itemInd];
+
+                        b.mod = mod;
+                        b.myBlockSetting = mod.blockBase[b.itemInd];
+
+
+                        mapCon.map.Add(b.transform.name,true);
 
                         b.initBlockPreload();
-                        //b.initBlock();
+                        b.gameObject.SetActive(false); 
 
-
-
-
-                        /*
-                    //Решаем когда билдить блок
-                    if (yPos >= mapCon.blockCountHeight + hCorrent - 1)
-                    {
-                        b.initBlock();
-                    }
-                    else
-                    {
-                        itemBlockSettings myBlockSetting = mod.blockBase[b.itemInd];
-                        if (myBlockSetting.buildCount > 0)
-                        {
-                            b.initBlock();
-                        }
-                    }
-                    */
 
                     }
                 }
             }
+
+
         }
 
+
+        isActive = false;
         // chankSave();
 
         watch.Stop();
         print($"Chank gen Time: {watch.ElapsedMilliseconds} ms");
+
+        //brainActive();
+
+       
     }
 
     public string genBlockFromYPos(int yPos=0, bool top = false)
@@ -539,12 +562,90 @@ public class ChankController : MonoBehaviour
             
         }
 
-
+         
 
         return altVar;
 
     }
+    
 
+    public void checkIssetBlock() {
+
+    }
+
+
+   
+
+
+
+    public void brainActiveOne(Transform t)
+    {
+        bool m = false;
+
+        if (!mapCon.map.ContainsKey($"{t.position.x}:{t.position.y + 1}:{t.position.z}")) m = true;
+        if (!m) if (!mapCon.map.ContainsKey($"{t.position.x - 1}:{t.position.y }:{t.position.z}")) m = true;
+        if (!m) if (!mapCon.map.ContainsKey($"{t.position.x + 1}:{t.position.y }:{t.position.z - 1}")) m = true;
+        if (!m) if (!mapCon.map.ContainsKey($"{t.position.x}:{t.position.y }:{t.position.z - 1}")) m = true;
+
+
+
+        if (m)
+        {
+            t.GetComponent<MeshRenderer>().enabled=true;
+            //b.initBlockPreload();
+        }
+    }
+
+
+
+
+    bool fullActive = false;
+    public void allActive()
+    {
+        if (fullActive) return ;
+        fullActive = true;
+        isBrainActived = true;
+
+        for (int i = 1; i < transform.childCount; i++)
+        {
+
+            Transform t = transform.GetChild(i);
+            t.GetComponent<MeshRenderer>().enabled = true;
+
+        }
+    }
+
+    bool isBrainActived = false;
+    public void brainActive()
+    {
+        if (isBrainActived) return;
+        isBrainActived = true;
+
+        fullActive = false;
+
+
+        for (int i = 1; i < transform.childCount; i++)
+        {
+
+            Transform t = transform.GetChild(i);
+            brainActiveOne(t);
+
+
+        }
+    }
+
+
+
+    public string getCubeIndInGlobal( Vector3 posIn)
+    {
+        posIn.x += myPosGlobalX* mapCon.blockCountWidth;
+        posIn.z += myPosGlobalZ* mapCon.blockCountWidth;
+
+    
+
+
+        return $"{posIn.x}:{posIn.y}:{posIn.z}";
+    }
 
     public Vector3 getCubePosFix( Vector3 posIn)
     {

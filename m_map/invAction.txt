@@ -1,8 +1,8 @@
-Weapon:m16 32
-Weapon:apistol 8
-Block:pblock_cobblestone_mossy 0
-Weapon:axe 281
-Chest:cargo 15
+Block:pblock_bookshelf 61
+Weapon:smg 0
+Weapon:ammo9 64
+Weapon:ammo762 144
+not 0
 not 0
 not 0
 not 0

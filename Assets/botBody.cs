@@ -10,6 +10,10 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class botBody : MonoBehaviour
 {
+    public AudioSource myAudio;
+
+    packSound myPackSound;
+
 
     [Header("Blank Prefabs")]
     public GameObject pref_bulletHole;
@@ -68,6 +72,10 @@ public class botBody : MonoBehaviour
     {
         if (isDeath) return;
 
+
+
+        myAudio.PlayOneShot(myPackSound.getSound(myPackSound.souDamage));
+
         hp -= val;
         if (hp <= 0f)
         {
@@ -88,7 +96,10 @@ public class botBody : MonoBehaviour
 
         target = GameObject.Find("Player");
 
+      sUi  sui = Global.Links.getSui();
+        myPackSound = sui.GetComponent<packSound>();
 
+        myAudio = GetComponent<AudioSource>();
     }
 
 
@@ -131,7 +142,14 @@ public class botBody : MonoBehaviour
 
         if (gunIsset)
         {
+
+            myAudio.PlayOneShot(myPackSound.getSound(myPackSound.souGunFire));
             distRay = 15f;
+        }
+        else
+        {
+
+            //myAudio.PlayOneShot(myPackSound.getSound(myPackSound.sou));
         }
 
         //Debug.DrawRay(rayOrigin, forward * 25f, Color.red, 5f);
@@ -160,8 +178,10 @@ public class botBody : MonoBehaviour
 
             if (damTo.transform.tag == "block")
             {
+                BlockController b = damTo.GetComponent<BlockController>();
+                myAudio.PlayOneShot(myPackSound.getDigSound(b.myMaterial));
 
-                damTo.GetComponent<BlockController>().Damage(attackDamage, blockMaterial.glass, null);
+                b.Damage(attackDamage, blockMaterial.glass, null);
                 return;
             }
 
@@ -253,19 +273,39 @@ public class botBody : MonoBehaviour
 
 
 
+
+        if (Random.Range(1, 1200) < 2)
+        {
+            myAudio.PlayOneShot(myPackSound.getSound(myPackSound.souZomb));
+        }
+
+
         if (Vector3.Distance(transform.position, target.transform.position) > distAttack)
         {
             moveForw = 1f;
 
             if (Random.Range(1, jumpRandomFrom) < 2)
             {
+               
                 jump();
             }
 
         }
         else
         {
+
             moveForw = 0f;
+        }
+
+
+
+        if (moveForw > 0f)
+        {
+            if (Random.Range(1, 50) < 2)
+            {
+
+                myAudio.PlayOneShot(myPackSound.getSound(myPackSound.souStep));
+            }
         }
 
 

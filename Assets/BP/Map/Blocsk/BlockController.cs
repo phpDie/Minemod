@@ -70,6 +70,8 @@ public class BlockController : MonoBehaviour
         myCrackEffect.SetActive(hp < hpMax * 0.5f);
     }
 
+
+   
     public void sosedBuild()
     {
 
@@ -165,65 +167,7 @@ public class BlockController : MonoBehaviour
 
 
 
-    void createBuild(string iniFilePath)
-    {
-        IniFile MyIni = new IniFile(iniFilePath);
-
-
-
-        int buildCount = MyIni.ReadInt("buildCount", "build", 0);
-
-        for(int i=0; i< buildCount; i++)
-        {
-
-            string line = MyIni.Read("b" + i.ToString(), "build", "not");
-            if (line != "not")
-            {
-               // print("Ошибка чтения билда: " + i.ToString());
-              //  return;
-
-
-                string[] conf = line.Split(' ');
-
-                 
-                string[] posBlock = conf[0].Split(':');
-
-                Vector3 newPos = new Vector3(transform.localPosition.x + System.Convert.ToInt32(posBlock[0]), 1 + transform.localPosition.y + System.Convert.ToInt32(posBlock[1]), transform.localPosition.z + System.Convert.ToInt32(posBlock[2]));
-
-
-                BlockController b = Instantiate(transform.parent.GetComponent<ChankController>().mapCon.blockBlank, transform.parent);
-
-                if (transform.parent.Find(Global.Links.vectorToString(newPos))!=null)
-                {
-                    Destroy(transform.parent.Find(Global.Links.vectorToString(newPos)).gameObject);
-                }
-
-
-                b.transform.localPosition = newPos;
-
-//                b.transform.name = b.transform.localPosition.x.ToString() + ":" + b.transform.localPosition.y.ToString() + ":" + b.transform.localPosition.z.ToString();
-                b.transform.name = Global.Links.vectorToString(b.transform.localPosition);
-
-
-                b.itemInd = conf[1];
-                b.hp = 0;
-
-
-                itemBlockSettings myBlockSetting = mod.blockBase[b.itemInd];
-                b.myBlockSetting = myBlockSetting;
-                b.initBlockPreload();
-
-               // b.initBlock();
-
-
-
-            }
-
-
-        }
-
-        Destroy(gameObject);
-    }
+    
 
 
     public void createCargo()
@@ -266,11 +210,29 @@ public class BlockController : MonoBehaviour
 
     public itemBlockSettings myBlockSetting;
 
+     
 
+   /*
+    private void BuilderSlowUpdate()
+    {
+     
+            if (transform.parent.Find($"{transform.position.x}:{transform.position.y + 1}:{transform.position.z }") == null)
+            {
+                GetComponent<MeshRenderer>().enabled = true;
+            }
+            else
+            {
+                GetComponent<MeshRenderer>().enabled = false;
+            }            
+        
+    }
+    */
 
 
     public void initBlockPreload()
     {
+       // InvokeRepeating("SlowUpdate", 0.0f, 0.5f);
+
         if (mod == null)
         {
             mod = Global.Links.getModLoader();
@@ -289,6 +251,7 @@ public class BlockController : MonoBehaviour
         isInitPreload = true;
 
 
+      //  GetComponent<MeshRenderer>().enabled = true;
         GetComponent<MeshRenderer>().material.mainTexture = myBlockSetting.icon;
 
 
@@ -395,7 +358,9 @@ public class BlockController : MonoBehaviour
         int buildCount = myBlockSetting.buildCount;// MyIni.ReadInt("buildCount", "build", 0);
         if (buildCount > 0)
         {
-            createBuild(myData.iniFilePath);
+           // gameObject.AddComponent<blockTypeBuilder>().init(myData.iniFilePath, mod);
+            gameObject.AddComponent<blockTypeBuilder>().init(itemInd, mod);
+        
         }
 
 

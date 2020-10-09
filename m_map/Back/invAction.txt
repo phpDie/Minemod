@@ -1,7 +1,9 @@
-Weapon:smg 22
-Weapon:ammo762 32
-Core:brevno 4
-Weapon:smg 45
-Weapon:apistol 9
-Weapon:ammo762 144
-Weapon:ammo9 19
+Weapon:m16 32
+Weapon:apistol 8
+Block:pblock_cobblestone_mossy 0
+Weapon:axe 281
+Chest:cargo 15
+not 0
+not 0
+not 0
+not 0

@@ -20,6 +20,20 @@ public enum itemType
     granate = 15, 
 }
 
+
+public class builderThemElement
+{
+   public string ind;
+    public Vector3 pos;
+}
+
+
+public class builderThem
+{
+    public List<builderThemElement> list = new List<builderThemElement>();
+}
+
+
 public class blockGenWorld
 {
     public int minY = 0;
@@ -264,10 +278,43 @@ public class ModLoader : MonoBehaviour
                 newblockBase.material = (blockMaterial)Enum.Parse(typeof(blockMaterial), MyIni.Read("material", "block", "ground"));
                 newblockBase.type = (blockType)Enum.Parse(typeof(blockType), MyIni.Read("blockType", "block", "none"));
 
+
                 newblockBase.buildCount = MyIni.ReadInt("buildCount", "build", 0);
+                if (newblockBase.buildCount > 0)
+                {
+                    builderThem bTnew = new builderThem();
+
+                    for (int i = 0; i < newblockBase.buildCount; i++)
+                    {
+
+                        string line = MyIni.Read("b" + i.ToString(), "build", "not");
+                        if (line != "not")
+                        {
+                            // print("Ошибка чтения билда: " + i.ToString());
+                            //  return;
+                             
+
+                            string[] conf = line.Split(' ');
 
 
-                newblockBase.dropInd = MyIni.Read("drop", "block", "self");
+                            string[] posBlock = conf[0].Split(':');
+
+                            builderThemElement _bE= new builderThemElement();
+
+                            _bE.pos = new Vector3(System.Convert.ToInt32(posBlock[0]),  System.Convert.ToInt32(posBlock[1]),  System.Convert.ToInt32(posBlock[2]));
+
+                            _bE.ind = conf[1];
+
+                            bTnew.list.Add(_bE);
+                        }
+                    }
+
+                    builderThemplates.Add(ind,bTnew);
+
+                }
+
+
+                        newblockBase.dropInd = MyIni.Read("drop", "block", "self");
                 if (newblockBase.dropInd == "self") newblockBase.dropInd = ind;
                 if (newblockBase.dropInd == "not") newblockBase.dropInd = "not";
 
@@ -414,6 +461,7 @@ public class ModLoader : MonoBehaviour
 
     //Это кэш предметов которые блоки. Что бы не читать ини файлы и тд.
     public Dictionary<string, itemBlockSettings> blockBase = new Dictionary<string, itemBlockSettings>();
+    public Dictionary<string, builderThem> builderThemplates = new Dictionary<string, builderThem>();
 
 
 

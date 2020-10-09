@@ -6,6 +6,9 @@ using System.IO;
 public class MapController : MonoBehaviour
 {
 
+    public Dictionary<string, bool> map = new Dictionary<string, bool>();
+
+
     public BlockController blockBlank;
     public ChankController chankBlank;
 
@@ -50,6 +53,9 @@ public class MapController : MonoBehaviour
 
                 b.pathChankFile = mapPathDir + "" + b.transform.name.Replace(":", "_") + ".txt";
 
+
+                b.myPosGlobalX = ix;
+                b.myPosGlobalZ = iz;
 
                 b.mapCon = this;
                 b.init();

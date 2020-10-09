@@ -8,12 +8,14 @@ using UnityEngine.UI;
 
 public class PlayerAction : MonoBehaviour
 {
+     
 
     public float hp = 100f;
     public float hpMax = 100f;
 
     public float eat = 100f;
 
+    public AudioSource myAudio;
 
     [HideInInspector]
     public ModLoader modLoader;
@@ -41,7 +43,8 @@ public class PlayerAction : MonoBehaviour
     public string ammoReloadInd; //патры нужные для перезарядки
     public Camera mCam;
     public blockMaterial toolMaterialTarget; //в руке инструмент нацеленый на этот материал
-
+    sUi sui;
+    packSound myPackSound;
     public float toolDamage = 1f;
     public float toolDist = 15f;
 
@@ -58,6 +61,7 @@ public class PlayerAction : MonoBehaviour
     void Start()
     {
 
+
         hp = hpMax;
         mCam = GetComponent<Player>().playerCamera;
 
@@ -69,6 +73,11 @@ public class PlayerAction : MonoBehaviour
 
 
         myInv = Global.Links.getPlayerInvUi();
+
+        sui = Global.Links.getSui();
+        myPackSound = sui.GetComponent<packSound>();
+
+        myAudio = GetComponent<AudioSource>();
 
         setCurLock(true);
 
@@ -117,6 +126,7 @@ public class PlayerAction : MonoBehaviour
 
         if (myItemType == itemType.block)
         {
+
             ActionItem_CrackBlock();
 
         }
@@ -149,6 +159,8 @@ public class PlayerAction : MonoBehaviour
 
             if (myInv.giveActive(1))
             {
+
+                myAudio.PlayOneShot(myPackSound.getSound(myPackSound.souEat));
                 hp += MyItemIni.ReadInt("hpAdd", "eat", 0);
                 eat += MyItemIni.ReadInt("eatAdd", "eat", 0);
 
@@ -536,8 +548,9 @@ public class PlayerAction : MonoBehaviour
     {
         if (!myInv.giveActive(1, false)) return;
 
-       
- 
+
+        myAudio.PlayOneShot(myPackSound.getSound(myPackSound.souGunFire));
+
         myInv.giveActive(1);
 
         GameObject go = GetBlockFromRayCamera(true);
@@ -613,6 +626,9 @@ public class PlayerAction : MonoBehaviour
                 if (b.hp >= b.hpMax) return false;
             }
 
+            myAudio.PlayOneShot(myPackSound.getDigSound(b.myMaterial));
+            //myAudio.PlayOneShot(myPackSound.getDigSound());
+
             b.Damage(toolDamage, toolMaterialTarget, gameObject);
             return true;
         }
@@ -623,6 +639,7 @@ public class PlayerAction : MonoBehaviour
         {
             if (go.transform.parent.tag == "mob")
             {
+                 
                 go.transform.parent.GetComponent<botBody>().Damage(toolDamage * 3);
                 //Destroy(go);
             }
@@ -634,6 +651,7 @@ public class PlayerAction : MonoBehaviour
         }
         if (go.transform.tag == "mob")
         {
+            myAudio.PlayOneShot(myPackSound.getSound(myPackSound.souDamage));
             go.transform.GetComponent<botBody>().Damage(toolDamage);
             //Destroy(go);
             return true;
@@ -660,6 +678,7 @@ public class PlayerAction : MonoBehaviour
             if (b.myType == blockType.cargo)
 
             {
+                myAudio.PlayOneShot(myPackSound.souChest);
                 Global.Links.getSui().winOpen("winInvOther");
 
                 Global.Links.getSui().winOpen("invMain");
@@ -674,7 +693,8 @@ public class PlayerAction : MonoBehaviour
 
             if (b.myType == blockType.agregat)
             {
-               
+
+                myAudio.PlayOneShot(myPackSound.souClick);
                 setCurLock(false);
                 Global.Links.getSui().winOpen("invMain");
                 Global.Links.getSui().winOpen("winAgregat");
@@ -692,6 +712,9 @@ public class PlayerAction : MonoBehaviour
 
             if (b.itemInd == "Core:adminBuild")
             {
+
+
+                myAudio.PlayOneShot(myPackSound.souClick);
                 b.GetComponent<adminBuilderBlock>().createAdminBuildExportData();
                 return true;
             }
@@ -768,7 +791,7 @@ public class PlayerAction : MonoBehaviour
             
         }
         */
-        newBlock.transform.name = newBlock.transform.localPosition.x.ToString() + ":" + newBlock.transform.localPosition.y.ToString() + ":" + newBlock.transform.localPosition.z.ToString();
+        newBlock.transform.name = newBlock.transform.position.x.ToString() + ":" + newBlock.transform.position.y.ToString() + ":" + newBlock.transform.position.z.ToString();
 
         newBlock.itemInd = myInv.activeElement.ind;
         newBlock.hp =0f;
@@ -776,10 +799,12 @@ public class PlayerAction : MonoBehaviour
         newBlock.initBlockPreload();
         newBlock.initBlock();
 
+
+        myAudio.PlayOneShot(myPackSound.getDigSound(newBlock.myMaterial));
         //newBlock.GetComponent<MeshRenderer>().material.mainTexture = myInv.activeElement.infoItemSave.icon;
 
 
-           myInv.giveActive(1);
+        myInv.giveActive(1);
 
 
         //newBlock.transform.localPosition = newBlock.transform.localPosition + new Vector3(0, 1, 0);
@@ -800,6 +825,7 @@ public class PlayerAction : MonoBehaviour
     public void Damage(float count)
     {
 
+
         mCam.fieldOfView -= 1.7f;
         hp -= count;
         if (hp <= 0)
@@ -809,6 +835,11 @@ public class PlayerAction : MonoBehaviour
             Global.Links.getSui().winOpen("winDie");
             pause = true;
             hp = 0;
+        }
+        else
+        {
+
+            myAudio.PlayOneShot(myPackSound.getSound(myPackSound.souDamage));
         }
         suiRender();
     }
