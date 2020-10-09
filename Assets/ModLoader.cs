@@ -470,6 +470,31 @@ public class ModLoader : MonoBehaviour
     public List<blockGenWorld> blockGenMap = new List<blockGenWorld>();
 
 
+    void craftChecker()
+    {
+
+        foreach (receptCraft it in Global.Links.getCraftUi().items)
+        {
+
+            foreach (receptCraftElement ingr in it.ingredients)
+            {
+
+                if (it.ind == ingr.ind)
+                {
+                    print($"В крафте {it.ind} рекурсивный ингредиент");
+                }
+
+                //ingr.ind
+                if (itemBaseGetFromInd(ingr.ind) == null)
+                {
+                    print($"В крафте {it.ind} ингр которого нет в игре = {ingr.ind}");
+                }
+
+            }
+        }
+    }
+
+
     void Start()
     {
 
@@ -502,7 +527,8 @@ public class ModLoader : MonoBehaviour
         {
             modInstall(f.Name);
         }
-        
+
+      
 
 
 
@@ -523,7 +549,7 @@ public class ModLoader : MonoBehaviour
             print($"Не хватает места в админ сундуке, у нас вещей: {itemBase.Count}");
         }
 
-
+        craftChecker();
 
 
     }

@@ -26,7 +26,9 @@ public class ChankController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       // init();
+        // init();
+
+        InvokeRepeating("slowUpdate", 0.0f, 0.45f + Random.Range(0f, 1.6f));
 
 
 
@@ -40,9 +42,10 @@ public class ChankController : MonoBehaviour
 
     }
 
-    float chankDist = 43f;
+    float chankDist = 22f;
 
     float timer=0f;
+
     void slowUpdate()
     {
         float distToPlayer = Vector3.Distance(transform.position, player.transform.position);
@@ -54,7 +57,7 @@ public class ChankController : MonoBehaviour
             loadAutoChank();
 
 
-            if (distToPlayer < 15f)
+            if (distToPlayer < 16f)
             {
                 allActive();
             }
@@ -65,13 +68,12 @@ public class ChankController : MonoBehaviour
             
             if (distToPlayer > chankDist*1.2f)
             {
-                deloadChank((distToPlayer> chankDist*6f));
+                deloadChank((distToPlayer> chankDist*5f));
             }
         }
 
     }
-
-
+  /*
     void Update()
     {
         timer -= Time.deltaTime;
@@ -81,7 +83,7 @@ public class ChankController : MonoBehaviour
             timer = 0.5f;
         }
     }
-
+    */
     //Сохраняем чанк в файл
     public void chankSave()
     {
@@ -119,9 +121,10 @@ public class ChankController : MonoBehaviour
 
 
         isBrainActived = false;
-        isActive= false;
+        fullActive= false;
 
             
+
 
 
         //Полное удаление чанка
@@ -146,6 +149,7 @@ public class ChankController : MonoBehaviour
         //Только отключ блоков, чтоб потом не подгружать
         if (!isDelte)
         {
+           // print("off");
 
             //  print("deActive chank");
             for (int i = 1; i < transform.childCount; i++)
@@ -498,6 +502,7 @@ public class ChankController : MonoBehaviour
                         mapCon.map.Add(b.transform.name,true);
 
                         b.initBlockPreload();
+
                         b.gameObject.SetActive(false); 
 
 
@@ -510,10 +515,13 @@ public class ChankController : MonoBehaviour
 
 
         isActive = false;
+        fullActive = false;
+
+        isLoaded = true;
         // chankSave();
 
         watch.Stop();
-        print($"Chank gen Time: {watch.ElapsedMilliseconds} ms");
+        //print($"Chank gen Time: {watch.ElapsedMilliseconds} ms");
 
         //brainActive();
 

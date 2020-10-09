@@ -23,7 +23,7 @@ public class blockTypeBuilder : MonoBehaviour
     {
         pl = Global.Links.getPlayerAction().transform;
 
-        InvokeRepeating("SlowUpdate", 0.0f, 0.5f + Random.Range(0f,2f));
+        InvokeRepeating("SlowUpdate", 0.0f, 0.25f + Random.Range(0f,1.6f));
     }
 
     bool isBuild = false;
@@ -35,7 +35,7 @@ public class blockTypeBuilder : MonoBehaviour
     {
         if (!isBuild)
         {
-            if (Vector3.Distance(pl.position, transform.position) < 15f)
+            if (Vector3.Distance(pl.position, transform.position) < 18f)
             {
                 createBuild(myiniFilePath);
                 Destroy(this);

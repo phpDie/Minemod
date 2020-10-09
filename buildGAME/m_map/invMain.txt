@@ -1,0 +1,16 @@
+Hlam:itemPartCFPowder 11
+Core:stone 1
+Weapon:ammo9 64
+Weapon:smg 45
+Block:pblock_bookshelf 61
+Weapon:ammo762 32
+Ruda:ingot_med 2
+Hlam:lens 10
+Block:pblock_wool_colored_light_blue 16
+Block:pblock_sandstone_normal 24
+Ruda:ingot_alm 1
+Core:brevno 20
+Agregat:a1 29
+not 0
+Core:leaves 4
+Hlam:reactorCoolantTriple 28

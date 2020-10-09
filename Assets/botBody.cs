@@ -31,8 +31,8 @@ public class botBody : MonoBehaviour
 
     [Header("Attack")]
     public float timerAttackMax = 0.9f;
-    public float attackDamage= 1f;
-    public float fireRayDist= 2f;
+    public float attackDamage = 1f;
+    public float fireRayDist = 2f;
 
 
     float timerAttack;
@@ -59,7 +59,7 @@ public class botBody : MonoBehaviour
 
     public void animDeadEnd()
     {
-       // print("ANIM END");
+        // print("ANIM END");
         Destroy(gameObject);
     }
 
@@ -82,7 +82,7 @@ public class botBody : MonoBehaviour
             canMove = false;
             isDeath = true;
             GetComponent<Animator>().SetBool("isDeath", true);
-            
+
         }
     }
 
@@ -96,7 +96,7 @@ public class botBody : MonoBehaviour
 
         target = GameObject.Find("Player");
 
-      sUi  sui = Global.Links.getSui();
+        sUi sui = Global.Links.getSui();
         myPackSound = sui.GetComponent<packSound>();
 
         myAudio = GetComponent<AudioSource>();
@@ -116,17 +116,17 @@ public class botBody : MonoBehaviour
 
     public void gunFire()
     {
-         
+
 
         Vector3 deltaVec = target.transform.position - transform.position;
         Quaternion rotation = Quaternion.LookRotation(deltaVec);
-        
-        
-               Vector3 forward = transform.forward;
 
-                forward = rotation.ToEulerAngles();
 
-                forward = handCenter.transform.forward;
+        Vector3 forward = transform.forward;
+
+        forward = rotation.ToEulerAngles();
+
+        forward = handCenter.transform.forward;
 
         forward += new Vector3(Random.Range(-0.2f, 0.2f), Random.Range(-0.8f, 0.2f), Random.Range(-0.2f, 0.2f));
 
@@ -155,13 +155,13 @@ public class botBody : MonoBehaviour
         //Debug.DrawRay(rayOrigin, forward * 25f, Color.red, 5f);
 
         // Check if our raycast has hit anything
-        if (Physics.Raycast(rayOrigin+ forward*0.2f, forward, out hit, distRay))
+        if (Physics.Raycast(rayOrigin + forward * 0.2f, forward, out hit, distRay))
         {
 
             Transform damTo = hit.transform;
 
 
-           
+
 
             if (hit.transform.tag == "Untagged")
             {
@@ -173,7 +173,7 @@ public class botBody : MonoBehaviour
 
             }
 
-             
+
 
 
             if (damTo.transform.tag == "block")
@@ -181,17 +181,17 @@ public class botBody : MonoBehaviour
                 BlockController b = damTo.GetComponent<BlockController>();
                 myAudio.PlayOneShot(myPackSound.getDigSound(b.myMaterial));
 
-                b.Damage(attackDamage, blockMaterial.glass, null);
+                b.Damage(attackDamage*0.15f, blockMaterial.all, null);
                 return;
             }
 
             if (damTo.transform.tag == "meatPart")
             {
-                damTo.transform.GetComponent<meatPart>().Damage(attackDamage,gameObject);
+                damTo.transform.GetComponent<meatPart>().Damage(attackDamage, gameObject);
 
             }
 
-                if (damTo.transform.tag == "Player")
+            if (damTo.transform.tag == "Player")
             {
                 damTo.GetComponent<PlayerAction>().Damage(attackDamage);
             }
@@ -202,7 +202,7 @@ public class botBody : MonoBehaviour
                 bulHole.transform.position = hit.point;
                 bulHole.transform.LookAt(transform.position, -Vector3.up);
             }
-          
+
 
 
         }
@@ -245,9 +245,9 @@ public class botBody : MonoBehaviour
         lTargetDir.y = 0.0f;
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lTargetDir), Time.time * lerpSpeed);
 
-        
 
-       lTargetDir = target.transform.position + Vector3.up*1f - handCenter.transform.position;
+
+        lTargetDir = target.transform.position + Vector3.up * 1f - handCenter.transform.position;
 
         handCenter.transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lTargetDir), Time.time * lerpSpeedHand);
 
@@ -274,7 +274,7 @@ public class botBody : MonoBehaviour
 
 
 
-        if (Random.Range(1, 1200) < 2)
+        if (Random.Range(1, 800) < 2)
         {
             myAudio.PlayOneShot(myPackSound.getSound(myPackSound.souZomb));
         }
@@ -286,7 +286,7 @@ public class botBody : MonoBehaviour
 
             if (Random.Range(1, jumpRandomFrom) < 2)
             {
-               
+
                 jump();
             }
 
@@ -301,7 +301,7 @@ public class botBody : MonoBehaviour
 
         if (moveForw > 0f)
         {
-            if (Random.Range(1, 50) < 2)
+            if (Random.Range(1, 30) < 2)
             {
 
                 myAudio.PlayOneShot(myPackSound.getSound(myPackSound.souStep));

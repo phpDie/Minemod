@@ -49,10 +49,11 @@ public class mobRandSpawner : MonoBehaviour
         if (lastSpawn <= 0f)
         {
             spawn();
-            lastSpawn = 50f;
+            lastSpawn = 300f;
+
             if (sui.Day.dayTime < 8f || sui.Day.dayTime>21f)
             {
-                lastSpawn = 16f;
+                lastSpawn = 26f;
             }
         }
         lastSpawn -= Time.deltaTime;

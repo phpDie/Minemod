@@ -1,9 +1,0 @@
-Weapon:m16 32
-Weapon:apistol 8
-Block:pblock_cobblestone_mossy 0
-Weapon:axe 281
-Chest:cargo 15
-not 0
-not 0
-not 0
-not 0

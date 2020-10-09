@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myBot: {fileID: 4828168686521885006}
-  cofDamage: 0.4
+  cofDamage: 2
   hp: 1
 --- !u!1 &563333793604919794
 GameObject:
@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myBot: {fileID: 4828168686521885006}
-  cofDamage: 1
+  cofDamage: 2
   hp: 1
 --- !u!1 &876688172290732110
 GameObject:
@@ -442,7 +442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myBot: {fileID: 4828168686521885006}
-  cofDamage: 0.4
+  cofDamage: 2
   hp: 1
 --- !u!1 &1784295733514786828
 GameObject:
@@ -886,7 +886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myBot: {fileID: 4828168686521885006}
-  cofDamage: 0.4
+  cofDamage: 2
   hp: 1
 --- !u!1 &4334892254085517922
 GameObject:
@@ -1467,7 +1467,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myBot: {fileID: 4828168686521885006}
-  cofDamage: 0.4
+  cofDamage: 2
   hp: 1
 --- !u!1 &5179099098235969617
 GameObject:
@@ -1689,7 +1689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myBot: {fileID: 4828168686521885006}
-  cofDamage: 0.4
+  cofDamage: 2
   hp: 1
 --- !u!1 &6192022450925651103
 GameObject:
@@ -1830,7 +1830,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myBot: {fileID: 4828168686521885006}
-  cofDamage: 0.4
+  cofDamage: 2
   hp: 1
 --- !u!1 &6419434947710824417
 GameObject:
@@ -2091,7 +2091,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myBot: {fileID: 4828168686521885006}
-  cofDamage: 0.4
+  cofDamage: 2
   hp: 1
 --- !u!1 &7170227744724361569
 GameObject:
@@ -2233,8 +2233,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myBot: {fileID: 4828168686521885006}
-  cofDamage: 0.4
-  hp: 44
+  cofDamage: 2
+  hp: 1
 --- !u!1 &7434956683786092823
 GameObject:
   m_ObjectHideFlags: 0
@@ -2494,7 +2494,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myBot: {fileID: 4828168686521885006}
-  cofDamage: 0.4
+  cofDamage: 2
   hp: 1
 --- !u!1 &7802072934147103250
 GameObject:

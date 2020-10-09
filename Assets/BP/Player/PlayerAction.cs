@@ -443,12 +443,16 @@ public class PlayerAction : MonoBehaviour
 
             if (Input.GetButton("Fire2"))
             {
-                camFiledView = 35;
+                camFiledView = 60;
             }
             else
             {
-                camFiledView = 65;
+                camFiledView = 80;
             }
+        }
+        else
+        {
+            camFiledView = 80;
         }
 
 
@@ -798,7 +802,7 @@ public class PlayerAction : MonoBehaviour
 
         newBlock.initBlockPreload();
         newBlock.initBlock();
-
+        newBlock.GetComponent<MeshRenderer>().enabled = true;
 
         myAudio.PlayOneShot(myPackSound.getDigSound(newBlock.myMaterial));
         //newBlock.GetComponent<MeshRenderer>().material.mainTexture = myInv.activeElement.infoItemSave.icon;
@@ -826,7 +830,7 @@ public class PlayerAction : MonoBehaviour
     {
 
 
-        mCam.fieldOfView -= 1.7f;
+        mCam.fieldOfView -= 2.7f;
         hp -= count;
         if (hp <= 0)
         {
@@ -872,7 +876,7 @@ public class PlayerAction : MonoBehaviour
 
         if (timeEat <= 0f)
         { 
-            timeEat = 4f;
+            timeEat = 5f;
  
 
             if (eat > 0f)
