@@ -609,6 +609,8 @@ public class invData : MonoBehaviour
     bool isDrag = false;
     public void dragElement(itemElement E, Vector2 pos)
     {
+        if (E == null) return;
+
         if (!isDrag)
         {
             if (!E.isset) return;
@@ -631,6 +633,7 @@ public class invData : MonoBehaviour
         isDrag = false;
 
         if (go == null) return;
+        if (E == null) return;
 
 
         if (go.transform.tag == "invItem")

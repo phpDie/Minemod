@@ -1,8 +1,8 @@
 Block:pblock_bookshelf 61
-Weapon:smg 0
-Weapon:ammo9 64
+Weapon:diamond_pickaxe 426
+Weapon:ammo9 19
 Weapon:ammo762 144
-not 0
+Agregat:baker 28
 not 0
 not 0
 not 0

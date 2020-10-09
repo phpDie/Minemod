@@ -19,7 +19,7 @@ public class day : MonoBehaviour
   public  float dayTime = 0f;
     void Update()
     {
-
+         
         dayTime += 0.0006f;
 
         if (dayTime <= 8f || dayTime > 19f)

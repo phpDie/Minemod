@@ -5,14 +5,32 @@ using UnityEngine.UI;
 using MyProg;
 using System;
 
+public class agregatRecept{
+  public  string inputInd;
+    public int inputCount;
+
+    public string outputInd;
+    public int outputCount;
+    public string outputWifi;
+
+
+    public float enNeed=0;
+}
+
 public enum agregatType
 {
     none = 0,
     bat=1,
     gen=2
 }
+
+
 public class blockTypeAgregat : MonoBehaviour
 {
+
+
+    public List<agregatRecept> recList = new List<agregatRecept>();
+
 
     public invData invInput;
     public invData invOutput;
@@ -64,11 +82,11 @@ public class blockTypeAgregat : MonoBehaviour
 
     string wifiBatType = "not";
 
-    string inputInd = "Core:dirt";
-    string outputInd = "Core:brevno";
+
     float timeBake = 3f;
     string btnText = "Перегнать";
     agregatType typeAgregat = agregatType.none;
+
 
 
     public void init()
@@ -104,15 +122,48 @@ public class blockTypeAgregat : MonoBehaviour
         wifiInputCount = MyIni.ReadInt("wifiInputCount", "agregat", 10) / 10f; //колв энергии для тика
         wifiOutputCount = MyIni.ReadInt("wifiOutputCount", "agregat", 10) / 10f; //колв энергии для тика
 
-
-        outputInd = MyIni.Read("outputInd", "agregat", "not");
-
-        inputInd = MyIni.Read("inputInd", "agregat", "not");
+        
 
         timeBake = MyIni.ReadInt("timeBake", "agregat", 3000) / 1000f;
 
 
         wifiBatMax = MyIni.ReadInt("wifiBatMax", "agregat", 10) / 10f;
+
+
+
+        for (int i = 0; i < MyIni.ReadInt("recCount", "agregat", 0); i++)
+        {
+            string _s = MyIni.Read($"rec{i}", "agregat", "not");
+            if (_s != "not")
+            {
+                string[] conf = _s.Split(' ');
+
+                if (conf.Length > 1)
+                {
+                    agregatRecept _r = new agregatRecept();
+                    _r.inputInd = conf[0];
+
+                    _r.inputCount = System.Convert.ToInt32(conf[1]); 
+
+
+                    _r.outputInd = conf[2];
+
+                    if (_r.outputInd.IndexOf("wifi:") > -1)
+                    {
+                        _r.outputWifi = _r.outputInd.Replace("wifi:", "");
+                        _r.outputInd = "not";
+                    }
+
+                    _r.outputCount = System.Convert.ToInt32(conf[3]);
+
+
+                    _r.enNeed = System.Convert.ToInt32(conf[4])/10f;
+
+                    recList.Add(_r);
+                }
+            }
+        }
+
 
 
         agrUi = Global.Links.getSui().winAgregat;
@@ -234,6 +285,7 @@ public class blockTypeAgregat : MonoBehaviour
             actionWifiOutputAll();
         }
 
+        /*
         if (wifiBatType == wifiInput)
         {
             if (wifiInputCount > 0f)
@@ -261,23 +313,57 @@ public class blockTypeAgregat : MonoBehaviour
                 }
             }
         }
+        */
 
-
-
-        if (invInput.giveFromInd(inputInd, 1))
+        foreach (agregatRecept _r in recList)
         {
-            if (wifiBatType == wifiInput) wifiBatCount -= wifiInputCount;
-            if (wifiBatType == wifiOutput) wifiBatCount += wifiOutputCount;
+           
+            if (wifiBatCount - _r.enNeed >= 0f && wifiBatCount - _r.enNeed <= wifiBatMax)
+            {
 
-            invOutput.itemAdd(outputInd, 1, true);
+                if (invInput.searchIsset(_r.inputInd, _r.inputCount)>-1)
+                {
+
+
+                    //if (wifiBatType == wifiInput) wifiBatCount -= wifiInputCount;
+                    //  if (wifiBatType == wifiOutput) wifiBatCount += wifiOutputCount;
+
+
+                    if (_r.outputInd == "not") //генерация энергии
+                    {
+
+                        if (wifiBatType == _r.outputWifi && wifiBatCount + _r.outputCount / 10f <= wifiBatMax)
+                        {
+
+                            invInput.giveFromInd(_r.inputInd, _r.inputCount);
+
+                            wifiBatCount += _r.outputCount/10f;
+                            if (wifiBatCount > wifiBatMax) {
+                                wifiBatCount = wifiBatMax;
+                               // isOn = false;
+                            }
+                            return;
+                            
+                        }
+                    }
+                    else
+                    {
+                        invInput.giveFromInd(_r.inputInd, _r.inputCount);
+                        invOutput.itemAdd(_r.outputInd, _r.outputCount, true);
+                        wifiBatCount -= _r.enNeed;
+                    }
+
+                    return;
+
+                }
+            }
+
         }
-        else
-        {
-            isOn = false;
-        }
+
+       // isOn = false;
 
 
-     
+
 
     }
 
@@ -378,6 +464,8 @@ public class blockTypeAgregat : MonoBehaviour
 
         IniFile MyIni = new IniFile(path);
         wifiBatCount = MyIni.ReadInt("wifiBatCount","option", 0);
+        if (wifiBatCount > wifiBatMax) wifiBatCount = wifiBatMax;
+
         isOn = MyIni.ReadBool("isOn", "option", false);
 
         string _loadData;
