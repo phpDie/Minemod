@@ -263,7 +263,6 @@
 11:1:-20 Core:stone 6
 11:2:-20 Core:stone 6
 11:3:-20 Core:stone 6
-11:4:-20 Core:buildTree 8
 11:0:-19 Core:bad 5000
 11:1:-19 Core:gravel 8
 11:2:-19 Core:gravel 8
@@ -1412,3 +1411,16 @@
 13:7:-22 Core:leaves 3
 13:6:-21 Core:leaves 3
 13:7:-21 Core:leaves 3
+10:7:-21 Core:leaves 3
+10:6:-20 Core:leaves 3
+10:7:-20 Core:leaves 3
+11:6:-21 Core:leaves 3
+11:7:-21 Core:brevno 5
+11:5:-20 Core:brevno 5
+11:6:-20 Core:brevno 5
+11:7:-20 Core:brevno 5
+11:6:-19 Core:leaves 3
+11:7:-19 Core:leaves 3
+12:7:-21 Core:leaves 3
+12:6:-20 Core:leaves 3
+12:7:-20 Core:leaves 3

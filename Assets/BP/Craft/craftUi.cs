@@ -51,6 +51,7 @@ public class craftUi : MonoBehaviour
 
     public void btnCraft()
     {
+        receptCraft _curentRecept = curentRecept;
 
         if (curentRecept == null) return;
 
@@ -62,14 +63,14 @@ public class craftUi : MonoBehaviour
             checkReceptIssetIngridients(curentRecept,true);
 
 
-            Global.Links.getIndDataPlayerCargo().itemAdd(curentRecept.ind, curentRecept.cout);
+            Global.Links.getIndDataPlayerCargo().itemAdd(curentRecept.ind, -1,true);
 
-            RenderList(true);
+            RenderList(true); 
             //print("CRAFT");
         }
 
 
-        selectRecept(curentRecept);
+        selectRecept(_curentRecept);
     }
      
 

@@ -1049,7 +1049,6 @@
 -26:0:-11 Core:bad 5000
 -26:1:-11 Core:gravel 8
 -26:2:-11 Core:gravel 8
--26:3:-11 Core:buildTree 8
 -26:0:-10 Core:bad 5000
 -26:1:-10 Core:gravel 8
 -26:2:-10 Core:gravel 8
@@ -1125,3 +1124,16 @@
 -25:1:-9 Core:gravel 8
 -25:2:-9 Core:gravel 8
 -25:3:-9 Core:grass 8
+-27:6:-12 Core:leaves 3
+-27:5:-11 Core:leaves 3
+-27:6:-11 Core:leaves 3
+-26:5:-12 Core:leaves 3
+-26:6:-12 Core:brevno 5
+-26:4:-11 Core:brevno 5
+-26:5:-11 Core:brevno 5
+-26:6:-11 Core:brevno 5
+-26:5:-10 Core:leaves 3
+-26:6:-10 Core:leaves 3
+-25:6:-12 Core:leaves 3
+-25:5:-11 Core:leaves 3
+-25:6:-11 Core:leaves 3

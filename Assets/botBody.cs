@@ -13,9 +13,9 @@ public class botBody : MonoBehaviour
     public AudioSource myAudio;
 
     packSound myPackSound;
-
-
-    [Header("Blank Prefabs")]
+    
+        Animator anim;
+   [Header("Blank Prefabs")]
     public GameObject pref_bulletHole;
 
 
@@ -59,6 +59,7 @@ public class botBody : MonoBehaviour
 
     public void animDeadEnd()
     {
+        
         // print("ANIM END");
         Destroy(gameObject);
     }
@@ -81,13 +82,14 @@ public class botBody : MonoBehaviour
         {
             canMove = false;
             isDeath = true;
-            GetComponent<Animator>().SetBool("isDeath", true);
+           anim.SetBool("isDeath", true);
 
         }
     }
 
     void Start()
     {
+        anim = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
 
         // Lock cursor
@@ -224,7 +226,7 @@ public class botBody : MonoBehaviour
         bool isRunning = false;
 
         timeNoPlayer += Time.deltaTime;
-        if (timeNoPlayer > 40f)
+        if (timeNoPlayer > 60f*1.5f)
         {
             print("Моб выпилил себя, потому что не смог до вас добравться");
             Destroy(gameObject);
@@ -238,6 +240,9 @@ public class botBody : MonoBehaviour
             isRunning = true;
         }
         */
+
+        anim.SetBool("isJump", !characterController.isGrounded);
+        
 
 
 

@@ -6846,7 +6846,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isActionBar: 0
   isPlayerMainInv: 1
-  size: 16
+  size: 32
   ghost: {fileID: 0}
   myViewInvUi: {fileID: 0}
   blankItem: {fileID: 0}

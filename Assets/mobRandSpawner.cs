@@ -28,7 +28,8 @@ public class mobRandSpawner : MonoBehaviour
 
 
             string mobIndBase = "mob";
-        if (Random.Range(1, 9) == 1)
+
+        if (Random.Range(1, 4) == 1)
         {
             mobIndBase = "mob People";
         }
@@ -49,7 +50,7 @@ public class mobRandSpawner : MonoBehaviour
         if (lastSpawn <= 0f)
         {
             spawn();
-            lastSpawn = 300f;
+            lastSpawn = 200f;
 
             if (sui.Day.dayTime < 8f || sui.Day.dayTime>21f)
             {

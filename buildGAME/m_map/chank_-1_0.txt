@@ -1143,7 +1143,7 @@
 -14:6:-1 Core:brevno 5
 -14:5:0 Core:leaves 3
 -14:6:0 Core:leaves 3
--13:6:-2 Core:leaves 3
+-13:6:-2 Core:leaves 2
 -13:5:-1 Core:leaves 3
 -13:6:-1 Core:leaves 3
 -15:6:3 Core:leaves 3

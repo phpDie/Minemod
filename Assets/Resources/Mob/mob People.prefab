@@ -290,7 +290,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4828168686521885006, guid: b003be795d81d5440881613e156b8277, type: 3}
       propertyPath: hp
-      value: 24
+      value: 44
       objectReference: {fileID: 0}
     - target: {fileID: 4828168686521885006, guid: b003be795d81d5440881613e156b8277, type: 3}
       propertyPath: lerpSpeedHand

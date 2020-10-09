@@ -75,6 +75,15 @@ public class blockTypeBuilder : MonoBehaviour
                 b.hp = 0;
 
 
+            /*
+            if (!mod.blockBase.ContainsKey(b.itemInd) )
+            {
+                print($"{b.itemInd} не найден! в {ind} (builder)");
+                Destroy(gameObject);
+                return;
+            }
+
+    */
 
                 itemBlockSettings myBlockSetting = mod.blockBase[b.itemInd];
                 b.myBlockSetting = myBlockSetting;

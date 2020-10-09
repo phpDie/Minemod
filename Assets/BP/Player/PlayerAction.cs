@@ -876,7 +876,7 @@ public class PlayerAction : MonoBehaviour
 
         if (timeEat <= 0f)
         { 
-            timeEat = 5f;
+            timeEat = 3f;
  
 
             if (eat > 0f)

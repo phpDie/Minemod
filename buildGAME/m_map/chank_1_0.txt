@@ -1154,7 +1154,7 @@
 14:6:-8 Core:leaves 3
 7:8:-12 Core:grass 8
 7:6:-2 Core:grass 8
-7:7:-2 Core:grass 8
+7:7:-2 Core:grass 6
 7:7:-1 Core:grass 8
 9:4:-9 Core:dirt 5
 10:4:-10 Core:dirt 5
