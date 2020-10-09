@@ -468,6 +468,11 @@ public class PlayerAction : MonoBehaviour
         }
 
 
+
+        if (Input.GetKeyDown(KeyCode.Q)) setTimePich(0.15f);
+        if (Input.GetKeyUp(KeyCode.Q)) setTimePich(1f); 
+
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             ActionItem_Use(true);
@@ -881,10 +886,16 @@ public class PlayerAction : MonoBehaviour
 
             if (eat > 0f)
             {
-                eat -= 0.2f;
+                eat -= 0.3f;
             }
 
-            
+            if (eat > 70f)
+            {
+                if (hp < hpMax*0.7f)
+                {
+                    hp += 0.6f;
+                }
+            }
 
 
 
@@ -901,5 +912,25 @@ public class PlayerAction : MonoBehaviour
 
 
         timeEat -= Time.deltaTime;
+    }
+
+    public void setTimePich(float v)
+    {
+        Time.timeScale = v;
+
+        if (v < 0.4f)
+        {
+            v = 0.4f;
+        }
+
+        myAudio.pitch = v;
+
+        AudioSource[] gos = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+        foreach (AudioSource go in gos)
+        {
+            go.pitch = v;
+
+        }
+
     }
 }

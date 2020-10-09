@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class mobRandSpawner : MonoBehaviour
 {
+    public float dayDelaySpawn = 150f;
+    public float nightDelaySpawn = 27f;
+    public float dist = 15f;
+
+    public bool isHardTest = false;
 
     sUi sui;
     // Start is called before the first frame update
@@ -11,25 +16,32 @@ public class mobRandSpawner : MonoBehaviour
     {
         sui = Global.Links.getSui();
 
-
+        if (isHardTest)
+        {
+            dayDelaySpawn = 8f;
+            nightDelaySpawn = 4f;
+            dist = 12f;
+        }
     }
 
     public void spawn()
     {
-        Vector3 pos = transform.position+ new Vector3(Random.Range(-15f, 15f), 37f, Random.Range(-15f, 15f));
+        print("SPAWN");
+
+        Vector3 pos = transform.position+ new Vector3(Random.Range(-dist, dist), 37f, Random.Range(-dist, dist));
         pos = transform.position;
         pos.y = 37f;
 
 
-        if(Mathf.Abs(pos.x) < 4f && Mathf.Abs(pos.z) < 4f)
+        if(Mathf.Abs(pos.x) < 3f && Mathf.Abs(pos.z) < 3f)
         {
-            pos+= new Vector3(Random.Range(-15f, 15f), 0f, Random.Range(-15f, 15f));
+            pos+= new Vector3(Random.Range(-dist, dist), 0f, Random.Range(-dist, dist));
         }
 
 
             string mobIndBase = "mob";
 
-        if (Random.Range(1, 4) == 1)
+        if (Random.Range(1, 3) == 1)
         {
             mobIndBase = "mob People";
         }
@@ -50,11 +62,11 @@ public class mobRandSpawner : MonoBehaviour
         if (lastSpawn <= 0f)
         {
             spawn();
-            lastSpawn = 200f;
+            lastSpawn = dayDelaySpawn;
 
             if (sui.Day.dayTime < 8f || sui.Day.dayTime>21f)
             {
-                lastSpawn = 26f;
+                lastSpawn = nightDelaySpawn;
             }
         }
         lastSpawn -= Time.deltaTime;

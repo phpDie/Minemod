@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myBot: {fileID: 4828168686521885006}
-  cofDamage: 2
+  cofDamage: 4
   hp: 1
 --- !u!1 &563333793604919794
 GameObject:
@@ -442,7 +442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myBot: {fileID: 4828168686521885006}
-  cofDamage: 2
+  cofDamage: 4
   hp: 1
 --- !u!1 &1784295733514786828
 GameObject:
@@ -886,7 +886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myBot: {fileID: 4828168686521885006}
-  cofDamage: 2
+  cofDamage: 3
   hp: 1
 --- !u!1 &4334892254085517922
 GameObject:
@@ -1215,16 +1215,16 @@ MonoBehaviour:
   distAttack: 1.5
   distView: 12
   gunIsset: 0
-  hp: 24
-  lerpSpeed: 0.09
+  hp: 20
+  lerpSpeed: 0.03
   lerpSpeedHand: 1
   jumpRandomFrom: 350
   timerAttackMax: 1.2
   attackDamage: 8
   fireRayDist: 2
   handCenter: {fileID: 6114726413255254543}
-  walkingSpeed: 2
-  runningSpeed: 4
+  walkingSpeed: 6
+  runningSpeed: 14
   jumpSpeed: 20
   gravity: 31
   rotationX: 0
@@ -1280,7 +1280,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 51
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -1467,7 +1467,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myBot: {fileID: 4828168686521885006}
-  cofDamage: 2
+  cofDamage: 4
   hp: 1
 --- !u!1 &5179099098235969617
 GameObject:
@@ -1689,7 +1689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myBot: {fileID: 4828168686521885006}
-  cofDamage: 2
+  cofDamage: 4
   hp: 1
 --- !u!1 &6192022450925651103
 GameObject:
@@ -1830,7 +1830,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myBot: {fileID: 4828168686521885006}
-  cofDamage: 2
+  cofDamage: 4
   hp: 1
 --- !u!1 &6419434947710824417
 GameObject:
@@ -2091,7 +2091,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myBot: {fileID: 4828168686521885006}
-  cofDamage: 2
+  cofDamage: 4
   hp: 1
 --- !u!1 &7170227744724361569
 GameObject:
@@ -2494,7 +2494,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myBot: {fileID: 4828168686521885006}
-  cofDamage: 2
+  cofDamage: 4
   hp: 1
 --- !u!1 &7802072934147103250
 GameObject:

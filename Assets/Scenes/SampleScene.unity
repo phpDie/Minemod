@@ -5422,11 +5422,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346143495}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8562b3c61b50f334a9c90907667ac378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dayDelaySpawn: 150
+  nightDelaySpawn: 27
+  dist: 19
+  isHardTest: 1
 --- !u!82 &1346143504
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6010,7 +6014,7 @@ MonoBehaviour:
   dirLight: {fileID: 705507994}
   cDay: {r: 0.99607843, g: 0.8901961, b: 0.40784314, a: 1}
   cNight: {r: 0.26591823, g: 0.246707, b: 0.8301887, a: 0}
-  dayTime: 9
+  dayTime: 0
 --- !u!82 &1600035688
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7250,6 +7254,10 @@ PrefabInstance:
     - target: {fileID: 2398048825138585968, guid: 4a1029236fa547244a78510c01d7acac, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2398048825138585969, guid: 4a1029236fa547244a78510c01d7acac, type: 3}
+      propertyPath: lookSpeed
+      value: 2.3
       objectReference: {fileID: 0}
     - target: {fileID: 2398048825138585970, guid: 4a1029236fa547244a78510c01d7acac, type: 3}
       propertyPath: m_Height

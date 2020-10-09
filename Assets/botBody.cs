@@ -183,7 +183,7 @@ public class botBody : MonoBehaviour
                 BlockController b = damTo.GetComponent<BlockController>();
                 myAudio.PlayOneShot(myPackSound.getDigSound(b.myMaterial));
 
-                b.Damage(attackDamage*0.15f, blockMaterial.all, null);
+                b.Damage(attackDamage*0.55f, blockMaterial.all, null);
                 return;
             }
 
@@ -215,105 +215,105 @@ public class botBody : MonoBehaviour
 
     void Update()
     {
-        if (isDeath) return;
+        float moveForw = 0f;
+
+        bool isRunning = false;
 
         // We are grounded, so recalculate move direction based on axes
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
         // Press Left Shift to run
 
-
-        bool isRunning = false;
-
-        timeNoPlayer += Time.deltaTime;
-        if (timeNoPlayer > 60f*1.5f)
+        if (!isDeath)
         {
-            print("Моб выпилил себя, потому что не смог до вас добравться");
-            Destroy(gameObject);
-
-        }
-
-
-        /*
-        if (Random.Range(1, 6)<3)
-        {
-            isRunning = true;
-        }
-        */
-
-        anim.SetBool("isJump", !characterController.isGrounded);
-        
 
 
 
-        Vector3 lTargetDir = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z) - transform.position;
-        lTargetDir.y = 0.0f;
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lTargetDir), Time.time * lerpSpeed);
 
-
-
-        lTargetDir = target.transform.position + Vector3.up * 1f - handCenter.transform.position;
-
-        handCenter.transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lTargetDir), Time.time * lerpSpeedHand);
-
-
-
-        // transform.LookAt(new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z));
-
-
-        float moveForw = 0f;
-
-        timerAttack -= Time.deltaTime;
-        if (timerAttack <= 0f)
-        {
-            timerAttack = timerAttackMax;
-
-            if (Vector3.Distance(transform.position, target.transform.position) < 10f)
+            timeNoPlayer += Time.deltaTime;
+            if (timeNoPlayer > 60f * 1.5f)
             {
-                timeNoPlayer = 0f;
-                gunFire();
+                print("Моб выпилил себя, потому что не смог до вас добравться");
+                Destroy(gameObject);
+
+            }
+
+
+
+
+            anim.SetBool("isJump", !characterController.isGrounded);
+
+
+
+
+
+
+            Vector3 lTargetDir = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z) - transform.position;
+            lTargetDir.y = 0.0f;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lTargetDir), Time.time * lerpSpeed);
+
+
+
+            lTargetDir = target.transform.position + Vector3.up * 1f - handCenter.transform.position;
+
+            handCenter.transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lTargetDir), Time.time * lerpSpeedHand);
+
+
+
+            timerAttack -= Time.deltaTime;
+            if (timerAttack <= 0f)
+            {
+                timerAttack = timerAttackMax;
+
+                if (Vector3.Distance(transform.position, target.transform.position) < 10f)
+                {
+                    timeNoPlayer = 0f;
+                    gunFire();
+                }
+
+            }
+
+
+
+
+
+
+
+            if (Random.Range(1, 1200) < 2)
+            {
+                myAudio.PlayOneShot(myPackSound.getSound(myPackSound.souZomb));
+            }
+
+
+            if (Vector3.Distance(transform.position, target.transform.position) > distAttack)
+            {
+                moveForw = 1f;
+
+                if (Random.Range(1, jumpRandomFrom) < 2)
+                {
+
+                    jump();
+                }
+
+            }
+            else
+            {
+
+                moveForw = 0f;
+            }
+
+
+
+            if (moveForw > 0f)
+            {
+                if (Random.Range(1, 50) < 2)
+                {
+
+                    myAudio.PlayOneShot(myPackSound.getSound(myPackSound.souStep));
+                }
             }
 
         }
-
-
-
-
-        if (Random.Range(1, 800) < 2)
-        {
-            myAudio.PlayOneShot(myPackSound.getSound(myPackSound.souZomb));
-        }
-
-
-        if (Vector3.Distance(transform.position, target.transform.position) > distAttack)
-        {
-            moveForw = 1f;
-
-            if (Random.Range(1, jumpRandomFrom) < 2)
-            {
-
-                jump();
-            }
-
-        }
-        else
-        {
-
-            moveForw = 0f;
-        }
-
-
-
-        if (moveForw > 0f)
-        {
-            if (Random.Range(1, 30) < 2)
-            {
-
-                myAudio.PlayOneShot(myPackSound.getSound(myPackSound.souStep));
-            }
-        }
-
-
 
         float curSpeedX = canMove ? (isRunning ? runningSpeed : walkingSpeed) * moveForw : 0;
         float curSpeedY = canMove ? (isRunning ? runningSpeed : walkingSpeed) * 0f : 0;

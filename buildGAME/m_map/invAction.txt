@@ -1,9 +1,9 @@
-Weapon:ammo9 102
-Weapon:ammo762 353
-Weapon:shovel 191
-Weapon:apistol 3
+Weapon:ammo9 158
+Weapon:ammo762 329
+Weapon:shovel 177
+Weapon:apistol 9
 Ruda:ingot_alm 1
 Ruda:ingot_med 2
-Core:gravel 2
-Core:stone 3
-not 0
+Weapon:m16 16
+Core:doska 1
+Weapon:ammo762 144

@@ -24,7 +24,7 @@ public class day : MonoBehaviour
 
         if (dayTime <= 8f || dayTime > 19f)
         {
-            dirLight.intensity = Mathf.SmoothStep(dirLight.intensity, 0.86f, 0.009f); ;
+            dirLight.intensity = Mathf.SmoothStep(dirLight.intensity, 0.66f, 0.008f); ;
             dirLight.color = Color.Lerp(dirLight.color, cNight, 0.003f);
         }
         else

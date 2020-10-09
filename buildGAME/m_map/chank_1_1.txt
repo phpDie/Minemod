@@ -1104,7 +1104,7 @@
 11:6:14 Core:leaves 3
 12:6:12 Core:leaves 3
 12:5:13 Core:leaves 3
-12:6:13 Core:leaves 3
+12:6:13 Core:leaves 2
 11:6:7 Core:leaves 3
 11:5:8 Core:leaves 2
 11:6:8 Core:leaves 3
@@ -1146,7 +1146,7 @@
 16:6:16 Core:leaves 3
 20:6:9 Core:leaves 3
 20:5:10 Core:leaves 3
-20:6:10 Core:leaves 3
+20:6:10 Core:leaves 2
 21:5:9 Core:leaves 3
 21:6:9 Core:brevno 5
 21:4:10 Core:brevno 5

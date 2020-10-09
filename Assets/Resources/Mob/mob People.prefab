@@ -290,11 +290,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4828168686521885006, guid: b003be795d81d5440881613e156b8277, type: 3}
       propertyPath: hp
-      value: 44
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 4828168686521885006, guid: b003be795d81d5440881613e156b8277, type: 3}
       propertyPath: lerpSpeedHand
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4828168686521885006, guid: b003be795d81d5440881613e156b8277, type: 3}
+      propertyPath: walkingSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4828168686521885006, guid: b003be795d81d5440881613e156b8277, type: 3}
+      propertyPath: runningSpeed
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4828168686521885007, guid: b003be795d81d5440881613e156b8277, type: 3}
       propertyPath: m_LocalPosition.x

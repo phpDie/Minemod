@@ -1288,3 +1288,4 @@
 0:6:22 Core:leaves 3
 0:5:23 Core:leaves 3
 0:6:23 Core:leaves 3
+-8:5:21 Core:stone 6
