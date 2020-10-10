@@ -253,16 +253,19 @@ public class ChankController : MonoBehaviour
 
 
 
-        if (lines.Length < 10)
+        if (lines.Length < 2)
         {
             print("no valid data chank loader");
             return false;
         }
 
-        //удаляем блоки внутри
-        for (int i = 1; i < transform.childCount; i++)
+        if (transform.childCount > 1)
         {
-            Destroy(transform.GetChild(i).gameObject);
+            //удаляем блоки внутри
+            for (int i = 1; i < transform.childCount; i++)
+            {
+                Destroy(transform.GetChild(i).gameObject);
+            }
         }
 
 

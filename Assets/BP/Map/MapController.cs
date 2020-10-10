@@ -7,7 +7,7 @@ public class MapController : MonoBehaviour
 {
 
     public Dictionary<string, bool> map = new Dictionary<string, bool>();
-     
+
 
     public BlockController blockBlank;
     public ChankController chankBlank;
@@ -18,7 +18,7 @@ public class MapController : MonoBehaviour
 
 
     [HideInInspector]
-    public int blockCountWidth = 16;  
+    public int blockCountWidth = 16;
     private int chankCountStart = 5; //y
     public string mapPathDir;
     // Start is called before the first frame update
@@ -31,7 +31,7 @@ public class MapController : MonoBehaviour
         Directory.CreateDirectory(mapPathDir);
 
 
-       // mapInit();
+        // mapInit();
 
 
     }
@@ -89,7 +89,7 @@ public class MapController : MonoBehaviour
         }
 
 
-         path = mapPathDir + "invAction.txt";
+        path = mapPathDir + "invAction.txt";
         if (File.Exists(path))
         {
             string saveDataChank;
@@ -101,6 +101,39 @@ public class MapController : MonoBehaviour
         }
 
 
+        path = mapPathDir + "ships/";
+        if (!Directory.Exists(path))
+        {
+            Directory.CreateDirectory(path);
+        }
+
+        DirectoryInfo dir = new DirectoryInfo(path);
+        FileInfo[] info = dir.GetFiles("*.*");
+        foreach (FileInfo f in info)
+        {
+           
+            string saveDataChank;
+            StreamReader writer = new StreamReader(f.FullName, true);
+            saveDataChank = writer.ReadToEnd();
+            writer.Close();
+
+            string[] lines = saveDataChank.Split(' ');
+
+
+            GameObject objToSpawn = new GameObject("driveChank");
+            objToSpawn.transform.position = Global.Links.stringToVector(lines[1]);
+
+            driverChank car = objToSpawn.AddComponent<driverChank>();
+            car.gameObject.AddComponent<ChankController>().permGenOn=false;
+            car.gameObject.GetComponent<ChankController>().mapCon = this;
+            car.gameObject.GetComponent<ChankController>().init();
+            
+
+            car.init(f.Name.Replace(".txt", ""));
+             
+
+
+        }
     }
 
     public void gameSave()
@@ -121,6 +154,8 @@ public class MapController : MonoBehaviour
         }
         File.WriteAllText(path, Global.Links.getIndDataPlayerAction().dataGet());
 
+
+
     }
 
 
@@ -130,8 +165,15 @@ public class MapController : MonoBehaviour
         gameSave();
 
 
+        driverChank[] gos = FindObjectsOfType(typeof(driverChank)) as driverChank[];
+        foreach (driverChank go in gos)
+        {
+            go.saveData();
 
-               var watch = System.Diagnostics.Stopwatch.StartNew();
+        }
+
+
+        var watch = System.Diagnostics.Stopwatch.StartNew();
         for (int i = 0; i < transform.childCount; i++)
         {
             transform.GetChild(i).GetComponent<ChankController>().chankSave();

@@ -8,6 +8,17 @@ namespace Global
     class Links   // revision 11
     {
 
+        public static Vector3 stringToVector(string v)
+        {
+            string[] posBlock = v.Split(':');
+            return new Vector3(System.Convert.ToInt32(posBlock[0]), System.Convert.ToInt32(posBlock[1]), System.Convert.ToInt32(posBlock[2]));
+
+        }
+        public static Vector3 vectorRound(Vector3 v)
+        {
+            return new Vector3(Mathf.Round(v.x), Mathf.Round(v.y), Mathf.Round(v.z));
+
+        }
         public static string vectorToString(Vector3 v)
         {
 

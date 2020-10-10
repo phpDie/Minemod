@@ -18,6 +18,9 @@ public class blockTypeDrive : MonoBehaviour
         if (isBuild) return;
         isBuild = true;
 
+        if (transform.parent.gameObject.GetComponent<driverChank>() != null) return;
+        print("Тачка забилжена!");
+
         car = transform.parent.gameObject.AddComponent<driverChank>();
         car.init();
         car.myRule = this;
@@ -26,44 +29,58 @@ public class blockTypeDrive : MonoBehaviour
 
     public void init()
     {
-        print("Тачка создана!");
+        
 
         pl = Global.Links.getPlayerAction();
 
-        GameObject objToSpawn = new GameObject("driveChank");
-        objToSpawn.transform.position = transform.position;
+        if (transform.parent.gameObject.GetComponent<driverChank>() == null)
+        {
+            print("Тачка создана!");
 
-        objToSpawn.gameObject.layer = 2;
+            GameObject objToSpawn = new GameObject("driveChank");
+            objToSpawn.transform.position = transform.position;
+
+           // objToSpawn.gameObject.layer = 2;
 
 
-      myChank  = objToSpawn.AddComponent<ChankController>();
+            GameObject firest = new GameObject("first");
+            firest.transform.SetParent(objToSpawn.transform);
 
-        myChank.transform.position = transform.position;
 
-        transform.SetParent(myChank.transform);
 
-        myChank.transform.tag = "driveChank";
 
-        myChank.permGenOn = false;
+            myChank = objToSpawn.AddComponent<ChankController>();
 
-        myChank.init();
+            myChank.transform.position = transform.position;
 
+            transform.SetParent(myChank.transform);
+
+        
+
+            myChank.permGenOn = false;
+
+            myChank.init();
+
+        }
+        else
+        {
+            print("Тачка загружена!");
+            myChank = transform.parent.GetComponent<ChankController>();
+            car = transform.parent.GetComponent<driverChank>();
+            car.myRule = this;
+        }
         
      
-        
-
-
-
-       
-
-
     }
 
     public void setDrive(bool ndrive)
     {
+        print("DRIVE");
         build();
         isDrive = ndrive;
         pl.GetComponent<Player>().canMove = !isDrive;
+
+        car.rb.isKinematic = !ndrive;
     }
 
     Quaternion startRot;
@@ -141,7 +158,7 @@ public class blockTypeDrive : MonoBehaviour
                 pl.GetComponent<Player>().playerCamera.transform.localRotation = Quaternion.Euler(rotationXcam, 0, 0);
 
 
-            if (Input.GetAxis("Mouse Y") != 0f)
+            if (Input.GetAxis("Mouse X") != 0f)
             {
                 if (!car.giveEnergy(enSizer)) return;
                 car.rb.AddTorque(new Vector3(0f, Input.GetAxis("Mouse X") * lookSpeed / 16f, 0f), ForceMode.VelocityChange);

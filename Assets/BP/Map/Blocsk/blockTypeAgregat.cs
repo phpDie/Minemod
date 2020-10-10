@@ -403,6 +403,11 @@ public class blockTypeAgregat : MonoBehaviour
 
     void RenderUi()
     {
+        if (mod == null)
+        {
+            print("MOD = null!!!");
+            mod = Global.Links.getModLoader();
+        }
         if (agrUi != null)
             if (agrUi != null)
             {
