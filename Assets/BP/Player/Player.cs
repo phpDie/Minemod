@@ -71,7 +71,7 @@ public class Player: MonoBehaviour
         {
             moveDirection.y -= gravity * Time.deltaTime;
 
-           // if (moveDirection.y < gravity * -1) moveDirection.y = gravity * -1;
+           
         }
 
         // Move the controller

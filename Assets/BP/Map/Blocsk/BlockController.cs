@@ -26,6 +26,7 @@ public enum blockType
     door = 2,
     mobSpawn = 3,
     agregat = 4,
+    drive = 5, //руль!
 }
 
 public class BlockController : MonoBehaviour
@@ -381,6 +382,13 @@ public class BlockController : MonoBehaviour
         if (myType == blockType.agregat)
         {
             gameObject.AddComponent<blockTypeAgregat>().init();
+
+        }
+
+
+        if (myType == blockType.drive)
+        {
+            gameObject.AddComponent<blockTypeDrive>().init();
 
         }
 

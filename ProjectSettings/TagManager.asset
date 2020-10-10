@@ -9,6 +9,7 @@ TagManager:
   - mob
   - invItem
   - invUi
+  - driveChank
   layers:
   - Default
   - TransparentFX

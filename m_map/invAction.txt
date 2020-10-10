@@ -1,9 +1,9 @@
-Block:pblock_bookshelf 61
-Weapon:diamond_pickaxe 426
-Weapon:ammo9 19
-Weapon:ammo762 144
-Agregat:baker 28
+Weapon:diamond_pickaxe 190
 not 0
-not 0
+Agregat:drive 27
+Weapon:adminAxe 381
+Block:pblock_glass 42
+Agregat:metalBlock 40
+Block:pblock_mob_spawner 54
 not 0
 not 0

@@ -68,10 +68,20 @@ public class blockTypeBuilder : MonoBehaviour
                 b.transform.position = newPos;
 
                 //                b.transform.name = b.transform.localPosition.x.ToString() + ":" + b.transform.localPosition.y.ToString() + ":" + b.transform.localPosition.z.ToString();
-                b.transform.name = Global.Links.vectorToString(b.transform.position);
+                
+              string _newInd = Global.Links.vectorToString(b.transform.position);
 
 
-                b.itemInd = _p.ind;
+            if (GameObject.Find(Global.Links.vectorToString(newPos)) != null)
+            {
+                Destroy(GameObject.Find(Global.Links.vectorToString(newPos)));
+            }
+
+            b.transform.name = _newInd;
+
+
+
+            b.itemInd = _p.ind;
                 b.hp = 0;
 
 

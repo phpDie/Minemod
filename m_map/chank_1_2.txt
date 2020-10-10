@@ -103,7 +103,6 @@
 9:1:28 Core:stone 6
 9:2:28 Core:gravel 8
 9:3:28 Core:gravel 8
-9:4:28 Core:buildTree 8
 9:0:29 Core:bad 5000
 9:1:29 Core:gravel 8
 9:2:29 Core:stone 6
@@ -222,11 +221,9 @@
 11:0:24 Core:bad 5000
 11:1:24 Core:stone 6
 11:2:24 Core:gravel 8
-11:3:24 Core:grass 8
 11:0:25 Core:bad 5000
 11:1:25 Core:stone 6
 11:2:25 Core:gravel 8
-11:3:25 Core:grass 8
 11:0:26 Core:bad 5000
 11:1:26 Core:stone 6
 11:2:26 Core:gravel 8
@@ -1160,3 +1157,16 @@
 23:1:39 Core:gravel 8
 23:2:39 Core:stone 6
 23:3:39 Core:grass 8
+8:7:27 Core:leaves 3
+8:6:28 Core:leaves 3
+8:7:28 Core:leaves 3
+9:6:27 Core:leaves 3
+9:7:27 Core:brevno 5
+9:5:28 Core:brevno 5
+9:6:28 Core:brevno 5
+9:7:28 Core:brevno 5
+9:6:29 Core:leaves 3
+9:7:29 Core:leaves 3
+10:7:27 Core:leaves 3
+10:6:28 Core:leaves 3
+10:7:28 Core:leaves 3

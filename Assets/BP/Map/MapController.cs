@@ -7,7 +7,7 @@ public class MapController : MonoBehaviour
 {
 
     public Dictionary<string, bool> map = new Dictionary<string, bool>();
-
+     
 
     public BlockController blockBlank;
     public ChankController chankBlank;

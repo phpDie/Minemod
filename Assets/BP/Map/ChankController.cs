@@ -21,6 +21,7 @@ public class ChankController : MonoBehaviour
     GameObject player;
 
 
+    public bool permGenOn = true;
      
 
     // Start is called before the first frame update
@@ -419,8 +420,17 @@ public class ChankController : MonoBehaviour
     }
 
     public void genNewStructureChank()
-    {             
+    {
 
+        if (!permGenOn)
+        {
+
+            isActive = true;
+            fullActive = true;
+
+            isLoaded = true;
+            return ;
+        }
 
         var watch = System.Diagnostics.Stopwatch.StartNew();
 

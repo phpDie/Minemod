@@ -85,7 +85,7 @@ public class blockTypeAgregat : MonoBehaviour
 
     float timeBake = 3f;
     string btnText = "Перегнать";
-    agregatType typeAgregat = agregatType.none;
+ public   agregatType typeAgregat = agregatType.none;
 
 
 

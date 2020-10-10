@@ -34,12 +34,82 @@ public class buildController : MonoBehaviour
         // Check if our raycast has hit anything
         if (Physics.Raycast(rayOrigin + plAct.mCam.transform.forward*0.1f, plAct.mCam.transform.forward, out hit, 15f))
         {
-            if (hit.transform.tag == "block")
+
+            if (hit.transform.tag == "driveChank___OLDVERsion")
             {
-                Vector3 pos = hit.point ;
- 
+                Vector3 pos = hit.point;
+
+
+
+                pos = hit.point;
+
+                pos += plAct.mCam.transform.forward * -0.6f;
 
                 pos = new Vector3(Mathf.Round(pos.x), Mathf.Round(pos.y), Mathf.Round(pos.z));
+
+               // pos = hit.transform.parent.position + pos;
+
+
+
+                if (hit.transform.position == pos)
+                {
+                    pos = hit.point;
+                    // print("Double fix");
+                    pos += plAct.mCam.transform.forward * -0.3f;
+                    pos = new Vector3(Mathf.Round(pos.x), Mathf.Round(pos.y), Mathf.Round(pos.z));
+                }
+
+                //ghost.transform.position = pos;
+
+                lastPos = pos;
+
+
+                lastChank = hit.transform;
+
+            }
+
+            if (hit.transform.tag == "driveChank")
+            {
+
+                Vector3 pos = hit.point;
+
+
+                pos = hit.collider.transform.localPosition;
+                pos = new Vector3(Mathf.Round(pos.x), Mathf.Round(pos.y), Mathf.Round(pos.z));
+                pos = hit.transform.position + pos;
+
+
+
+
+
+                if (hit.collider.transform.position == pos)
+                {
+                    pos = hit.point;
+                    // print("Double fix");
+                    pos += plAct.mCam.transform.forward * -0.3f;
+                    pos = new Vector3(Mathf.Round(pos.x), Mathf.Round(pos.y), Mathf.Round(pos.z));
+                }
+
+                //ghost.transform.position = pos;
+
+                lastPos = pos;
+                lastChank = hit.transform;
+            }
+
+
+            if (hit.transform.tag == "block")
+            {
+
+                    Vector3 pos = hit.point ;
+
+
+                pos =   hit.transform.localPosition;                
+                pos = new Vector3(Mathf.Round(pos.x), Mathf.Round(pos.y), Mathf.Round(pos.z));
+                pos = hit.transform.parent.position + pos;
+
+
+
+
 
                 if (hit.transform.position == pos)
                 {
@@ -52,7 +122,10 @@ public class buildController : MonoBehaviour
                 //ghost.transform.position = pos;
 
                 lastPos = pos;
-                lastChank = hit.transform.parent; 
+                lastChank = hit.transform.parent;
+
+               
+
             }
              // hit.transform.gameObject;
 

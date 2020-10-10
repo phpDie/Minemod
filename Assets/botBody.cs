@@ -91,11 +91,7 @@ public class botBody : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
-
-        // Lock cursor
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
+ 
         target = GameObject.Find("Player");
 
         sUi sui = Global.Links.getSui();

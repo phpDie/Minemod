@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class PlayerAction : MonoBehaviour
 {
      
-
+     
     public float hp = 100f;
     public float hpMax = 100f;
 
@@ -326,7 +326,7 @@ public class PlayerAction : MonoBehaviour
 
 
         //Админский инвентарь
-        if (Input.GetKeyDown(KeyCode.U))
+        if (Input.GetKeyDown(KeyCode.I))
         {
             Global.Links.getSui().winCloseAll();
 
@@ -340,7 +340,7 @@ public class PlayerAction : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.E))
         {
 
             if (Global.Links.getSui().winInvMain.gameObject.active)
@@ -473,7 +473,7 @@ public class PlayerAction : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Q)) setTimePich(1f); 
 
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             ActionItem_Use(true);
         }
@@ -541,10 +541,17 @@ public class PlayerAction : MonoBehaviour
 
         if (Physics.Raycast(rayOrigin + forw*0.1f, forw, out hit, toolDist))
         {
-
-            lastHitTestPoint = hit.point;
-            //  print(hit.transform.name);
-            return hit.transform.gameObject;
+            if (hit.transform.tag == "driveChank")
+            {
+                return hit.collider.gameObject;
+            }
+            else
+            {
+                 
+                lastHitTestPoint = hit.point;
+                //  print(hit.transform.name);
+                return hit.transform.gameObject;
+            }
 
         }
         return null;
@@ -678,8 +685,17 @@ public class PlayerAction : MonoBehaviour
         {
             return false;
         }
+
+
+        if (go.transform.tag == "driveChank")
+        {
+            go.GetComponent<driverChank>().myRule.setDrive(true);
+        }
+
         if (go.transform.tag == "block")
         {
+
+
             BlockController b = go.GetComponent<BlockController>();
 
             b.initBlock();
@@ -708,6 +724,15 @@ public class PlayerAction : MonoBehaviour
                 Global.Links.getSui().winOpen("invMain");
                 Global.Links.getSui().winOpen("winAgregat");
                 b.GetComponent<blockTypeAgregat>().open();
+
+                return true;
+            }
+
+            if (b.myType == blockType.drive)
+            {
+
+                myAudio.PlayOneShot(myPackSound.souClick);
+                b.GetComponent<blockTypeDrive>().setDrive(true);
 
                 return true;
             }
@@ -749,7 +774,11 @@ public class PlayerAction : MonoBehaviour
     void ActionItem_Build()
     {
 
+        if (!Input.GetKey(KeyCode.LeftShift))
+        {
             if (ActionItem_Use(false)) return;
+        }
+
 
         if (!myInv.giveActive(1, false)) return;
 
@@ -782,7 +811,8 @@ public class PlayerAction : MonoBehaviour
 
         BlockController newBlock = Instantiate(blankBlock, newParent);
 
-        
+
+        newBlock.transform.rotation = GetComponent<buildController>().lastChank.rotation;
 
 
         newBlock.transform.position = pos;

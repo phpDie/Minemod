@@ -11,6 +11,7 @@ public class mobRandSpawner : MonoBehaviour
     public bool isHardTest = false;
 
     sUi sui;
+     
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +27,7 @@ public class mobRandSpawner : MonoBehaviour
 
     public void spawn()
     {
-        print("SPAWN");
+      //  print("SPAWN");
 
         Vector3 pos = transform.position+ new Vector3(Random.Range(-dist, dist), 37f, Random.Range(-dist, dist));
         pos = transform.position;
