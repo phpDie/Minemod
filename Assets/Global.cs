@@ -8,21 +8,32 @@ namespace Global
     class Links   // revision 11
     {
 
+        public static string[] stringVectorElementsFixCeil(string[] posBlock)
+        {
+            for(int i=0; i< posBlock.Length; i++)
+            {
+                posBlock[i] = posBlock[i].Split(',')[0];
+            }
+
+            return posBlock;
+        }
+
         public static Vector3 stringToVector(string v)
         {
             string[] posBlock = v.Split(':');
             return new Vector3(System.Convert.ToInt32(posBlock[0]), System.Convert.ToInt32(posBlock[1]), System.Convert.ToInt32(posBlock[2]));
 
         }
+
         public static Vector3 vectorRound(Vector3 v)
         {
             return new Vector3(Mathf.Round(v.x), Mathf.Round(v.y), Mathf.Round(v.z));
 
         }
-        public static string vectorToString(Vector3 v)
+        public static string vectorToString(Vector3 v, string razdel=":")
         {
 
-            return v.x.ToString() + ":" + v.y.ToString() + ":" + v.z.ToString();
+            return v.x.ToString() + razdel + v.y.ToString() + razdel + v.z.ToString();
 
 
         }

@@ -1,0 +1,6 @@
+[option]
+wifiBatCount=1300
+isOn=false
+[inv]
+in=bm90IDAKbm90IDAKbm90IDA=
+out=bm90IDAKbm90IDAKbm90IDAKbm90IDA=

@@ -1,7 +1,0 @@
-
--3:18:0 Agregat:drive 19
--3:18:-1 Block:pblock_brick 8
--2:18:-1 Block:pblock_brick 8
--3:18:-2 Block:pblock_brick 8
--2:18:-2 Block:pblock_brick 8
--2:18:0 Block:pblock_brick 8

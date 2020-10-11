@@ -1,9 +1,9 @@
 Weapon:adminAxe 381
-Agregat:a1 29
-Agregat:gen 28
-Agregat:baker 1
-not 0
-not 0
-not 0
-not 0
+Block:pblock_mob_spawner 29
+Ship:convert 28
+Ship:gen 26
+Block:pblock_glass_lime 33
+Block:pblock_glass 44
+Ship:drive 25
+Ruda:ingot_uran 62
 not 0

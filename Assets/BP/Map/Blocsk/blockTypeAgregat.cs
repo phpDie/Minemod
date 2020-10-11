@@ -47,6 +47,11 @@ public class blockTypeAgregat : MonoBehaviour
     }
 
 
+    public void closeUi()
+    {
+        agrUi = null;
+    }
+
     public void open()
     {
         mod = Global.Links.getModLoader();
@@ -54,6 +59,9 @@ public class blockTypeAgregat : MonoBehaviour
 
 
         agrUi.myAgr = this;
+
+        agrUi.myInvUiOut.gameObject.SetActive(true);
+        agrUi.myInvUiInput.gameObject.SetActive(true);
 
         agrUi.myInvUiInput.openCargo(invInput);
         agrUi.myInvUiOut.openCargo(invOutput);
@@ -80,7 +88,7 @@ public class blockTypeAgregat : MonoBehaviour
     public float wifiOutputCount = 1f; //количество энерги на выходе
 
 
-    string wifiBatType = "not";
+    public string wifiBatType = "not";
 
 
     float timeBake = 3f;
@@ -227,11 +235,11 @@ public class blockTypeAgregat : MonoBehaviour
         {
             for (int i = 0; i < hits.Length; i++)
 
-                if (hits[i].transform.tag == "block")
+                if (hits[i].collider.transform.tag == "block")
                 {
-                    if (hits[i].transform.GetComponent<blockTypeAgregat>() != null)
+                    if (hits[i].collider.transform.GetComponent<blockTypeAgregat>() != null)
                     {
-                        blockTypeAgregat b = hits[i].transform.GetComponent<blockTypeAgregat>();
+                        blockTypeAgregat b = hits[i].collider.transform.GetComponent<blockTypeAgregat>();
 
                        
 
@@ -275,7 +283,7 @@ public class blockTypeAgregat : MonoBehaviour
         {
             if (isOn)
             {
-                actionWifiOutputAll();
+                actionWifiOutputAll(false);
             }
             return;
         }
@@ -405,7 +413,7 @@ public class blockTypeAgregat : MonoBehaviour
     {
         if (mod == null)
         {
-            print("MOD = null!!!");
+        //    print("MOD = null!!!");
             mod = Global.Links.getModLoader();
         }
         if (agrUi != null)

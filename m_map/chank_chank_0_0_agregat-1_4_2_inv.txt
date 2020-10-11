@@ -1,0 +1,6 @@
+[option]
+wifiBatCount=0
+isOn=false
+[inv]
+in=bm90IDA=
+out=bm90IDA=

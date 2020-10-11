@@ -27,9 +27,20 @@ public class blockTypeDrive : MonoBehaviour
         
     }
 
+  
+
+    private void OnDestroy()
+    {
+        if (isDrive)
+        {
+            setDrive(false);
+        }
+    }
+
     public void init()
     {
-        
+
+       // GetComponent<BlockController>().myMaterial = blockMaterial.badrock;
 
         pl = Global.Links.getPlayerAction();
 
@@ -81,6 +92,13 @@ public class blockTypeDrive : MonoBehaviour
         pl.GetComponent<Player>().canMove = !isDrive;
 
         car.rb.isKinematic = !ndrive;
+        car.isDrive = isDrive;
+
+        if (ndrive)
+        {
+            car.myRule = this;
+        }
+         
     }
 
     Quaternion startRot;
@@ -104,20 +122,9 @@ public class blockTypeDrive : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isDrive)
-        {
-            if (isBuild)
-            {
 
-                car.transform.position = Vector3.Lerp(car.transform.localPosition, new Vector3(Mathf.Round(car.transform.position.x), Mathf.Round(car.transform.position.y), Mathf.Round(car.transform.position.z)), Time.deltaTime * 1f);
-
-                car.transform.rotation = Quaternion.Lerp(car.transform.rotation, startRot, Time.deltaTime * 48.6f);
-
-
-            }
-
-        }
-
+       
+        /*
         if (isDrive)
         {
 
@@ -141,27 +148,29 @@ public class blockTypeDrive : MonoBehaviour
             }
 
 
-            /*
-            rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
-            transform.parent.rotation = Quaternion.Euler(0, 0, rotationX);
-            */
+         
 
-
-            /*
-              rotationY += Input.GetAxis("Mouse X") * lookSpeed;
-            transform.parent.rotation = Quaternion.Euler(0, rotationY, 0);
-            */
-
-           
+            if (!Input.GetButton("Fire2"))
+            {
                 rotationXcam += -Input.GetAxis("Mouse Y") * lookSpeed;
-                rotationXcam = Mathf.Clamp(rotationXcam, -6f, 66f);
+                rotationXcam = Mathf.Clamp(rotationXcam, -86f, 86f);
                 pl.GetComponent<Player>().playerCamera.transform.localRotation = Quaternion.Euler(rotationXcam, 0, 0);
 
 
-            if (Input.GetAxis("Mouse X") != 0f)
+                pl.transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
+
+            }
+            else
             {
-                if (!car.giveEnergy(enSizer)) return;
-                car.rb.AddTorque(new Vector3(0f, Input.GetAxis("Mouse X") * lookSpeed / 16f, 0f), ForceMode.VelocityChange);
+
+                if (Input.GetAxis("Mouse X") != 0f)
+                {
+                    if (!car.giveEnergy(enSizer)) return;
+                    //car.rb.AddTorque(new Vector3(0f, Input.GetAxis("Mouse X") * lookSpeed / 16f, 0f), ForceMode.VelocityChange);
+                   car.rb.AddTorque(car.transform.up * Input.GetAxis("Mouse X") * lookSpeed / 16f, ForceMode.VelocityChange);
+                }
+ 
+
             }
 
             if (Input.GetAxis("Vertical") != 0f)
@@ -171,7 +180,7 @@ public class blockTypeDrive : MonoBehaviour
             }
 
 
-            if (Input.GetAxis("Vertical") != 0f)
+            if (Input.GetAxis("Horizontal") != 0f)
             {
                 if (!car.giveEnergy(enSizer)) return;
                 car.rb.AddForce(pl.transform.right * Input.GetAxis("Horizontal") * speed * Time.deltaTime, ForceMode.Acceleration);
@@ -182,7 +191,9 @@ public class blockTypeDrive : MonoBehaviour
             {
                 setDrive(false);
             }
+            }
+            */
 
-        }
+        
     }
 }

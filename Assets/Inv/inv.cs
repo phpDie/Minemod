@@ -9,6 +9,9 @@ using UnityEngine.UI;
 public class inv : MonoBehaviour
 {
 
+    public GameObject hoverOb;
+    public Text hoverText;
+
     public Transform contentBox;
 
     public invItem blankItem;
@@ -18,6 +21,12 @@ public class inv : MonoBehaviour
 
     public invData myData;
 
+    public void showHover(string t)
+    {
+        hoverOb.SetActive(true);
+        hoverText.text = t.ToString();
+        hoverTime = 5.6f;
+    }
 
 
 
@@ -199,8 +208,9 @@ public class inv : MonoBehaviour
           //  items = myData.items;
             openCargo(myData);
         }
+        hoverOb.SetActive(false);
 
-        
+
         /*
         itemAdd();
         itemAdd();
@@ -210,9 +220,19 @@ public class inv : MonoBehaviour
 
     }
 
+    float hoverTime=0f;
     // Update is called once per frame
     void Update()
     {
+        if (hoverTime > 0f)
+        {
+            hoverOb.transform.position = Input.mousePosition; 
+            hoverTime -= Time.deltaTime;
+            if (hoverTime <= 0f)
+            {
+                hoverOb.SetActive(false);
+            }
+        }
         
     }
 }

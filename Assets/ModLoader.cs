@@ -81,6 +81,8 @@ public class itemSave
     public bool emptyIsset = true; //удалять предмет, когда у него колв = 0. Нет для пушек.
 
     public string nameView; //название
+    public string descr; //название
+
     public string modName; 
     public string ind;  //инд
     public string wifi="nont";  //инд
@@ -190,6 +192,7 @@ public class ModLoader : MonoBehaviour
             newItem.wifi = MyIni.Read("wifi", "itemInfo","not");
 
             newItem.nameView = MyIni.Read("name", "itemInfo");
+            newItem.descr = MyIni.Read("descr", "itemInfo","");
             newItem.emptyIsset = MyIni.ReadBool("emptyIsset", "itemInfo");
 
 

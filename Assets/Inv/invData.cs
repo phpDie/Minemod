@@ -606,6 +606,22 @@ public class invData : MonoBehaviour
 
     }
 
+
+    public void mouseExit()
+    {
+        if (myViewInvUi == null) return;
+
+        myViewInvUi.hoverOb.SetActive(false);
+    }
+
+    public void moseInner(itemElement E)
+    {
+        if (E == null) return;
+        if (myViewInvUi == null) return;
+        if (!E.isset) return;
+        myViewInvUi.showHover(E.infoItemSave.nameView+"\n"+ E.infoItemSave.descr);
+    }
+
     bool isDrag = false;
     public void dragElement(itemElement E, Vector2 pos)
     {

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 using UnityEngine.EventSystems;
 
-public class invItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class invItem : MonoBehaviour,  IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
 
    public invData myData;
@@ -21,6 +21,19 @@ public class invItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
         //transform.GetChild(3).gameObject.SetActive(false);
     }
 
+
+    
+    public void  OnPointerExit(PointerEventData eventData)
+    {
+        myData.mouseExit();
+    }
+
+    public void  OnPointerEnter(PointerEventData eventData)
+    {
+        myData.moseInner(myElement);
+    }
+
+
     public void clickUse()
     {
         myData.clickItemElemet(myElement);
@@ -28,11 +41,7 @@ public class invItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
 
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-
-    }
-
+   
     public void OnDrag(PointerEventData eventData)
     {
         myData.dragElement(myElement,  eventData.position);

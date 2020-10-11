@@ -286,6 +286,11 @@ public class ChankController : MonoBehaviour
             b.hp = float.Parse(lineOne[2]);
 
 
+            if (!mod.blockBase.ContainsKey(b.itemInd))
+            {
+                print($"При загрузке карты, не был найден блок {b.itemInd}");
+                b.itemInd = "Core:dirt";
+            }
 
             itemBlockSettings myBlockSetting = mod.blockBase[b.itemInd];
             b.myBlockSetting = myBlockSetting;
@@ -298,6 +303,8 @@ public class ChankController : MonoBehaviour
 
 
             string[] posBlock = lineOne[0].Split(':');
+
+            posBlock= Global.Links.stringVectorElementsFixCeil(posBlock);
 
 
             //getCubePosFix здесь не нужен, потому что он должен быть только при создание мира
@@ -314,8 +321,10 @@ public class ChankController : MonoBehaviour
             }
 
             if (b.myType == blockType.agregat)
+
             {
-                string path = mapCon.mapPathDir + "agregatChank" + transform.name.Replace(":", "_") + "_cube" + b.transform.name.Replace(":", "_") + "_agr.ini";
+                string path = mapCon.mapPathDir + "chank_" + transform.name.Replace(":", "_") + "_agregat" + Global.Links.vectorToString(b.transform.localPosition, "_") + "_inv.txt";
+                //string path = mapCon.mapPathDir + "agregatChank" + transform.name.Replace(":", "_") + "_cube" + b.transform.name.Replace(":", "_") + "_agr.ini";
                 b.initBlock();
                 b.GetComponent<blockTypeAgregat>().loadData(path);
             }
@@ -332,7 +341,8 @@ public class ChankController : MonoBehaviour
 
     public void loadDataInvInBlock(BlockController b)
     {
-        string path = mapCon.mapPathDir + "cargoChank" + transform.name.Replace(":", "_") + "_cube" + b.transform.name.Replace(":", "_") + "_inv.txt";
+
+        string path = mapCon.mapPathDir + "chank_" + transform.name.Replace(":", "_") + "_inv" + Global.Links.vectorToString(b.transform.localPosition,"_") + "_inv.txt";
         //string path = mapCon.mapPathDir + "" + b.transform.name.Replace(":", "_") + "_inv.txt";
 
         if (File.Exists(path))
@@ -373,14 +383,16 @@ public class ChankController : MonoBehaviour
 
                 if (b.myType == blockType.agregat)
                 {
-                    string path = mapCon.mapPathDir + "agregatChank" + transform.name.Replace(":", "_") + "_cube" + b.transform.name.Replace(":", "_") + "_agr.ini";
+                    string path = mapCon.mapPathDir + "chank_" + transform.name.Replace(":", "_") + "_agregat" + Global.Links.vectorToString(b.transform.localPosition, "_") + "_inv.txt";
+                  //  string path = mapCon.mapPathDir + "agregatChank" + transform.name.Replace(":", "_") + "_cube" + b.transform.name.Replace(":", "_") + "_agr.ini";
                     b.GetComponent<blockTypeAgregat>().saveData(path);
                 }
 
                     if (b.myType == blockType.cargo)
                 {
 
-                    string path = mapCon.mapPathDir + "cargoChank"+transform.name.Replace(":", "_") + "_cube" + b.transform.name.Replace(":", "_") + "_inv.txt";
+                    string path = mapCon.mapPathDir + "chank_" + transform.name.Replace(":", "_") + "_inv" + Global.Links.vectorToString(b.transform.localPosition, "_") + "_inv.txt";
+                    //string path = mapCon.mapPathDir + "cargoChank"+transform.name.Replace(":", "_") + "_cube" + b.transform.name.Replace(":", "_") + "_inv.txt";
                     if (!File.Exists(path))
                     {
                         File.Create(path).Close();

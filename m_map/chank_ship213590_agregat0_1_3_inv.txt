@@ -1,0 +1,6 @@
+[option]
+wifiBatCount=1224
+isOn=true
+[inv]
+in=UnVkYTppbmdvdF91cmFuIDU0
+out=bm90IDA=

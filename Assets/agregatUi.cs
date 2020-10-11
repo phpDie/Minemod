@@ -30,6 +30,28 @@ public class agregatUi : MonoBehaviour
 
     }
 
+    private void OnDisable()
+    {
+        if (myAgr != null)
+        {
+            myInvUiOut.closeCargo();
+            myInvUiInput.closeCargo();
+            myAgr.closeUi();
+            
+            myAgr = null;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (myAgr != null)
+        {
+            myInvUiOut.closeCargo();
+            myInvUiInput.closeCargo();
+            myAgr.closeUi();
+            myAgr = null;
+        }
+    }
 
     public void btnGo()
     {

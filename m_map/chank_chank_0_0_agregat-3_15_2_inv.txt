@@ -1,0 +1,6 @@
+[option]
+wifiBatCount=750
+isOn=true
+[inv]
+in=bm90IDA=
+out=bm90IDA=
