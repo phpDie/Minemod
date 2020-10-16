@@ -389,6 +389,12 @@ public class PlayerAction : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha9)) myInv.selectNewActiveInde(8);
 
 
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            GetComponent<mobRandSpawner>().enabled = !GetComponent<mobRandSpawner>().enabled;
+        }
+
+
         if (timeAttack <= 0f)
         {
 
@@ -468,6 +474,12 @@ public class PlayerAction : MonoBehaviour
         }
 
 
+
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+
+             sui.lootCreate(transform.position + transform.forward * 1.5f + Vector3.up * 0.4f);
+        }
 
         if (Input.GetKeyDown(KeyCode.Q)) setTimePich(0.15f);
         if (Input.GetKeyUp(KeyCode.Q)) setTimePich(1f); 
@@ -560,6 +572,19 @@ public class PlayerAction : MonoBehaviour
     Vector3 lastHitTestPoint;
 
 
+    public sLoot lootCreate(Vector3 pos, string ind = "Core:dirt", int count = 1)
+    {
+        
+        GameObject newLootGo =Instantiate( Resources.Load<GameObject>("loot"));
+
+        sLoot newLoot = newLootGo.GetComponent<sLoot>();
+        newLoot.init(ind, count);
+        newLootGo.transform.position = pos;
+        return newLoot;
+
+
+    }
+
     void ActionItem_Fire()
     {
         if (!myInv.giveActive(1, false)) return;
@@ -642,8 +667,7 @@ public class PlayerAction : MonoBehaviour
                 if (b.hp >= b.hpMax) return false;
             }
 
-            myAudio.PlayOneShot(myPackSound.getDigSound(b.myMaterial));
-            //myAudio.PlayOneShot(myPackSound.getDigSound());
+          //  myAudio.PlayOneShot(myPackSound.getDigSound(b.myMaterial)); 
 
             b.Damage(toolDamage, toolMaterialTarget, gameObject);
             return true;
@@ -686,6 +710,11 @@ public class PlayerAction : MonoBehaviour
             return false;
         }
 
+
+        if (go.transform.tag == "doorCollider")
+        { 
+            go.transform.parent.parent.parent.GetComponent<blockTypeDoor>().interact();
+        }
 
         if (go.transform.tag == "driveChank")
         {
@@ -740,7 +769,8 @@ public class PlayerAction : MonoBehaviour
 
             if (b.myType == blockType.door)
             {
-                print("Open door");
+                b.GetComponent<blockTypeDoor>().interact();
+                
             }
 
 
@@ -943,6 +973,28 @@ public class PlayerAction : MonoBehaviour
 
         timeEat -= Time.deltaTime;
     }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.transform.tag == "loot")
+        {
+            myAudio.PlayOneShot(myPackSound.souItemGive);
+            myInv.myData.itemAdd(collision.transform.GetComponent<sLoot>().ind, collision.transform.GetComponent<sLoot>().count,true);
+            Destroy(collision.gameObject);
+        }
+    }
+    /*
+    private void OnCollisionEnter(Collision collision)
+    {
+        print(collision.transform.tag);
+        if (collision.transform.tag == "loot")
+        {
+            myInv.myData.itemAdd(collision.transform.GetComponent<sLoot>().ind, collision.transform.GetComponent<sLoot>().count);
+            Destroy(collision.gameObject);
+        }
+        
+    }
+    */
 
     public void setTimePich(float v)
     {

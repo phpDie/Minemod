@@ -619,7 +619,11 @@ public class invData : MonoBehaviour
         if (E == null) return;
         if (myViewInvUi == null) return;
         if (!E.isset) return;
-        myViewInvUi.showHover(E.infoItemSave.nameView+"\n"+ E.infoItemSave.descr);
+        string txt = E.infoItemSave.nameView + "\n" + E.infoItemSave.descr;
+
+        if (E.infoItemSave.stackHpMode) txt += $"\nПрочность:{E.count}/{E.infoItemSave.stackSize}";
+
+        myViewInvUi.showHover(txt);
     }
 
     bool isDrag = false;

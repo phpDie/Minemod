@@ -23,6 +23,21 @@ public class sUi : MonoBehaviour
     [HideInInspector]
     public day Day;
 
+    public packSound myPackSound;
+
+
+    public sLoot lootCreate( Vector3 pos, string ind = "Core:dirt", int count = 1)
+    {
+
+
+        GameObject newLootGo = Instantiate(Resources.Load<GameObject>("loot"));
+
+        sLoot newLoot = newLootGo.GetComponent<sLoot>();
+        newLoot.init(ind, count);
+        newLootGo.transform.position = pos;
+        return newLoot; 
+
+    }
 
 
     public void winCloseAll()
@@ -86,7 +101,9 @@ public class sUi : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         Day = GetComponent<day>();
+        myPackSound = GetComponent<packSound>();
     }
 
     void slowUpd()

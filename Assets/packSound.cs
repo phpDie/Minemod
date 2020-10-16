@@ -5,6 +5,7 @@ using UnityEngine;
 public class packSound : MonoBehaviour
 {
 
+    public AudioClip souItemGive;
     public AudioClip souClick;
     public AudioClip souChest;
   //  public AudioClip souChest;
@@ -14,6 +15,7 @@ public class packSound : MonoBehaviour
     public AudioClip[] souDigStone;
     public AudioClip[] souDigDirt;
     public AudioClip[] souDigWood;
+    public AudioClip[] souDigGlass;
 
     
 
@@ -30,6 +32,7 @@ public class packSound : MonoBehaviour
         if (m == blockMaterial.ground) return getSound(souDigDirt);
         if (m == blockMaterial.wood) return getSound(souDigWood);
         if (m == blockMaterial.stone) return getSound(souDigStone);
+        if (m == blockMaterial.glass) return getSound(souDigGlass);
 
         return getSound(souDigWood);
     }

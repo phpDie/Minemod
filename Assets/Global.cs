@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 
 namespace Global
@@ -30,6 +31,9 @@ namespace Global
             return new Vector3(Mathf.Round(v.x), Mathf.Round(v.y), Mathf.Round(v.z));
 
         }
+      
+        
+
         public static string vectorToString(Vector3 v, string razdel=":")
         {
 

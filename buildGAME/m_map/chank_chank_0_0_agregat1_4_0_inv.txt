@@ -1,6 +1,6 @@
 [option]
 wifiBatCount=0
-isOn=true
+isOn=false
 [inv]
-in=UnVkYTpydWRhX21lZCAxNgpSdWRhOnJ1ZGFfdXJhbiAxNgpub3QgMA==
-out=bm90IDAKbm90IDAKbm90IDAKbm90IDA=
+in=bm90IDAKbm90IDA=
+out=bm90IDAKbm90IDA=

@@ -19,17 +19,18 @@ public class driverChank : MonoBehaviour
         startRot = transform.rotation;
     }
 
-    
+
 
     public void init(string nameData = "not")
     {
-      
 
-         
+
+
 
         rb = gameObject.AddComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationY;
-        rb.angularDrag = 3f;
+        rb.angularDrag = 4f;
+        rb.useGravity = false;
 
 
         if (nameData == "not")
@@ -39,10 +40,10 @@ public class driverChank : MonoBehaviour
         if (nameData != "not")
         {
             transform.name = nameData;
-}
-            GetComponent<ChankController>().pathChankFile = Global.Links.getMapController().mapPathDir + "" + transform.name + ".txt";
+        }
+        GetComponent<ChankController>().pathChankFile = Global.Links.getMapController().mapPathDir + "" + transform.name + ".txt";
 
-        
+
         if (nameData != "not")
         {
             GameObject objToSpawn = new GameObject("driveChank");
@@ -77,9 +78,9 @@ public class driverChank : MonoBehaviour
 
     public void giveEnergyFormInnerAuto()
     {
-       
+
         float needCount = enMax - en;
-      //  print($"RELOAD AUTO need: {needCount}");
+        //  print($"RELOAD AUTO need: {needCount}");
 
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -88,7 +89,7 @@ public class driverChank : MonoBehaviour
 
                 blockTypeAgregat _ba = transform.GetChild(i).GetComponent<blockTypeAgregat>();
 
-                
+
 
 
                 if (_ba.typeAgregat == agregatType.bat || _ba.typeAgregat == agregatType.gen)
@@ -160,14 +161,14 @@ public class driverChank : MonoBehaviour
 
     public float enSizer = 0.2f;
 
-    float lookSpeed = 0.5f;
+    float lookSpeed = 0.9f;
 
     float rotationXcam = 0;
     float rotationX = 0;
     float rotationY = 0;
 
 
-    public float speed = 367f;
+    public float speed = 467f;
     void Update()
 
     {
@@ -212,25 +213,18 @@ public class driverChank : MonoBehaviour
 
         if (isDrive)
         {
-
+            if (myRule == null)
+            {
+                isDrive = false;
+                return;
+            }
 
             pl.GetComponent<Player>().canMove = false;
-            pl.transform.position = myRule.transform.position + transform.up * 2.8f;
-            pl.transform.rotation = myRule.transform.parent.transform.rotation;
+            pl.transform.position = myRule.transform.position + transform.up * 1.6f;
+            // pl.transform.rotation = myRule.transform.parent.transform.rotation;
 
 
-            if (Input.GetKey(KeyCode.Space))
-            {
-                if (!giveEnergy(enSizer)) return;
-                rb.AddForce(new Vector3(0, speed * 1.2f * Time.deltaTime, 0f), ForceMode.Acceleration);
 
-                //  transform.parent.position += new Vector3(0, speed * Time.deltaTime, 0f);
-            }
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                if (!giveEnergy(enSizer)) return;
-                rb.AddForce(new Vector3(0, -speed * 0.4f * Time.deltaTime, 0f), ForceMode.Acceleration);
-            }
 
 
             /*
@@ -245,62 +239,113 @@ public class driverChank : MonoBehaviour
             */
 
 
-            if (!Input.GetButton("Fire2"))
+            if (Input.GetButton("Fire3") || modeFreeView)
             {
                 rotationXcam += -Input.GetAxis("Mouse Y") * lookSpeed;
                 rotationXcam = Mathf.Clamp(rotationXcam, -86f, 86f);
                 pl.GetComponent<Player>().playerCamera.transform.localRotation = Quaternion.Euler(rotationXcam, 0, 0);
 
 
-                pl.transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
+                pl.transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed , 0);
 
+                //pl.transform.rotation = myRule.transform.parent.transform.rotation;
             }
             else
             {
 
+                pl.transform.rotation = myRule.transform.parent.transform.rotation;
+            }
+
+            if (Input.GetButton("Fire2"))
+            {
                 if (Input.GetAxis("Mouse X") != 0f)
                 {
                     if (!giveEnergy(enSizer)) return;
                     //car.rb.AddTorque(new Vector3(0f, Input.GetAxis("Mouse X") * lookSpeed / 16f, 0f), ForceMode.VelocityChange);
-                    rb.AddTorque(transform.up * Input.GetAxis("Mouse X") * lookSpeed / 16f, ForceMode.VelocityChange);
+                    rb.AddTorque(transform.up * Input.GetAxis("Mouse X") * lookSpeed / 9f, ForceMode.VelocityChange);
                 }
 
-                /*
-
-                if (Input.GetAxis("Mouse Y") != 0f)
-                {
-                    if (!car.giveEnergy(enSizer)) return;
-                  //  car.rb.AddTorque(new Vector3(Input.GetAxis("Mouse Y") * lookSpeed / 16f, 0f, 0f), ForceMode.VelocityChange);
-                    car.rb.AddTorque(car.transform.right * Input.GetAxis("Mouse Y") * lookSpeed / 16f, ForceMode.VelocityChange);
-                }
-
-    */
-
             }
 
-            if (Input.GetAxis("Vertical") != 0f)
+
+            if (Input.GetKeyDown(KeyCode.Q))
             {
-                if (!giveEnergy(enSizer)) return;
-                rb.AddForce(pl.transform.forward * Input.GetAxis("Vertical") * speed * Time.deltaTime, ForceMode.Acceleration);
+                modeFreeView = !modeFreeView;
             }
+        }
+
+    }
+
+    bool modeFreeView = true;
+
+    float prevSpeed;
+    private void FixedUpdate()
+    {
+        if (!isDrive) return;
+
+        prevSpeed = rb.velocity.magnitude;
 
 
-            if (Input.GetAxis("Horizontal") != 0f)
-            {
-                if (!giveEnergy(enSizer)) return;
-                rb.AddForce(pl.transform.right * Input.GetAxis("Horizontal") * speed * Time.deltaTime, ForceMode.Acceleration);
-            }
+
+        /*
+
+        if (Input.GetAxis("Mouse Y") != 0f)
+        {
+            if (!car.giveEnergy(enSizer)) return;
+          //  car.rb.AddTorque(new Vector3(Input.GetAxis("Mouse Y") * lookSpeed / 16f, 0f, 0f), ForceMode.VelocityChange);
+            car.rb.AddTorque(car.transform.right * Input.GetAxis("Mouse Y") * lookSpeed / 16f, ForceMode.VelocityChange);
+        }
+
+*/
 
 
-            if (Input.GetKey(KeyCode.Escape))
-            {
-                myRule.setDrive(false);
-            }
 
+        if (Input.GetAxis("Vertical") != 0f)
+        {
+            if (!giveEnergy(enSizer)) return;
+            rb.AddForce(pl.transform.forward * Input.GetAxis("Vertical") * speed * Time.fixedDeltaTime, ForceMode.Acceleration);
+        }
+
+
+        if (Input.GetAxis("Horizontal") != 0f)
+        {
+            if (!giveEnergy(enSizer)) return;
+            rb.AddForce(pl.transform.right * Input.GetAxis("Horizontal") * speed * Time.fixedDeltaTime, ForceMode.Acceleration);
+        }
+
+        if (Input.GetAxis("Vertical") == 0f && Input.GetAxis("Horizontal") == 0f)
+        {
+            rb.velocity = Vector3.Lerp(rb.velocity, new Vector3(0f, rb.velocity.y, 0f), lerpSpeed * Time.fixedDeltaTime);
+            
+        }
+
+        if (Input.GetKey(KeyCode.F))
+        {
+            myRule.setDrive(false);
+        }
+
+
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            if (!giveEnergy(enSizer)) return;
+            rb.AddForce(new Vector3(0, speed * 0.9f * Time.fixedDeltaTime, 0f), ForceMode.Acceleration);
+
+            //  transform.parent.position += new Vector3(0, speed * Time.deltaTime, 0f);
+        }else         if (Input.GetKey(KeyCode.LeftShift))
+        {
+            if (!giveEnergy(enSizer)) return;
+            rb.AddForce(new Vector3(0, -speed * 0.9f * Time.fixedDeltaTime, 0f), ForceMode.Acceleration);
+        }
+        else
+        {
+            rb.velocity =Vector3.Lerp(rb.velocity ,  new Vector3(rb.velocity.x,0f, rb.velocity.z), lerpSpeed * Time.fixedDeltaTime);
 
         }
 
     }
+    public float lerpSpeed = 7f;
+
     bool isLoaded = false;
 
     private void OnTransformChildrenChanged()
@@ -319,30 +364,34 @@ public class driverChank : MonoBehaviour
 
     }
 
-
+  
+  
     private void OnCollisionEnter(Collision collision)
     {
-       
 
+        float dam = prevSpeed;
 
-        if (rb.velocity.magnitude > -2f)
+        if (rb.velocity.magnitude > dam) dam = rb.velocity.magnitude;
+
+        if (dam > 6f)
         {
             if (collision.transform.tag == "block")
             {
+                print(dam);
                 BlockController b = collision.transform.GetComponent<BlockController>();
                 // print(rb.velocity.magnitude);
-
-                b.Damage(rb.velocity.magnitude * 1f);
+                
+                b.Damage(dam * 2f);
 
 
                 if (collision.contacts[0].thisCollider.transform.tag == "block")
                 {
-                    if(collision.contacts[0].thisCollider.transform.parent == transform)
+                    if (collision.contacts[0].thisCollider.transform.parent == transform)
                     {
                         BlockController bm = collision.contacts[0].thisCollider.transform.GetComponent<BlockController>();
                         // print(rb.velocity.magnitude);
 
-                        bm.Damage(rb.velocity.magnitude * 1f);
+                        bm.Damage(dam * 1f);
                         checkMyStatus();
 
                     }
@@ -366,28 +415,28 @@ public class driverChank : MonoBehaviour
 
     public void saveData()
     {
-         
+
         transform.position = Global.Links.vectorRound(transform.position);
 
         for (int i = 1; i < transform.childCount; i++)
         {
-            
-            transform.GetChild(i).transform.name=Global.Links.vectorToString(Global.Links.vectorRound(transform.GetChild(i).transform.position));
+
+            transform.GetChild(i).transform.name = Global.Links.vectorToString(Global.Links.vectorRound(transform.GetChild(i).transform.position));
         }
 
         string p = Global.Links.getMapController().mapPathDir + "/ships/" + transform.name + ".txt";
-   
+
 
         if (!File.Exists(p)) File.Create(p).Close();
 
         transform.position = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), Mathf.Round(transform.position.z));
-        string _data ="gavno "+ Global.Links.vectorToString(transform.position);
+        string _data = "gavno " + Global.Links.vectorToString(transform.position);
 
-        
+
         File.WriteAllText(p, _data);
 
 
-        GetComponent<ChankController>().mapCon= Global.Links.getMapController();
+        GetComponent<ChankController>().mapCon = Global.Links.getMapController();
         GetComponent<ChankController>().chankSave();
     }
 

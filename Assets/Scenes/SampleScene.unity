@@ -3455,7 +3455,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.4245283, g: 0.26633143, b: 0.34985936, a: 1}
+  m_Color: {r: 0.9811321, g: 0.9765041, b: 0.9789338, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -5430,7 +5430,7 @@ MonoBehaviour:
   dayDelaySpawn: 150
   nightDelaySpawn: 30
   dist: 20
-  isHardTest: 0
+  isHardTest: 1
 --- !u!82 &1346143504
 AudioSource:
   m_ObjectHideFlags: 0

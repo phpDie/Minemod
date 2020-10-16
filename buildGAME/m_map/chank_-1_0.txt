@@ -1254,7 +1254,7 @@
 -9:7:7 Core:leaves 3
 -10:7:-4 Core:leaves 3
 -10:6:-3 Core:leaves 3
--10:7:-3 Core:leaves 2
+-10:7:-3 Core:leaves 3
 -9:6:-4 Core:leaves 3
 -9:7:-4 Core:brevno 5
 -9:5:-3 Core:brevno 5
@@ -1265,9 +1265,9 @@
 -8:7:-4 Core:leaves 3
 -8:6:-3 Core:leaves 3
 -8:7:-3 Core:leaves 3
--10:7:0 Core:leaves 2
+-10:7:0 Core:leaves 3
 -10:6:1 Core:leaves 3
--10:7:1 Core:leaves 2
+-10:7:1 Core:leaves 3
 -9:6:0 Core:leaves 3
 -9:7:0 Core:brevno 5
 -9:5:1 Core:brevno 5

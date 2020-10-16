@@ -1,9 +1,9 @@
 Weapon:adminAxe 381
-Agregat:a1 31
-Ship:bat 29
-Agregat:gen 27
-Agregat:rudoboy 28
-Agregat:a_bat 29
-Agregat:a1 28
+Weapon:axeRem 5
+Block:pblock_glass 36
+Weapon:ammo762 144
+Weapon:ammo9 12
+Weapon:apistol 9
+Weapon:m16 31
 not 0
 not 0

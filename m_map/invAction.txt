@@ -1,9 +1,9 @@
 Weapon:adminAxe 381
-Block:pblock_mob_spawner 29
-Ship:convert 28
-Ship:gen 26
-Block:pblock_glass_lime 33
-Block:pblock_glass 44
-Ship:drive 25
-Ruda:ingot_uran 62
+Weapon:axeRem 5
+Block:pblock_glass 37
+Weapon:ammo762 144
+Weapon:ammo9 12
+Weapon:apistol 9
+Weapon:m16 20
+not 0
 not 0

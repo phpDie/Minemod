@@ -27,6 +27,7 @@ public enum blockType
     mobSpawn = 3,
     agregat = 4,
     drive = 5, //руль!
+    turel = 6, //руль!
 }
 
 public class BlockController : MonoBehaviour
@@ -115,7 +116,7 @@ public class BlockController : MonoBehaviour
         */
  
     }
-     
+
 
     public void Damage(float dam, blockMaterial attackMaterial = blockMaterial.all, GameObject author = null)
     {
@@ -127,7 +128,7 @@ public class BlockController : MonoBehaviour
         if (attackMaterial != myMaterial)
         {
             cofDamage = 0.4f;
-            
+
             if (attackMaterial == blockMaterial.all) cofDamage = 1f;
             if (attackMaterial == blockMaterial.meat) cofDamage = 0.3f;
             if (myMaterial == blockMaterial.glass) cofDamage = 1f;
@@ -147,18 +148,22 @@ public class BlockController : MonoBehaviour
 
         crackUpdate();
 
+        if (sui == null) sui = Global.Links.getSui();
+        sui.GetComponent<AudioSource>().PlayOneShot(sui.myPackSound.getDigSound(myMaterial));
 
 
         if (hp <= 0f)
         {
-            if (author != null)
+
+            string _drop = getDrop();
+            if (_drop != "" && _drop != "not")
             {
-                string _drop = getDrop();
-                if (_drop != "" && _drop != "not")
-                {
-                    author.GetComponent<PlayerAction>().myInv.myData.itemAdd(_drop, 1);
-                }
+                //author.GetComponent<PlayerAction>().myInv.myData.itemAdd(_drop, 1);
+              //  author.GetComponent<PlayerAction>().lootCreate(transform.position, _drop, 1);
+                 
+                sui.lootCreate(transform.position, _drop, 1);
             }
+
             //transform.parent.GetComponent<ChankController>();
             Destroy(gameObject);
         }
@@ -166,7 +171,7 @@ public class BlockController : MonoBehaviour
 
 
 
-
+    sUi sui;
 
     
 
@@ -389,6 +394,16 @@ public class BlockController : MonoBehaviour
         if (myType == blockType.drive)
         {
             gameObject.AddComponent<blockTypeDrive>().init();
+
+        }
+        if (myType == blockType.turel)
+        {
+            gameObject.AddComponent<blockTypeTurel>().init();
+
+        }
+        if (myType == blockType.door)
+        {
+            gameObject.AddComponent<blockTypeDoor>().init();
 
         }
 

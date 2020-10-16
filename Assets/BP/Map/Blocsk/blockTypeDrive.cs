@@ -10,7 +10,7 @@ public class blockTypeDrive : MonoBehaviour
 
     ChankController myChank;
     driverChank car;
-
+     
 
     bool isBuild = false;
     public void build()
@@ -75,7 +75,6 @@ public class blockTypeDrive : MonoBehaviour
         }
         else
         {
-            print("Тачка загружена!");
             myChank = transform.parent.GetComponent<ChankController>();
             car = transform.parent.GetComponent<driverChank>();
             car.myRule = this;
@@ -86,7 +85,6 @@ public class blockTypeDrive : MonoBehaviour
 
     public void setDrive(bool ndrive)
     {
-        print("DRIVE");
         build();
         isDrive = ndrive;
         pl.GetComponent<Player>().canMove = !isDrive;
@@ -107,6 +105,12 @@ public class blockTypeDrive : MonoBehaviour
     {
         startRot = transform.rotation;
 
+
+        GameObject sitDriveBlank = Resources.Load<GameObject>("SitDrive");
+        GameObject sitDrive = Instantiate(sitDriveBlank,transform);
+        sitDrive.transform.localPosition =new Vector3();
+        
+        
     }
 
     public float speed = 367f;

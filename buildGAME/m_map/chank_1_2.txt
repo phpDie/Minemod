@@ -243,7 +243,6 @@
 11:0:30 Core:bad 5000
 11:1:30 Core:gravel 8
 11:2:30 Core:gravel 8
-11:3:30 Core:buildTree 8
 11:0:31 Core:bad 5000
 11:1:31 Core:gravel 8
 11:2:31 Core:gravel 8
@@ -1170,3 +1169,16 @@
 10:7:27 Core:leaves 3
 10:6:28 Core:leaves 3
 10:7:28 Core:leaves 3
+10:6:29 Core:leaves 3
+10:5:30 Core:leaves 3
+10:6:30 Core:leaves 3
+11:5:29 Core:leaves 3
+11:6:29 Core:brevno 5
+11:4:30 Core:brevno 5
+11:5:30 Core:brevno 5
+11:6:30 Core:brevno 5
+11:5:31 Core:leaves 3
+11:6:31 Core:leaves 3
+12:6:29 Core:leaves 3
+12:5:30 Core:leaves 3
+12:6:30 Core:leaves 3

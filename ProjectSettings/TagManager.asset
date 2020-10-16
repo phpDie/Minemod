@@ -10,6 +10,8 @@ TagManager:
   - invItem
   - invUi
   - driveChank
+  - doorCollider
+  - loot
   layers:
   - Default
   - TransparentFX
